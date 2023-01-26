@@ -1,0 +1,35 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-left{
+    display: flex;
+}
+
+.circles{
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.one,.two,.three{
+    background: rgb(13, 11, 11);
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+.one{
+    height: 20px;
+    width: 20px;
+}
+
+.two{
+    height: 19px;
+    width: 12px;
+}
+
+.three{
+    height: 18px;
+    width: 5px;
+}
