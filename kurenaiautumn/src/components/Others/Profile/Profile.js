@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import './ProfileLayout.css'
+import './Profile.css'
 
-const ProfileLayout = () => {
+const Profile = () => {
     return (
         <div className='profile'>
             <p className='font-bold text-3xl mt-8'>User Name</p>
@@ -19,4 +19,4 @@ const ProfileLayout = () => {
     );
 };
 
-export default ProfileLayout;
+export default Profile;

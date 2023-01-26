@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import About from "../Others/About/About";
 import Home from "../Others/Home/Home";
-import ProfileLayout from "../Others/ProfileLayout/ProfileLayout";
+import Profile from "../Others/Profile/Profile";
 
 
 export const router=createBrowserRouter([
@@ -12,7 +12,7 @@ export const router=createBrowserRouter([
         children: [
             {
                 path: '/profile',
-                element:<ProfileLayout></ProfileLayout>,
+                element:<Profile></Profile>,
                 children:[
                     {
                         path:'/profile',
