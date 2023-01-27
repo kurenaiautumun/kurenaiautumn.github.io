@@ -39,7 +39,7 @@ const Dropdown = () => {
           <h3>Zinat<br/><span>Website Designer</span></h3>
           <ul>
             <Link to="/profile"><DropdownItem img = {user} text = {"My Profile"}/></Link>
-            <DropdownItem img = {edit} text = {"Edit Profile"}/>
+            <Link to="/editprofile"><DropdownItem img = {edit} text = {"Edit Profile"}/></Link>
             <DropdownItem img = {inbox} text = {"Inbox"}/>
             <DropdownItem img = {settings} text = {"Settings"}/>
             <DropdownItem img = {help} text = {"Helps"}/>
