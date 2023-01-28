@@ -24,7 +24,7 @@ const Navbar = () => {
       <div className="nav-right">
         <i className="fa-solid text-black fa-pen-to-square"></i>
         <p className="text-black text-xs ml-2">Write</p>
-        <button className="bg-fuchsia-600 rounded-full text-xs text-white font-semibold px-3 py-2 ml-5">
+        <button className="signup-btn rounded-full text-xs text-white font-semibold px-3 py-2 ml-5">
           Sign up
         </button>
         <button className="text-black text-xs mx-5">Sign In</button>

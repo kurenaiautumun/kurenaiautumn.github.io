@@ -1,0 +1,18 @@
+.blog-img{
+    height: 300px;
+    width: 220px;
+    margin-right: 20px;
+    object-fit: cover;
+}
+
+.content{
+   width: 650px;
+}
+
+.blog-content{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}

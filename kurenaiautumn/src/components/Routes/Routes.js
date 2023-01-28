@@ -5,6 +5,7 @@ import Home from "../Others/Home/Home";
 import Profile from "../Others/Profile/Profile";
 import EditProfile from "../Others/EditProfile/EditProfile/EditProfile";
 import Account from "../Others/EditProfile/Account/Account";
+import Blogs from "../Blogs/Blogs/Blogs";
 
 
 export const router=createBrowserRouter([
@@ -12,6 +13,10 @@ export const router=createBrowserRouter([
         path:'/',
         element:<Main></Main>,
         children: [
+            {
+                path:'/',
+                element:<Blogs></Blogs>
+            },
             {
                 path: '/profile',
                 element:<Profile></Profile>,

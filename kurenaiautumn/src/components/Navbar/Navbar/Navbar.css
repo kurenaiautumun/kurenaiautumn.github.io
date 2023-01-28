@@ -1,5 +1,5 @@
 .nav {
-    background: #f8ed09;
+    background: #6A9A99;
     position: sticky;
     top: 0;
 }
@@ -42,4 +42,13 @@
 .three {
     height: 18px;
     width: 5px;
+}
+
+.signup-btn{
+    background: #1E6750;
+}
+
+.signup-btn:hover{
+    background: #1E6751;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
