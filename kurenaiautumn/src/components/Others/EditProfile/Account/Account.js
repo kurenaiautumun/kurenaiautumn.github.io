@@ -1,16 +1,13 @@
 import React from "react";
+import EditModal from "../EditModal/EditModal";
 
 const Account = () => {
   return (
     <div className="mt-5">
       <div className="flex justify-between">
         <p className="text-sm font-semibold">Username</p>
-        <div className="flex">
-          <p className="text-xs mt-1 mr-3">ABC</p>
-        </div>
+        <p className="text-xs mt-1 mr-3">ABC</p>
       </div>
-
-
       <div className="flex justify-between my-3">
         <p className="text-sm font-semibold">Email address</p>
         <p className="text-xs">abc@gmail.com</p>
@@ -30,28 +27,23 @@ const Account = () => {
               <label htmlFor="my-modal-3" className="absolute right-3 top-2">
                 ✕
               </label>
-              <h3 className="text-lg font-bold">User name</h3>
-              <p className="py-4">
-                You've been selected for a chance to get one year of
-                subscription to use Wikipedia for free!
-              </p>
-              <div className="modal-action flex">
-              <label
-                  htmlFor="my-modal-3"
-                  className="rounded-full text-xs font-semibold px-3 py-2 ml-5"
-                >
-                  Cancel
-                </label>
-                <label
-                  htmlFor="my-modal-3"
-                  className="bg-fuchsia-600 rounded-full text-xs text-white font-semibold px-3 py-2 ml-5"
-                >
-                  Save
-                </label>
+              <h3 className="text-lg font-bold">Edit profile</h3>
+              <div className="py-4">
+                <EditModal></EditModal>
               </div>
+           
             </div>
           </div>
           </div>
+      </div>
+      <hr />
+      <div className="mt-4">
+        <p className="text-sm text-red-600  cursor-pointer">Deactivate account</p>
+        <p className="text-xs">Your account will be deactiveted until you sign in back.</p>
+      </div>
+      <div className="mt-4">
+        <p className="text-sm text-red-600  cursor-pointer">Delete account</p>
+        <p className="text-xs">Delete your account permanently.</p>
       </div>
     </div>
   );
