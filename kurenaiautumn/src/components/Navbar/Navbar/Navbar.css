@@ -1,5 +1,5 @@
 .nav {
-    background-image: linear-gradient(to bottom right,#DFFF00 ,#E8DAEF ,#F4D03F  );
+    background-image: linear-gradient(to bottom right,#DFFF00 ,#E8DAEF ,#DFFF00  );
     position: sticky;
     top: 0;
 }
@@ -52,4 +52,17 @@
 .all-btn:hover{
     background-image: linear-gradient(to bottom right,  #8E44AD,violet,#AED6F1);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .navbar {
+        display: flex;
+    }
 }
