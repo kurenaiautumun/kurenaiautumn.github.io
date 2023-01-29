@@ -5,6 +5,8 @@ import Home from "../Others/Home/Home";
 import Profile from "../Others/Profile/Profile";
 import EditProfile from "../Others/EditProfile/EditProfile/EditProfile";
 import Account from "../Others/EditProfile/Account/Account";
+import BlogEdit from "../Blog/BlogEdit/BlogEdit";
+
 import Blogs from "../Blogs/Blogs/Blogs";
 import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
@@ -55,6 +57,11 @@ export const router=createBrowserRouter([
                         element:<Account></Account>
                     }
                 ]
+            },
+            {
+                path: '/editableBlog',
+                element:<BlogEdit />,
+                children:[{}]
             }
         ]
     }
