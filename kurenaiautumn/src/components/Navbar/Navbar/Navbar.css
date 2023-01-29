@@ -1,5 +1,5 @@
 .nav {
-    background-image: linear-gradient(to bottom right, orange, yellow,pink);
+    background-image: linear-gradient(to bottom right,#DFFF00 ,#E8DAEF ,#F4D03F  );
     position: sticky;
     top: 0;
 }
