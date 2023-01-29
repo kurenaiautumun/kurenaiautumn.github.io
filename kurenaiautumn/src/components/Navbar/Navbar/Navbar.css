@@ -1,5 +1,5 @@
 .nav {
-    background: #6A9A99;
+    background-image: linear-gradient(to bottom right, orange, yellow,pink);
     position: sticky;
     top: 0;
 }
@@ -44,11 +44,12 @@
     width: 5px;
 }
 
-.signup-btn{
-    background: #1E6750;
+.all-btn{
+    background-image: linear-gradient(to bottom right,  #8E44AD,violet,#AED6F1
+    );
 }
 
-.signup-btn:hover{
-    background: #1E6751;
+.all-btn:hover{
+    background-image: linear-gradient(to bottom right,  #8E44AD,violet,#AED6F1);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Blog.css'
 
 const Blog = () => {
@@ -10,9 +11,9 @@ const Blog = () => {
             <div className='content'>
                 <h2 className='blog-title text-xl font-semibold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, et?</h2>
                 <p className='blog-content text-sm py-1'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aspernatur eligendi reprehenderit eaque, omnis quis dicta ut, aut ipsum maiores dolore numquam ipsa vero ab impedit, sapiente tempora possimus corrupti!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aspernatur eligendi reprehenderit eaque, omnis quis dicta ut, aut ipsum maiores dolore numquam ipsa vero ab impedit, sapiente tempora possimus corrupti!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aspernatur eligendi reprehenderit eaque, omnis quis dicta ut, aut ipsum maiores dolore numquam ipsa vero ab impedit, sapiente tempora possimus corrupti!</p>
-                <button className="signup-btn rounded-full text-xs text-white font-semibold px-3 py-2 mt-5">
+                <Link to="/details"><button className="all-btn rounded-full text-xs text-white font-semibold px-3 py-2 mt-5">
           Read more
-        </button>
+        </button></Link>
         
                     <p className='mt-24 text-xs'>Author</p>
                     <p className='text-xs mt-1'>Date</p>

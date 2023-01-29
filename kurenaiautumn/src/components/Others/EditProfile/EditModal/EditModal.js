@@ -64,7 +64,7 @@ const EditModal = () => {
                 </label>
                 <label
                   htmlFor="my-modal-3"
-                  className="bg-fuchsia-600 rounded-full text-xs text-white font-semibold px-3 py-2 ml-5"
+                  className="all-btn rounded-full text-xs text-white font-semibold px-3 py-2 ml-5"
                 >
                   Save
                 </label>
