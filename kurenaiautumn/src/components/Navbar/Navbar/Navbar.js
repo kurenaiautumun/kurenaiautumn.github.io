@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Dropdown from '../Dropdown/Dropdown';
 import "./Navbar.css";
 
@@ -24,10 +25,10 @@ const Navbar = () => {
       <div className="nav-right">
         <i className="fa-solid text-black fa-pen-to-square"></i>
         <p className="text-black text-xs ml-2">Write</p>
-        <button className="all-btn rounded-full text-xs text-white font-semibold px-3 py-2 ml-5">
+        <Link to="/signup"><button className="all-btn rounded-full text-xs text-white font-semibold px-3 py-2 ml-5">
           Sign up
-        </button>
-        <button className="text-black text-xs mx-5">Sign In</button>
+        </button></Link>
+        <Link to="/signin"><button className="text-black text-xs mx-5">Sign In</button></Link>
        <Dropdown></Dropdown>
       </div>
     </div>

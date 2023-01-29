@@ -4,7 +4,7 @@ import './Details.css'
 const Details = () => {
   return (
     <div className="details-div mb-20">
-      <h2 className="blog-title text-xl font-semibold">
+      <h2 className="text-xl font-semibold">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, et?
       </h2>
       <div className="flex mt-5">

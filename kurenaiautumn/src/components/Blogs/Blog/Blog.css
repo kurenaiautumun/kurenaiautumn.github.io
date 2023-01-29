@@ -9,6 +9,12 @@
    width: 650px;
 }
 
+.blog-title:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
 .blog-content{
     overflow: hidden;
     text-overflow: ellipsis;

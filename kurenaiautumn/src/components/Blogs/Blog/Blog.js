@@ -9,7 +9,7 @@ const Blog = () => {
                 <img className='blog-img' src="https://images.unsplash.com/photo-1674755615363-f0c5653beb05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" alt="" />
             </div>
             <div className='content'>
-                <h2 className='blog-title text-xl font-semibold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, et?</h2>
+            <Link to="/details"><h2 className='blog-title text-xl font-semibold'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut, et?</h2></Link>
                 <p className='blog-content text-sm py-1'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aspernatur eligendi reprehenderit eaque, omnis quis dicta ut, aut ipsum maiores dolore numquam ipsa vero ab impedit, sapiente tempora possimus corrupti!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aspernatur eligendi reprehenderit eaque, omnis quis dicta ut, aut ipsum maiores dolore numquam ipsa vero ab impedit, sapiente tempora possimus corrupti!Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officiis aspernatur eligendi reprehenderit eaque, omnis quis dicta ut, aut ipsum maiores dolore numquam ipsa vero ab impedit, sapiente tempora possimus corrupti!</p>
                 <Link to="/details"><button className="all-btn rounded-full text-xs text-white font-semibold px-3 py-2 mt-5">
           Read more
