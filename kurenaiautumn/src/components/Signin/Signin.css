@@ -1,0 +1,94 @@
+
+
+.inner-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   max-width: 80%;
+   margin:auto;
+   padding:  50px 0px;
+}
+
+.first-div{
+    width: 400px;
+    background: #1E5861;
+    height: 480px;
+    
+}
+
+.first-div img{
+    margin-top: 75px;
+}
+
+
+
+.form-div{
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.header{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.text-orange{
+    color: #FFBA33;
+}
+
+.text-gray{
+    color: gray;
+}
+
+.user-input{
+    border-radius: 5px;
+    padding: 8px;
+    background: #F2F4F4 ;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.create-account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.signin-btn{
+    background: #1E5861;
+}
+
+.text-green{
+    color: #1E5861;
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .main-div{
+        height: 1000px;
+        padding: 50px 100px;
+        flex-direction: column-reverse;
+    }
+
+    .first-div{
+        width: 500px; 
+    }
+
+    .first-div img{
+        margin-left: 65px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .main-div{
+        height: 550px;
+        padding: 30px 5%;
+        flex-direction: column-reverse;
+    }
+
+    .first-div{
+        display: none;
+    }
+}

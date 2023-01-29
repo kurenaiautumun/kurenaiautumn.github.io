@@ -7,12 +7,33 @@ import EditProfile from "../Others/EditProfile/EditProfile/EditProfile";
 import Account from "../Others/EditProfile/Account/Account";
 import BlogEdit from "../Blog/BlogEdit/BlogEdit";
 
+import Blogs from "../Blogs/Blogs/Blogs";
+import Details from "../Blogs/Details/Details";
+import Signin from "../Signin/Signin"
+import Signup from "../Signup/Signup";
+
 
 export const router=createBrowserRouter([
     {
         path:'/',
         element:<Main></Main>,
         children: [
+            {
+                path:'/',
+                element:<Blogs></Blogs>
+            },
+            {
+                path:'/details',
+                element:<Details></Details>
+            },
+            {
+                path:'/signin',
+                element:<Signin></Signin>
+            },
+            {
+                path:'/signup',
+                element:<Signup></Signup>
+            },
             {
                 path: '/profile',
                 element:<Profile></Profile>,
