@@ -15,9 +15,9 @@ const Signup = () => {
 
     return (
       
-      <div className='inner-div'>
+      <div className='main-div'>
       <div className="justify-center">
-      <form className="form-div rounded-md" onSubmit={handleSubmit(handleSignup)}>
+      <form className="signup-form rounded-md" onSubmit={handleSubmit(handleSignup)}>
         
         <div className="header flex justify-between py-3">
           <p className="text-fuchsia-700 text-xs font-semibold ml-4">NOT A MEMBER !</p>
@@ -55,7 +55,7 @@ const Signup = () => {
         <input
           type="submit"
           value="SIGN UP"
-          className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
+          className="form-signup all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
         />      
         
       </form>

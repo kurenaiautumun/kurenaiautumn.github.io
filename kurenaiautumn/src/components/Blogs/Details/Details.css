@@ -15,8 +15,9 @@
 
 .details-img{
     height: 300px;
-    width: 220px;
+    width: 240px;
     margin-right: 20px;
     object-fit: cover;
-    filter: drop-shadow(.1rem .1rem .5rem black)
+    filter: drop-shadow(.1rem .1rem .5rem black);
+    z-index: 0;
 }
