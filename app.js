@@ -67,7 +67,8 @@ app.post("/register",function(req,res){
 
 app.get("/",(req,res)=>{
     Post.find({},(err,posts)=>{
-      res.render("index",{posts:posts})
+      // res.render("index",{posts:posts})
+      res.json(posts);
     })   
 });
 
@@ -81,7 +82,8 @@ app.get("/del/:id",(req,res)=>{
 app.get("/edit/:id",(req,res)=>{
   const id = req.params.id;
   Post.find({_id:id},(err,posts)=>{
-    res.render("editor",{posts:posts})
+    // res.render("editor",{posts:posts})
+    res.json(posts)
   })
 });
 
