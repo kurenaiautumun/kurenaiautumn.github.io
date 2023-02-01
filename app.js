@@ -47,9 +47,9 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// app.get("/signup",(req,res)=>{
-//   res.render("signup")  
-// });
+app.get("/signup",(req,res)=>{
+  res.render("signup")  
+});
 
 app.post("/register",function(req,res){
   User.register({username:req.body.email}, req.body.password,
@@ -65,25 +65,25 @@ app.post("/register",function(req,res){
   })
 });
 
-// app.get("/",(req,res)=>{
-//     Post.find({},(err,posts)=>{
-//       res.render("index",{posts:posts})
-//     })   
-// });
+app.get("/",(req,res)=>{
+    Post.find({},(err,posts)=>{
+      res.render("index",{posts:posts})
+    })   
+});
 
-// app.get("/del/:id",(req,res)=>{
-//   const payload = req.params.id;
-//   Post.deleteOne({_id:payload},(err,post)=>{
-//     res.redirect("/")
-//   })
-// });
+app.get("/del/:id",(req,res)=>{
+  const payload = req.params.id;
+  Post.deleteOne({_id:payload},(err,post)=>{
+    res.redirect("/")
+  })
+});
 
-// app.get("/edit/:id",(req,res)=>{
-//   const id = req.params.id;
-//   Post.find({_id:id},(err,posts)=>{
-//     res.render("editor",{posts:posts})
-//   })
-// });
+app.get("/edit/:id",(req,res)=>{
+  const id = req.params.id;
+  Post.find({_id:id},(err,posts)=>{
+    res.render("editor",{posts:posts})
+  })
+});
 
 
 app.post("/blog",(req,res)=>{
