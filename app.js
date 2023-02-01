@@ -47,32 +47,49 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+// app.get("/signup",(req,res)=>{
+//   res.render("signup")  
+// });
 
-app.get("/",(req,res)=>{
-    Post.find({},(err,posts)=>{
-      res.render("index",{posts:posts})
-    })   
-});
-
-app.get("/del/:id",(req,res)=>{
-  const payload = req.params.id;
-  Post.deleteOne({_id:payload},(err,post)=>{
-    res.redirect("/")
-   })
-});
-
-app.get("/edit/:id",(req,res)=>{
-  const id = req.params.id;
-  Post.find({_id:id},(err,posts)=>{
-    res.render("editor",{posts:posts})
+app.post("/register",function(req,res){
+  User.register({username:req.body.email}, req.body.password,
+    function(err,user){
+    if(err){
+      console.log(err);
+      res.redirect("/signup");
+    }else{
+      passport.authenticate("local")(req,res,function(){
+        res.redirect("/signup");
+      })
+    }
   })
 });
 
+// app.get("/",(req,res)=>{
+//     Post.find({},(err,posts)=>{
+//       res.render("index",{posts:posts})
+//     })   
+// });
+
+// app.get("/del/:id",(req,res)=>{
+//   const payload = req.params.id;
+//   Post.deleteOne({_id:payload},(err,post)=>{
+//     res.redirect("/")
+//   })
+// });
+
+// app.get("/edit/:id",(req,res)=>{
+//   const id = req.params.id;
+//   Post.find({_id:id},(err,posts)=>{
+//     res.render("editor",{posts:posts})
+//   })
+// });
+
 
 app.post("/blog",(req,res)=>{
-    const post = new Post({
-        username: req.body.username,
-        blog: req.body.blog
+  const post = new Post({
+    username: req.body.username,
+    blog: req.body.blog
     });
     post.save();
     res.redirect("/")
