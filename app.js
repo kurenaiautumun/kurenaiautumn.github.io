@@ -52,40 +52,19 @@ app.get("/signup",(req,res)=>{
 });
 
 app.post("/register",function(req,res){
-  User.register({username:req.body.email}, req.body.password,
+  User.register({username:req.body.username}, req.body.password,
     function(err,user){
     if(err){
       console.log(err);
       res.redirect("/signup");
     }else{
-        res.redirect("/login")
+      passport.authenticate("local")(req,res,function(){
+        res.redirect("/login");
+      })
     }
   })
 });
 
-app.post("/login",function(req,res){
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-   });
-
-   req.login(user, function(err){
-    if(!err){
-        passport.authenticate("local")(req,res,function(){
-            res.redirect("/compose");
-        })
-    }
-   })
-})
-
-app.get("/compose",(req,res)=>{
-  let user = req.query.user
-  if(req.isAuthenticated()){
-    res.render("compose2")
-}else{
-    res.redirect("/login");
-}
-})
 
 app.get("/",(req,res)=>{
     Post.find({},(err,posts)=>{
@@ -110,7 +89,7 @@ app.get("/edit/:id",(req,res)=>{
 });
 
 
-app.post("/blog",(req,res)=>{
+app.post("/newblog",(req,res)=>{
   const post = new Post({
     username: req.body.username,
     blog: req.body.blog
