@@ -36,11 +36,26 @@ userSchema.plugin(passportLocalMongoose);
 const User = new mongoose.model("User",userSchema);
 
 
-const  postSchema = new mongoose.Schema({
+const  blogSchema = new mongoose.Schema({
   username:String,
-  blog:String,
+  title:String,
+  keys:String,
+  body:String,
+  views:String,
+  status:String,
 });
-const Post = new mongoose.model("Post",postSchema);
+
+const  commentSchema = new mongoose.Schema({
+  username:String,
+  title:String,
+  keys:String,
+  body:String,
+  views:String,
+  status:String,
+});
+
+const Post = new mongoose.model("Post",blogSchema);
+const Comment = new mongoose.model("comment",commentSchema);
 
 passport.use(User.createStrategy());
 
@@ -56,14 +71,15 @@ app.get("/login",(req,res)=>{
   res.status(201).render("login")  
 });
 
-app.get("/dashbaord/:username",(req,res)=>{
-  const user = req.params.username
-  if(req.isAuthenticated()){
-    res.status(201).render("dashboard",{user:user})
-}else{
-    res.redirect("/login");
-}
-  
+app.get("/dashbaord/:userid",(req,res)=>{
+  const userId = req.params.userid
+  User.find({_id:userId},(err,user)=>{
+    if(req.isAuthenticated()){
+      res.status(201).render("dashboard",{user:user})
+  }else{
+      res.redirect("/login");
+  }
+  })
 });
 
 app.post("/register",function(req,res){
@@ -74,7 +90,7 @@ app.post("/register",function(req,res){
       res.status(201).redirect("/signup");
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.status(201).redirect("/dashbaord/"+ user.username);
+        res.status(201).redirect("/dashbaord/"+ user._id);
       })
     }
   })
