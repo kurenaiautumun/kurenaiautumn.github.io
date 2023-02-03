@@ -2,12 +2,21 @@
 require('dotenv').config();
 const express = require("express");
 const ejs = require("ejs");
+var cors = require('cors')
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const app = express();
+
+const corsOptions = {
+  origin:'*', 
+  credentials:true, 
+  optionSuccessStatus:200,
+}
+
+app.use(cors(corsOptions))
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -132,6 +141,10 @@ app.get("/edit/:id",(req,res)=>{
     // res.render("editor",{posts:posts})
     res.status(201).json(posts)
   })
+});
+app.get("/api/data",(req,res)=>{
+  console.log("runs")
+  res.json("swayam")
 });
 
 
