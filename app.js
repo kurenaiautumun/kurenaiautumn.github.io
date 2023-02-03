@@ -47,8 +47,23 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+
 app.get("/signup",(req,res)=>{
-  res.render("signup")  
+  res.status(201).render("signup")  
+});
+
+app.get("/login",(req,res)=>{
+  res.status(201).render("login")  
+});
+
+app.get("/dashbaord/:username",(req,res)=>{
+  const user = req.params.username
+  if(req.isAuthenticated()){
+    res.status(201).render("dashboard",{user:user})
+}else{
+    res.redirect("/login");
+}
+  
 });
 
 app.post("/register",function(req,res){
@@ -59,17 +74,32 @@ app.post("/register",function(req,res){
       res.redirect("/signup");
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.redirect("/login");
+        res.redirect("/dashbaord/"+ user.username);
       })
     }
   })
 });
 
+app.post("/login",function(req,res){
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+   });
+
+   req.login(user, function(err){
+    if(!err){
+        passport.authenticate("local")(req,res,function(){
+            res.redirect("/dashboard");
+        })
+    }
+   })
+})
+
 
 app.get("/",(req,res)=>{
     Post.find({},(err,posts)=>{
       // res.render("index",{posts:posts})
-      res.json(posts);
+      res.status(201).json(posts);
     })   
 });
 
@@ -84,7 +114,7 @@ app.get("/edit/:id",(req,res)=>{
   const id = req.params.id;
   Post.find({_id:id},(err,posts)=>{
     // res.render("editor",{posts:posts})
-    res.json(posts)
+    res.status(201).json(posts)
   })
 });
 
@@ -98,7 +128,7 @@ app.post("/newblog",(req,res)=>{
     res.redirect("/")
 });
 
-app.post("/addData",(req,res)=>{
+app.post("/updateData",(req,res)=>{
    let id = req.body.id;
     let username = req.body.username;
     let blog = req.body.blog;
@@ -108,7 +138,7 @@ app.post("/addData",(req,res)=>{
         console.log("Updated Docs : ", docs);
       }
   });
-  res.redirect("/")
+  res.redirect("/dashboard")
 });
 
 
