@@ -71,10 +71,10 @@ app.post("/register",function(req,res){
     function(err,user){
     if(err){
       console.log(err);
-      res.redirect("/signup");
+      res.status(201).redirect("/signup");
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.redirect("/dashbaord/"+ user.username);
+        res.status(201).redirect("/dashbaord/"+ user.username);
       })
     }
   })
@@ -89,7 +89,7 @@ app.post("/login",function(req,res){
    req.login(user, function(err){
     if(!err){
         passport.authenticate("local")(req,res,function(){
-            res.redirect("/dashboard");
+            res.status(201).redirect("/dashboard");
         })
     }
    })
@@ -99,14 +99,14 @@ app.post("/login",function(req,res){
 app.get("/",(req,res)=>{
     Post.find({},(err,posts)=>{
       // res.render("index",{posts:posts})
-      res.status(201).json(posts);
+      res.status(201).status(201).json(posts);
     })   
 });
 
 app.get("/del/:id",(req,res)=>{
   const payload = req.params.id;
   Post.deleteOne({_id:payload},(err,post)=>{
-    res.redirect("/")
+    res.status(201).redirect("/dashboard")
   })
 });
 
@@ -125,7 +125,7 @@ app.post("/newblog",(req,res)=>{
     blog: req.body.blog
     });
     post.save();
-    res.redirect("/")
+    res.status(201).redirect("/")
 });
 
 app.post("/updateData",(req,res)=>{
@@ -138,7 +138,7 @@ app.post("/updateData",(req,res)=>{
         console.log("Updated Docs : ", docs);
       }
   });
-  res.redirect("/dashboard")
+  res.status(201).redirect("/dashboard")
 });
 
 
