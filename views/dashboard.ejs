@@ -7,7 +7,27 @@
     <title>Document</title>
 </head>
 <body>
-    <h4>This is dashboard of user <%=user%></h4>
-    <h5>All the posts by user.</h5>
+    <h4>This is dashboard of user <%=user[0].username%></h4>
+    <div>
+        <h5>All the posts by user.</h5>
+        <% posts.forEach((post)=>{  %>
+            <h3><%=user[0].username%></h3>
+            <h4><%= post.title %> </h4>
+        <p class="para"><%-post.body%></p>
+        <hr>
+        <% }) %> 
+    </div>
+
+    <div>
+        <h2>Compose new blog</h2>
+        <form action="/newblog" method="post">
+            <input type="hidden" name="userId" id="" value="<%=user[0]._id%>">
+            title<input type="text" name="title" id="">
+            body<input type="text" name="body" id="">
+            <input type="hidden" name="views" id="" value="0">
+           status <input type="text" name="status" id="" value="200" disabled>
+           <input type="submit" name="" id="">
+        </form>
+    </div>
 </body>
 </html>

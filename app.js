@@ -46,24 +46,22 @@ const User = new mongoose.model("User",userSchema);
 
 
 const  blogSchema = new mongoose.Schema({
-  username:String,
   title:String,
-  keys:String,
+  keys:Array,
   body:String,
+  userId:String,
   views:String,
   status:String,
 });
 
 const  commentSchema = new mongoose.Schema({
-  username:String,
-  title:String,
-  keys:String,
+  userId:String,
+  blogId:String,
   body:String,
-  views:String,
-  status:String,
+  status:String
 });
 
-const Post = new mongoose.model("Post",blogSchema);
+const Blog = new mongoose.model("blog",blogSchema);
 const Comment = new mongoose.model("comment",commentSchema);
 
 passport.use(User.createStrategy());
@@ -84,7 +82,10 @@ app.get("/dashbaord/:userid",(req,res)=>{
   const userId = req.params.userid
   User.find({_id:userId},(err,user)=>{
     if(req.isAuthenticated()){
-      res.status(201).render("dashboard",{user:user})
+      Blog.find({userId:userId},(err,posts)=>{
+        res.status(201).render("dashboard",{user:user,posts:posts})
+        console.log(posts)
+      })
   }else{
       res.redirect("/login");
   }
@@ -110,11 +111,13 @@ app.post("/login",function(req,res){
     username: req.body.username,
     password: req.body.password
    });
-
+   console.log(user.username)
    req.login(user, function(err){
     if(!err){
         passport.authenticate("local")(req,res,function(){
-            res.status(201).redirect("/dashboard");
+          User.find({username:user.username},(err,user)=>{
+            res.status(201).redirect("/dashboard/"+ user[0]._id);
+          })
         })
     }
    })
@@ -122,7 +125,7 @@ app.post("/login",function(req,res){
 
 
 app.get("/",(req,res)=>{
-    Post.find({},(err,posts)=>{
+    Blog.find({},(err,posts)=>{
       // res.render("index",{posts:posts})
       res.status(201).status(201).json(posts);
     })   
@@ -130,14 +133,14 @@ app.get("/",(req,res)=>{
 
 app.get("/del/:id",(req,res)=>{
   const payload = req.params.id;
-  Post.deleteOne({_id:payload},(err,post)=>{
+  Blog.deleteOne({_id:payload},(err,post)=>{
     res.status(201).redirect("/dashboard")
   })
 });
 
 app.get("/edit/:id",(req,res)=>{
   const id = req.params.id;
-  Post.find({_id:id},(err,posts)=>{
+  Blog.find({_id:id},(err,posts)=>{
     // res.render("editor",{posts:posts})
     res.status(201).json(posts)
   })
@@ -149,19 +152,22 @@ app.get("/api/data",(req,res)=>{
 
 
 app.post("/newblog",(req,res)=>{
-  const post = new Post({
-    username: req.body.username,
-    blog: req.body.blog
+  const blog = new Blog({
+    userId: req.body.userId,
+    title: req.body.title,
+    body: req.body.body,
+    views:req.body.views,
+    status:req.body.status
     });
-    post.save();
-    res.status(201).redirect("/")
+    blog.save();
+    res.status(201).redirect("/dashboard")
 });
 
 app.post("/updateData",(req,res)=>{
    let id = req.body.id;
     let username = req.body.username;
     let blog = req.body.blog;
-    Post.updateOne({_id:id}, 
+    Blog.updateOne({_id:id}, 
       {blog:blog,username:username}, function (err, docs) {
       if (!err){
         console.log("Updated Docs : ", docs);
