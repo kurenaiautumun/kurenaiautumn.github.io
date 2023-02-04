@@ -9,6 +9,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 
 const app = express();
+const date = new Date().toLocaleDateString();
 
 const corsOptions = {
   origin:'*', 
@@ -52,6 +53,7 @@ const  blogSchema = new mongoose.Schema({
   userId:String,
   views:String,
   status:String,
+  date:String,
 });
 
 const  commentSchema = new mongoose.Schema({
@@ -69,6 +71,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+app.get("/",(req,res)=>{
+    Blog.find({},(err,posts)=>{
+      res.status(201).status(201).json(posts);
+    })   
+});
 
 app.get("/signup",(req,res)=>{
   res.status(201).render("signup")  
@@ -91,8 +98,8 @@ app.get("/dashboard/:userid",(req,res)=>{
   })
 });
 
-app.post("/register",function(req,res){
-  User.register({username:req.body.username}, req.body.password,
+app.post("/signup",function(req,res){
+  User.register({username:req.body.username,email:req.body.email}, req.body.password,
     function(err,user){
     if(err){
       console.log(err);
@@ -121,14 +128,6 @@ app.post("/login",function(req,res){
    })
 })
 
-
-app.get("/",(req,res)=>{
-    Blog.find({},(err,posts)=>{
-      // res.render("index",{posts:posts})
-      res.status(201).status(201).json(posts);
-    })   
-});
-
 app.get("/del/:id",(req,res)=>{
   const payload = req.params.id;
   Blog.deleteOne({_id:payload},(err,post)=>{
@@ -144,20 +143,14 @@ app.get("/edit/:id",(req,res)=>{
   })
 });
 
-app.get("/api/data",(req,res)=>{
-  console.log("runs")
-  res.json("swayam")
-});
-
-
 app.post("/newblog",(req,res)=>{
-  
   const blog = new Blog({
     userId: req.body.userId,
     title: req.body.title,
     body: req.body.body,
     views:req.body.views,
-    status:req.body.status
+    status:req.body.status,
+    date:date
     });
     blog.save();
     User.find({_id:req.body.userId},(err,user)=>{
