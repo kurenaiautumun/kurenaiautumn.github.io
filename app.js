@@ -78,13 +78,12 @@ app.get("/login",(req,res)=>{
   res.status(201).render("login")  
 });
 
-app.get("/dashbaord/:userid",(req,res)=>{
+app.get("/dashboard/:userid",(req,res)=>{
   const userId = req.params.userid
   User.find({_id:userId},(err,user)=>{
     if(req.isAuthenticated()){
       Blog.find({userId:userId},(err,posts)=>{
         res.status(201).render("dashboard",{user:user,posts:posts})
-        console.log(posts)
       })
   }else{
       res.redirect("/login");
@@ -100,7 +99,7 @@ app.post("/register",function(req,res){
       res.status(201).redirect("/signup");
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.status(201).redirect("/dashbaord/"+ user._id);
+        res.status(201).redirect("/dashboard/"+ user._id);
       })
     }
   })
@@ -111,7 +110,6 @@ app.post("/login",function(req,res){
     username: req.body.username,
     password: req.body.password
    });
-   console.log(user.username)
    req.login(user, function(err){
     if(!err){
         passport.authenticate("local")(req,res,function(){
@@ -145,6 +143,7 @@ app.get("/edit/:id",(req,res)=>{
     res.status(201).json(posts)
   })
 });
+
 app.get("/api/data",(req,res)=>{
   console.log("runs")
   res.json("swayam")
@@ -152,6 +151,7 @@ app.get("/api/data",(req,res)=>{
 
 
 app.post("/newblog",(req,res)=>{
+  
   const blog = new Blog({
     userId: req.body.userId,
     title: req.body.title,
@@ -160,7 +160,10 @@ app.post("/newblog",(req,res)=>{
     status:req.body.status
     });
     blog.save();
-    res.status(201).redirect("/dashboard")
+    User.find({_id:req.body.userId},(err,user)=>{
+        res.status(201).redirect("/dashboard/"+ user[0]._id);
+    })
+
 });
 
 app.post("/updateData",(req,res)=>{
@@ -178,6 +181,6 @@ app.post("/updateData",(req,res)=>{
 
 
 app.listen(process.env.PORT, function() {
-    console.log(`Server started on port ${process.env.PORT}`);
+    console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
 
