@@ -1,5 +1,4 @@
 import React from 'react';
-import { useQuery } from 'react-query';
 import Blog from '../Blog/Blog';
 import './Blogs.css'
 
@@ -22,9 +21,9 @@ const Blogs = () => {
         <div className='blogs'>
             <p className='heading mb-2 text-3xl font-bold'>Recent Posts</p>
             <hr className='mb-10'/>
-            {
-                blogs?.map((blog)=> (<Blog blog={blog} key={blog._id} refetch={refetch}></Blog>))
-            }
+            <Blog></Blog>
+            <Blog></Blog>
+            <Blog></Blog>
         </div>
     );
 };

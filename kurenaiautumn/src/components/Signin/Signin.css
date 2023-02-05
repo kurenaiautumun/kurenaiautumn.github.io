@@ -1,10 +1,10 @@
-.main-div{
+.inner-div{
     display: flex;
     justify-content: center;
     align-items: center;
    max-width: 100%;
    margin:auto;
-   padding:  90px 0px 145px;
+   padding:  50px 0px 135px;
    background: linear-gradient(
         rgba(255, 255, 255, 0.5),
         rgba(255, 255, 255, 0.5)
@@ -14,21 +14,33 @@
   
 }
 
+.first-div{
+    width: 400px;
+    background: #1E5861;
+    height: 480px;
+    
+}
+
+.first-div img{
+    margin-top: 75px;
+}
+
+
+
 .form-div{
     height: 300px;
     width: 380px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-.form-signin{
-    padding: 12px 150px;
-    margin: 25px 16px;
-} 
-
 .header{
     box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
+
+.text-gray{
+    color: gray;
+}
 
 .user-input{
     border-radius: 5px;
@@ -54,41 +66,32 @@
 }
 
 
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (max-width: 992px) {
-    /* .form-div{
-        height: 260px;
-        width: 380px;
-    }
-
-    .form-signin{
-        padding: 12px 150px;
-        margin: 25px 16px;
-    } */
-}
-
-
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 768px) {
-    .form-div{
-        height: 260px;
-        width: 380px;
+    .main-div{
+        height: 1000px;
+        padding: 50px 100px;
+        flex-direction: column-reverse;
     }
 
-    .form-signin{
-        padding: 12px 150px;
-        margin: 25px 16px;
+    .first-div{
+        width: 500px; 
+    }
+
+    .first-div img{
+        margin-left: 65px;
     }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 600px) {
-    .form-div{
-        width: 300px;
+    .main-div{
+        height: 550px;
+        padding: 30px 5%;
+        flex-direction: column-reverse;
     }
 
-    .form-signin{
-        padding: 12px 110px;
-        margin: 25px 16px;
+    .first-div{
+        display: none;
     }
 }
