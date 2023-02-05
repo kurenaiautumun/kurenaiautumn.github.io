@@ -11,7 +11,6 @@ import Signin from "../Signin/Signin"
 import Signup from "../Signup/Signup";
 import AddBar from "../editBlog/AddBar/AddBar";
 import BlogComp from "../editBlog/BlogComponent/BlogComp";
-import Editor from "../TextEditor/TextEditor"
 
 
 export const router=createBrowserRouter([
@@ -22,10 +21,6 @@ export const router=createBrowserRouter([
             {
                 path:'/',
                 element:<Blogs></Blogs>
-            },
-            {
-                path:'text-editor',
-                element:<Editor></Editor>
             },
             {
                 path:'/blog/:id',
