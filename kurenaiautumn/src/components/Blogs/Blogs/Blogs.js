@@ -3,19 +3,6 @@ import Blog from '../Blog/Blog';
 import './Blogs.css'
 
 const Blogs = () => {
-    const { data: blogs =[] ,isLoading ,refetch} = useQuery({
-        queryKey: ['blogs'],
-        queryFn: async () => {
-          const result = await fetch("https://kurenaiautumn-server.vercel.app/blogs");
-          const data = await result.json();
-          return data;
-        },
-      });
-      
-      if(isLoading){
-        return <>Loading...</>
-      }
-
 
     return (
         <div className='blogs'>
