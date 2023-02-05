@@ -1,4 +1,5 @@
 import React from 'react'
+import BlogComp from '../BlogComponent/BlogComp'
 
 function AddBar() {
     let a = 1
@@ -10,7 +11,7 @@ function AddBar() {
 
         let newElem = document.createElement(tag)
 
-        if (tag=='img'){
+        if (tag==='img'){
             newElem.setAttribute('src', './download.png')
         }
 

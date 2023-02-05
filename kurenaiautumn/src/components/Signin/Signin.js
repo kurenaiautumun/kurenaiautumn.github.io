@@ -12,24 +12,24 @@ const Signin = () => {
   const handleLogin = (data) => console.log(data);
 
   return (
-    <div className="inner-div">
+    <div className="main-div">
       <div className="justify-center">
         <form
-          className="form-div mt-4 rounded-md"
+          className="form-div rounded-md"
           onSubmit={handleSubmit(handleLogin)}
         >
           <div className="header flex justify-between py-3">
-            <p className="text-orange text-xs font-semibold ml-4">
+            <p className="text-fuchsia-700 text-xs font-semibold ml-4">
               ALREADY MEMBERS
             </p>
             {/* <p className="text-gray text-xs font-semibold mr-4">Need help?</p> */}
           </div>
-          <div className="form-control w-full max-w-xs px-4 mt-4">
+          <div className="form-control w-full px-4 mt-4">
             <input
               {...register("email", { required: "Enter your email" })}
               type="text"
               placeholder="Email"
-              className="user-input rounded-md w-full max-w-xs my-2"
+              className="user-input rounded-md w-full my-2 lg:mt-7"
             />
             {errors.email && (
               <span className="text-red-500 text-xs">{errors.email.message}</span>
@@ -38,7 +38,7 @@ const Signin = () => {
               {...register("password", { required: "Wrong password" })}
               type="password"
               placeholder="password"
-              className="user-input rounded-md w-full max-w-xs mt-2"
+              className="user-input rounded-md w-full mt-2"
             />
             {errors.password && (
               <span className="text-red-500 text-xs mt-1">{errors.password.message}</span>
@@ -47,7 +47,7 @@ const Signin = () => {
           <input
             type="submit"
             value="SIGN IN"
-            className="all-btn rounded text-white text-xs font-semibold py-2.5 px-28 m-6"
+            className="form-signin all-btn rounded text-white text-xs font-semibold"
           />
         </form>
         <div className="create-account mt-6">

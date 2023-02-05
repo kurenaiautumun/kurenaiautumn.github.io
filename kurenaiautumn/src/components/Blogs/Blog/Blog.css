@@ -1,6 +1,6 @@
 .blog-img{
     height: 300px;
-    width: 220px;
+    width: 250px;
     margin-right: 20px;
     object-fit: cover;
 }
@@ -21,4 +21,39 @@
     display: -webkit-box;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+    .content{
+        margin-left: 30px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .content{
+        margin-left: 30px;
+    }
+}
+
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .blog{
+        display: flex;
+        flex-direction: column;
+        margin: 0px 25px 40px ;
+    }
+    .content{
+        width: 90%;
+        margin-top: 20px;
+    }
+
+    .blog-img{
+        height: 120px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
 }

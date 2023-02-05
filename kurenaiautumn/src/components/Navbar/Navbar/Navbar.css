@@ -1,7 +1,8 @@
 .nav {
-    background-image: linear-gradient(to bottom right, orange, yellow,pink);
+    background-image: linear-gradient(to bottom right,#DFFF00 ,#E8DAEF ,#DFFF00  );
     position: sticky;
     top: 0;
+    z-index: 100;
 }
 
 .navbar {
@@ -19,6 +20,10 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
+}
+
+.signin-sm{
+    display: none;
 }
 
 .one,
@@ -52,4 +57,33 @@
 .all-btn:hover{
     background-image: linear-gradient(to bottom right,  #8E44AD,violet,#AED6F1);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .navbar {
+        max-width: 98%;
+        display: flex;
+    }
+
+    .write-sm{
+        display: none;
+    }
+
+    .signup-btn{
+        display: none;
+    }
+
+    .signin-sm{
+        display:inline-block;
+    }
+    .signin-lg{
+        display:none;
+    }
 }

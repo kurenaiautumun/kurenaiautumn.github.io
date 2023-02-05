@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import './Signup.css'
 
 
 const Signup = () => {
@@ -14,20 +15,20 @@ const Signup = () => {
 
     return (
       
-      <div className='inner-div'>
+      <div className='main-div'>
       <div className="justify-center">
-      <form className="form-div rounded-md" onSubmit={handleSubmit(handleSignup)}>
+      <form className="signup-form rounded-md" onSubmit={handleSubmit(handleSignup)}>
         
         <div className="header flex justify-between py-3">
-          <p className="text-orange text-xs font-semibold ml-4">NOT A MEMBER !</p>
+          <p className="text-fuchsia-700 text-xs font-semibold ml-4">NOT A MEMBER !</p>
           {/* <p className="text-gray text-xs font-semibold mr-4">Need help?</p> */}
         </div>
-        <div className="form-control w-full max-w-xs px-6 mt-4">
+        <div className="form-control w-full px-6 mt-4">
         <input
             {...register("name", { required: "Enter your name" })}
             type="text"
             placeholder="Name"
-            className="user-input rounded-md w-full max-w-xs my-2"
+            className="user-input rounded-md w-full my-2"
           />
           {errors.name && (
             <span className="text-red-500 text-xs">{errors.name.message}</span>
@@ -36,7 +37,7 @@ const Signup = () => {
             {...register("email", { required: "Enter your email" })}
             type="text"
             placeholder="Email"
-            className="user-input rounded-md w-full max-w-xs my-2"
+            className="user-input rounded-md w-full my-2"
           />
           {errors.email && (
             <span className="text-red-500 text-xs">{errors.email.message}</span>
@@ -45,7 +46,7 @@ const Signup = () => {
             {...register("password", { required: "Wrong password" })}
             type="password"
             placeholder="password"
-            className="user-input rounded-md w-full max-w-xs mt-2"
+            className="user-input rounded-md w-full mt-2"
           />
           {errors.password && (
             <span className="text-red-500">{errors.password.message}</span>
@@ -54,7 +55,7 @@ const Signup = () => {
         <input
           type="submit"
           value="SIGN UP"
-          className="all-btn rounded text-white text-xs font-semibold py-2.5 px-28 m-6"
+          className="form-signup all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
         />      
         
       </form>
