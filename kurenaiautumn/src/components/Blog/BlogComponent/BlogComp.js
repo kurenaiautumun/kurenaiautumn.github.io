@@ -20,7 +20,7 @@ function BlogComp() {
     return (
         <div id="container">
           <div class="dropdown">
-            <h1 id="MainHeading">sdf</h1>
+            <h1 id="MainHeading" contenteditable={true}>sdf</h1>
             <div class='main' onClick={addBar}>
               <AddBar />
             </div>
