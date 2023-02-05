@@ -1,8 +1,8 @@
 //jshint esversion:6
 require('dotenv').config();
 const express = require("express");
+var cors = require('cors');
 const ejs = require("ejs");
-var cors = require('cors')
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
@@ -18,7 +18,6 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions))
-
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
@@ -60,14 +59,14 @@ const  commentSchema = new mongoose.Schema({
   userId:String,
   blogId:String,
   body:String,
-  status:String
+  status:String,
+  date:String
 });
 
 const Blog = new mongoose.model("blog",blogSchema);
 const Comment = new mongoose.model("comment",commentSchema);
 
 passport.use(User.createStrategy());
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -97,6 +96,14 @@ app.get("/dashboard/:userid",(req,res)=>{
   }
   })
 });
+
+app.get("/blog",(req,res)=>{
+  const blogId = req.query.blogId;
+  console.log(blogId)
+  Blog.find({_id:blogId},(err,user)=>{
+    res.json(user)
+  })
+})
 
 app.post("/signup",function(req,res){
   User.register({username:req.body.username,email:req.body.email}, req.body.password,
@@ -128,21 +135,6 @@ app.post("/login",function(req,res){
    })
 })
 
-app.get("/del/:id",(req,res)=>{
-  const payload = req.params.id;
-  Blog.deleteOne({_id:payload},(err,post)=>{
-    res.status(201).redirect("/dashboard")
-  })
-});
-
-app.get("/edit/:id",(req,res)=>{
-  const id = req.params.id;
-  Blog.find({_id:id},(err,posts)=>{
-    // res.render("editor",{posts:posts})
-    res.status(201).json(posts)
-  })
-});
-
 app.post("/newblog",(req,res)=>{
   const blog = new Blog({
     userId: req.body.userId,
@@ -151,29 +143,48 @@ app.post("/newblog",(req,res)=>{
     views:req.body.views,
     status:req.body.status,
     date:date
-    });
-    blog.save();
-    User.find({_id:req.body.userId},(err,user)=>{
-        res.status(201).redirect("/dashboard/"+ user[0]._id);
-    })
-
+  });
+  blog.save();
+  User.find({_id:req.body.userId},(err,user)=>{
+    res.status(201).redirect("/dashboard/"+ user[0]._id);
+  })
 });
 
+app.post("/newComment",(req,res)=>{
+  const comment = new Comment({
+    userId:req.body.userId,
+    blogId:req.body.blogId,
+    body:req.body.body,
+    status:req.body.status,
+  date:date
+  });
+  
+});
+
+
+
 app.post("/updateData",(req,res)=>{
-   let id = req.body.id;
-    let username = req.body.username;
-    let blog = req.body.blog;
-    Blog.updateOne({_id:id}, 
-      {blog:blog,username:username}, function (err, docs) {
+  let id = req.body.id;
+  let title = req.body.title;
+  let newblog = req.body.newblog;
+  Blog.updateOne({_id:id}, 
+    {blog:newblog,title:title}, function (err, docs) {
       if (!err){
         console.log("Updated Docs : ", docs);
       }
+    });
+    res.status(201).redirect("/dashboard")
   });
-  res.status(201).redirect("/dashboard")
-});
-
-
-app.listen(process.env.PORT, function() {
+  
+  app.post("/del/:id",(req,res)=>{
+    const payload = req.params.id;
+    Blog.deleteOne({_id:payload},(err,post)=>{
+      res.status(201).redirect("/dashboard")
+    })
+  });
+  
+  
+  app.listen(process.env.PORT, function() {
     console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
 
