@@ -112,6 +112,19 @@ app.get("/blog/:blogTitle",(req,res)=>{
   })
 })
 
+app.post("/blog/:blogTitle",(req,res)=>{
+  const blogTitle = req.params.blogTitle;
+  const blog = new Blog({
+    userId: req.body.userId,
+    title: blogTitle,
+    body: req.body.body,
+    views:req.body.views,
+    status:req.body.status,
+    date:date
+  });
+  blog.save();
+})
+
 app.get("/comment/:blogId",(req,res)=>{
   const blog = req.params.blogId;
   Comment.find({blogId:blog},(err,user)=>{
