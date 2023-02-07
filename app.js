@@ -77,11 +77,11 @@ app.get("/",(req,res)=>{
 });
 
 app.get("/signup",(req,res)=>{
-  res.status(201).render("signup")  
+  res.status(201).json("signup")  
 });
 
 app.get("/login",(req,res)=>{
-  res.status(201).render("login")  
+  res.status(201).json("login")  
 });
 
 app.get("/dashboard/:userid",(req,res)=>{
@@ -89,7 +89,8 @@ app.get("/dashboard/:userid",(req,res)=>{
   User.find({_id:userId},(err,user)=>{
     if(req.isAuthenticated()){
       Blog.find({userId:userId},(err,posts)=>{
-        res.status(201).render("dashboard",{user:user,posts:posts})
+        res.status(201).json({dashboard:"dashboard",user:user,posts:posts})
+        console.log(posts,user)
       })
   }else{
       res.redirect("/login");
@@ -98,10 +99,16 @@ app.get("/dashboard/:userid",(req,res)=>{
 });
 
 app.get("/blog",(req,res)=>{
-  const blogId = req.query.blogId;
-  console.log(blogId)
+    const blogId = req.query.blogId;
   Blog.find({_id:blogId},(err,user)=>{
     res.json(user)
+  })
+})
+
+app.get("/comment/:blogId",(req,res)=>{
+  const blog = req.params.blogId;
+  Comment.find({blogId:blog},(err,user)=>{
+    res.json(user);
   })
 })
 
@@ -120,6 +127,7 @@ app.post("/signup",function(req,res){
 });
 
 app.post("/login",function(req,res){
+  // const sending = req.query.sending
   const user = new User({
     username: req.body.username,
     password: req.body.password
@@ -158,10 +166,8 @@ app.post("/newComment",(req,res)=>{
     status:req.body.status,
   date:date
   });
-  
+  comment.save();
 });
-
-
 
 app.post("/updateData",(req,res)=>{
   let id = req.body.id;
@@ -186,5 +192,5 @@ app.post("/updateData",(req,res)=>{
   
   app.listen(process.env.PORT, function() {
     console.log(`Server started on http://localhost:${process.env.PORT}`);
-});
+  });
 
