@@ -105,6 +105,13 @@ app.get("/blog",(req,res)=>{
   })
 })
 
+app.get("/blog",(req,res)=>{
+    const blogTitle = req.query.blogTitle;
+  Blog.find({title:blogTitle},(err,user)=>{
+    res.json(user)
+  })
+})
+
 app.get("/comment/:blogId",(req,res)=>{
   const blog = req.params.blogId;
   Comment.find({blogId:blog},(err,user)=>{
