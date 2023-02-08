@@ -86,15 +86,18 @@ app.get("/login",(req,res)=>{
 
 app.get("/dashboard/:userid",(req,res)=>{
   const userId = req.params.userid
-  User.find({_id:userId},(err,user)=>{
-    if(req.isAuthenticated()){
-      Blog.find({userId:userId},(err,posts)=>{
-        res.status(201).json({dashboard:"dashboard",user:user,posts:posts})
+  if(req.isAuthenticated()){
+    User.find({_id:userId},(err,user)=>{
+      Blog.find({userId:userId},(err,blogs)=>{
+        Comment.find({userId:userId},(err,comments)=>{
+          res.status(201).json({message:"dashboard",user,blogs,comments})
+        })
       })
+    })
   }else{
-      res.status(201).json("user is not login");
+    res.status(201).json("user is not login");
   }
-  })
+  
 });
 
 app.get("/blog",(req,res)=>{
@@ -183,7 +186,7 @@ app.post("/updateblog",(req,res)=>{
     });
   });
   
-  app.post("/del/:id",(req,res)=>{
+  app.post("/deleteblog/:id",(req,res)=>{
     const payload = req.params.id;
     Blog.deleteOne({_id:payload},(err,blog)=>{
       res.status(201).json({message:"blog deleted succesfully",blog:blog})
