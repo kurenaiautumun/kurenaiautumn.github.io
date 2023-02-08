@@ -90,7 +90,6 @@ app.get("/dashboard/:userid",(req,res)=>{
     if(req.isAuthenticated()){
       Blog.find({userId:userId},(err,posts)=>{
         res.status(201).json({dashboard:"dashboard",user:user,posts:posts})
-        console.log(posts,user)
       })
   }else{
       res.redirect("/login");
@@ -105,6 +104,7 @@ app.get("/blog",(req,res)=>{
   })
 })
 
+//tests start
 app.get("/blog/:blogTitle",(req,res)=>{
   const blogTitle = req.params.blogTitle;
   Blog.find({title:blogTitle},(err,user)=>{
@@ -113,17 +113,18 @@ app.get("/blog/:blogTitle",(req,res)=>{
 })
 
 app.post("/blog/:blogTitle",(req,res)=>{
-  const blogTitle = req.params.blogTitle;
   const blog = new Blog({
     userId: req.body.userId,
-    title: blogTitle,
+    title: req.params.blogTitle,
     body: req.body.body,
     views:req.body.views,
     status:req.body.status,
     date:date
   });
   blog.save();
+  res.json("blog saved");
 })
+//tests ends
 
 app.get("/comment/:blogId",(req,res)=>{
   const blog = req.params.blogId;
@@ -187,6 +188,7 @@ app.post("/newComment",(req,res)=>{
   date:date
   });
   comment.save();
+  res.status(201).json("comment is save")
 });
 
 app.post("/updateData",(req,res)=>{
