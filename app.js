@@ -92,7 +92,7 @@ app.get("/dashboard/:userid",(req,res)=>{
         res.status(201).json({dashboard:"dashboard",user:user,posts:posts})
       })
   }else{
-      res.redirect("/login");
+      res.status(201).json("user is not login");
   }
   })
 });
@@ -100,36 +100,14 @@ app.get("/dashboard/:userid",(req,res)=>{
 app.get("/blog",(req,res)=>{
     const blogId = req.query.blogId;
   Blog.find({_id:blogId},(err,user)=>{
-    res.json(user)
+    res.status(201).json(user)
   })
 })
-
-//tests start
-app.get("/blog/:blogTitle",(req,res)=>{
-  const blogTitle = req.params.blogTitle;
-  Blog.find({title:blogTitle},(err,user)=>{
-    res.json(user)
-  })
-})
-
-app.post("/blog/:blogTitle",(req,res)=>{
-  const blog = new Blog({
-    userId: req.body.userId,
-    title: req.params.blogTitle,
-    body: req.body.body,
-    views:req.body.views,
-    status:req.body.status,
-    date:date
-  });
-  blog.save();
-  res.json("blog saved");
-})
-//tests ends
 
 app.get("/comment/:blogId",(req,res)=>{
   const blog = req.params.blogId;
   Comment.find({blogId:blog},(err,user)=>{
-    res.json(user);
+    res.status(201).json({message:"all comments of blog",user:user});
   })
 })
 
@@ -137,18 +115,16 @@ app.post("/signup",function(req,res){
   User.register({username:req.body.username,email:req.body.email}, req.body.password,
     function(err,user){
     if(err){
-      console.log(err);
-      res.status(201).redirect("/signup");
+      res.status(201).json({err:err});
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.status(201).redirect("/dashboard/"+ user._id);
+        res.status(201).json({message:"user signup successfully",user:user});
       })
     }
   })
 });
 
 app.post("/login",function(req,res){
-  // const sending = req.query.sending
   const user = new User({
     username: req.body.username,
     password: req.body.password
@@ -157,9 +133,11 @@ app.post("/login",function(req,res){
     if(!err){
         passport.authenticate("local")(req,res,function(){
           User.find({username:user.username},(err,user)=>{
-            res.status(201).redirect("/dashboard/"+ user[0]._id);
+            res.status(201).json({message:"user login successfully",user:user[0]});
           })
         })
+    }else{
+      res.status(404).json("username or password is wrong")
     }
    })
 })
@@ -173,10 +151,11 @@ app.post("/newblog",(req,res)=>{
     status:req.body.status,
     date:date
   });
-  blog.save();
-  User.find({_id:req.body.userId},(err,user)=>{
-    res.status(201).redirect("/dashboard/"+ user[0]._id);
-  })
+  blog.save((err,response)=>{
+    User.find({_id:req.body.userId},(err,user)=>{
+      res.status(201).json({message:"blog saved",user:user[0],blog:response});
+    })
+  });
 });
 
 app.post("/newComment",(req,res)=>{
@@ -185,32 +164,54 @@ app.post("/newComment",(req,res)=>{
     blogId:req.body.blogId,
     body:req.body.body,
     status:req.body.status,
-  date:date
+    date:date
   });
-  comment.save();
-  res.status(201).json("comment is save")
+  comment.save(()=>{
+    res.status(201).json({message:"comment is saved",detail:comment})
+  });
 });
 
-app.post("/updateData",(req,res)=>{
+app.post("/updateblog",(req,res)=>{
   let id = req.body.id;
   let title = req.body.title;
-  let newblog = req.body.newblog;
+  let body = req.body.body;
   Blog.updateOne({_id:id}, 
-    {blog:newblog,title:title}, function (err, docs) {
+    {body:body,title:title}, function (err, docs) {
       if (!err){
-        console.log("Updated Docs : ", docs);
+        res.status(201).json({message:"update succesfully",docs:docs})
       }
     });
-    res.status(201).redirect("/dashboard")
   });
   
   app.post("/del/:id",(req,res)=>{
     const payload = req.params.id;
-    Blog.deleteOne({_id:payload},(err,post)=>{
-      res.status(201).redirect("/dashboard")
+    Blog.deleteOne({_id:payload},(err,blog)=>{
+      res.status(201).json({message:"blog deleted succesfully",blog:blog})
     })
   });
   
+  
+  //tests start
+  app.get("/blog/:blogTitle",(req,res)=>{
+    const blogTitle = req.params.blogTitle;
+    Blog.find({title:blogTitle},(err,user)=>{
+      res.status(201).json(user)
+    })
+  })
+  
+  app.post("/blog/:blogTitle",(req,res)=>{
+    const blog = new Blog({
+      userId: req.body.userId,
+      title: req.params.blogTitle,
+      body: req.body.body,
+      views:req.body.views,
+      status:req.body.status,
+      date:date
+    });
+    blog.save();
+    res.status(201).json({message:"blog saved",blog:blog});
+  })
+  //tests ends
   
   app.listen(process.env.PORT, function() {
     console.log(`Server started on http://localhost:${process.env.PORT}`);
