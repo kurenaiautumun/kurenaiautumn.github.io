@@ -6,24 +6,16 @@ const ejs = require("ejs");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+const { User, Blog, Comment, Like, corsOptions } = require('./models.js');
 
 const app = express();
 const date = new Date().toLocaleDateString();
-
-const corsOptions = {
-  origin:'*', 
-  credentials:true, 
-  optionSuccessStatus:200,
-}
 
 app.use(cors(corsOptions))
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-
-
 app.use(session({
   secret:  process.env.SECRET,
   resave: false,
@@ -34,37 +26,6 @@ app.use(passport.session());
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGOLAB_URI,{useNewUrlParser: true});
-
-const  userSchema = new mongoose.Schema({
-  username:String,
-  email:String,
-  password: String
-});
-
-userSchema.plugin(passportLocalMongoose);
-const User = new mongoose.model("User",userSchema);
-
-
-const  blogSchema = new mongoose.Schema({
-  title:String,
-  keys:Array,
-  body:String,
-  userId:String,
-  views:String,
-  status:String,
-  date:String,
-});
-
-const  commentSchema = new mongoose.Schema({
-  userId:String,
-  blogId:String,
-  body:String,
-  status:String,
-  date:String
-});
-
-const Blog = new mongoose.model("blog",blogSchema);
-const Comment = new mongoose.model("comment",commentSchema);
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -97,14 +58,13 @@ app.get("/dashboard/:userid",(req,res)=>{
   }else{
     res.status(201).json("user is not login");
   }
-  
 });
 
 app.get("/blog",(req,res)=>{
-    const blogId = req.query.blogId;
-  Blog.find({_id:blogId},(err,user)=>{
-    res.status(201).json(user)
-  })
+  const blogId = req.query.blogId;
+    Blog.find({_id:blogId},(err,user)=>{
+      res.status(201).json(user)
+    })
 })
 
 app.get("/comment/:blogId",(req,res)=>{
