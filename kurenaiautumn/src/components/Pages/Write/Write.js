@@ -96,7 +96,7 @@ const Write = () => {
           // Save blog information to the database
 
     
-            fetch("http://localhost:5000/blogs", {
+            fetch("https://kurenaiautumn-server.vercel.app/blogs", {
             method: "POST",
             headers: {
               "content-type": "application/json",

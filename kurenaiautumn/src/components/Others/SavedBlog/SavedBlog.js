@@ -3,7 +3,7 @@ import "./SavedBlog.css";
 import parse from 'html-react-parser';
 
 const SavedBlog = (saved) => {
-    // console.log(saved?.saved)
+   
     console.log(saved?.saved?.isSaved)
 
  
@@ -19,7 +19,7 @@ const SavedBlog = (saved) => {
               src="https://img.freepik.com/free-photo/young-beautiful-woman-pink-warm-sweater-natural-look-smiling-portrait-isolated-long-hair_285396-896.jpg?w=996&t=st=1674753568~exp=1674754168~hmac=e9bb323fadf786dcd26672d9f42e7b94271f0819e97a9e5ebbea54dd2fa3f40a"
               alt="author-img"
             />
-            <p className="text-sm">Allison</p>
+            <p className="text-sm">{saved?.saved?.author?.name}</p>
           </div>
           <h2 className="font-bold my-3">{saved?.saved?.title}</h2>
           <p className="blog-text mb-3">{parse(saved?.saved?.details)}</p>
