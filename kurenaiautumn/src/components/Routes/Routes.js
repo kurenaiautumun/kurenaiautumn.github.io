@@ -14,6 +14,8 @@ import Signup from "../Signup/Signup";
 import AddBar from "../editBlog/AddBar/AddBar";
 import BlogComp from "../editBlog/BlogComponent/BlogComp";
 
+import Editor from "../TextEditor/TextEditor";
+
 
 export const router=createBrowserRouter([
     {
@@ -64,6 +66,10 @@ export const router=createBrowserRouter([
             {
                 path: '/editblog',
                 element:<BlogComp></BlogComp>
+            },
+            {
+                path:"/editableBlog",
+                element:<Editor></Editor>
             }
         ]
     }

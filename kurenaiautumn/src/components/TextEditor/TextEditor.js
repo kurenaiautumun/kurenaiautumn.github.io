@@ -2,6 +2,7 @@ import EditorJS from "@editorjs/editorjs"
 import OnlyEditor from "./OnlyEditor";
 import React, { useEffect } from 'react';
 import List from '@editorjs/list';
+import { Header } from "@editorjs/header";
 
 function Editor(){
 
@@ -21,7 +22,8 @@ function Editor(){
           autofocus: true,
           holder: 'editorjs',
           tools: {
-            list:List
+            list:List,
+            header: Header
           }
         });
       }
