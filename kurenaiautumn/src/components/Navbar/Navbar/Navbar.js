@@ -24,12 +24,12 @@ const Navbar = () => {
         </div>
       </div>
       <div className="nav-right">
-        <i className="fa-solid text-black fa-pen-to-square"></i>
-        <Link to="/write"><button className="signin-lg text-black text-xs mx-2">Write</button></Link>
-        <Link to="/signup"><button className="signup-btn all-btn rounded-full text-xs text-white font-semibold px-3 py-2 ml-5">
+        <i className="fa-solid text-black fa-pen-to-square mx-1"></i>
+        <Link to="/write"><button className="signin-lg text-black text-xs mr-3">Write</button></Link>
+        <Link to="/signup"><button className="signup-btn all-btn rounded-full text-xs text-white font-semibold px-3 py-2">
           Sign up
         </button></Link>
-        <Link to="/signin"><button className="signin-lg text-black text-xs mx-2">Sign In</button></Link>
+        <Link to="/signin"><button className="signin-lg text-black text-xs mx-3">Sign In</button></Link>
         <Link to="/signin"><button className="signin-sm all-btn rounded-full text-xs text-white font-semibold px-3 py-2 mx-5">Sign In</button></Link>
        <Dropdown></Dropdown>
       </div>

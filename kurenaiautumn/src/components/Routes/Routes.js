@@ -8,7 +8,6 @@ import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
 import Signup from "../Signup/Signup";
 import Write from "../Pages/Write/Write";
-import AddBlog from "../Pages/Write/AddBlog";
 
 
 export const router=createBrowserRouter([
@@ -33,13 +32,9 @@ export const router=createBrowserRouter([
                 path:'/signup',
                 element:<Signup></Signup>
             },
-            // {
-            //     path: '/write',
-            //     element:<Write></Write>
-            // },
             {
                 path: '/write',
-                element:<AddBlog></AddBlog>
+                element:<Write></Write>
             },
             {
                 path: '/profile',
