@@ -17,7 +17,7 @@ const Dropdown = () => {
     let handler = (e)=>{
       if(!menuRef.current.contains(e.target)){
         setOpen(false);
-        console.log(menuRef.current);
+        // console.log(menuRef.current);
       }      
     };
 
@@ -54,7 +54,7 @@ function DropdownItem(props) {
     return (
       <li className="dropdownItem">
         <img src={props.img} alt=""></img>
-        <a > {props.text} </a>
+        <a> {props.text} </a>
       </li>
     );
   }

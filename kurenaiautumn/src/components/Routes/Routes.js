@@ -3,14 +3,12 @@ import Main from "../Layout/Main";
 import About from "../Others/About/About";
 import Home from "../Others/Home/Home";
 import Profile from "../Others/Profile/Profile";
-import EditProfile from "../Others/EditProfile/EditProfile/EditProfile";
-import Account from "../Others/EditProfile/Account/Account";
 import Blogs from "../Blogs/Blogs/Blogs";
 import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
 import Signup from "../Signup/Signup";
-import AddBar from "../editBlog/AddBar/AddBar";
-import BlogComp from "../editBlog/BlogComponent/BlogComp";
+import Write from "../Pages/Write/Write";
+import AddBlog from "../Pages/Write/AddBlog";
 
 
 export const router=createBrowserRouter([
@@ -25,7 +23,7 @@ export const router=createBrowserRouter([
             {
                 path:'/blog/:id',
                 element:<Details></Details>,
-                loader: ({params})=> fetch(`https://kurenaiautumn-server.vercel.app/blog/${params.id}`)
+                loader: ({params})=> fetch(`http://localhost:5000/blog/${params.id}`)
             },
             {
                 path:'/signin',
@@ -35,33 +33,28 @@ export const router=createBrowserRouter([
                 path:'/signup',
                 element:<Signup></Signup>
             },
+            // {
+            //     path: '/write',
+            //     element:<Write></Write>
+            // },
+            {
+                path: '/write',
+                element:<AddBlog></AddBlog>
+            },
             {
                 path: '/profile',
                 element:<Profile></Profile>,
                 children:[
                     {
                         path:'/profile',
-                        element:<Home></Home>
+                        element:<Home></Home>,
+                        loader: ()=> fetch(`http://localhost:5000/blogs`),
                     },
                     {
                         path: '/profile/about',
                         element: <About></About>
                     }
                 ]
-            },
-            {
-                path: '/editprofile',
-                element:<EditProfile></EditProfile>,
-                children:[
-                    {
-                        path: '/editprofile',
-                        element:<Account></Account>
-                    }
-                ]
-            },
-            {
-                path: '/editblog',
-                element:<BlogComp></BlogComp>
             }
         ]
     }

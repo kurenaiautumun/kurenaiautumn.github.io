@@ -15,7 +15,7 @@ const Navbar = () => {
           <div className="two"></div>
           <div className="three"></div>
         </div></Link>
-        <div class="form-control">
+        <div className="form-control">
           <input
             type="text"
             placeholder="Search"
@@ -25,7 +25,7 @@ const Navbar = () => {
       </div>
       <div className="nav-right">
         <i className="fa-solid text-black fa-pen-to-square"></i>
-        <Link to="/editblog"><button className="signin-lg text-black text-xs mx-2">Write</button></Link>
+        <Link to="/write"><button className="signin-lg text-black text-xs mx-2">Write</button></Link>
         <Link to="/signup"><button className="signup-btn all-btn rounded-full text-xs text-white font-semibold px-3 py-2 ml-5">
           Sign up
         </button></Link>
