@@ -22,7 +22,7 @@ export const router=createBrowserRouter([
             {
                 path:'/blog/:id',
                 element:<Details></Details>,
-                loader: ({params})=> fetch(`http://localhost:5000/blog/${params.id}`)
+                loader: ({params})=> fetch(`https://kurenaiautumn-server.vercel.app/blog/${params.id}`)
             },
             {
                 path:'/signin',
@@ -43,7 +43,7 @@ export const router=createBrowserRouter([
                     {
                         path:'/profile',
                         element:<Home></Home>,
-                        loader: ()=> fetch(`http://localhost:5000/blogs`),
+                        loader: ()=> fetch(`https://kurenaiautumn-server.vercel.app/blogs`),
                     },
                     {
                         path: '/profile/about',
