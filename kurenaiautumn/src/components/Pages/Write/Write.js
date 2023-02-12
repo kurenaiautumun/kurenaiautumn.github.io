@@ -187,7 +187,9 @@ const Write = () => {
       
         <div className="text-area">
           <pre id="output"></pre>
-          <div id="editorjs" value={content}></div>
+          <div class ="content">
+            <div id="editorjs" value={content}></div>
+          </div>
       </div>
     </form>
     </div>

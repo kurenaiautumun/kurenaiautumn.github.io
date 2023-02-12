@@ -95,3 +95,29 @@
   #output{
     display: none;
   }
+
+
+  h1.ce-header{
+    font-size: 31px;
+    font-weight: bold;
+  }
+  h2.ce-header{
+    font-size: 3xl;
+    font-style: bold;
+  }
+  h3.ce-header{
+    font-size: 3xl;
+    font-style: bold;
+  }
+  h4.ce-header{
+    font-size: 3xl;
+    font-style: bold;
+  }
+  h5.ce-header{
+    font-size: 3xl;
+    font-style: bold;
+  }
+  h6.ce-header{
+    font-size: 3xl;
+    font-style: bold;
+  }

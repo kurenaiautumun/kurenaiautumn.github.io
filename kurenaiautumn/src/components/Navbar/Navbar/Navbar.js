@@ -13,7 +13,7 @@ const Navbar = () => {
           <div className="one"></div>
           <div className="two"></div>
           <div className="three"></div>
-        </div></Link>
+        </div><Link />
         <div className="form-control">
           <input
             type="text"
