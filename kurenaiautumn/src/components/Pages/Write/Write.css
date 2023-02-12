@@ -1,0 +1,97 @@
+.write {
+    padding-top: 50px;
+    max-width: 75%;
+    margin: auto;
+  }
+  
+  .writeImg {
+    width: 900px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  
+  .writeForm {
+    position: relative;
+  }
+  
+  .writeFormGroup {
+    display: flex;
+    align-items: center;
+    max-width: 85%;
+    margin: auto;
+  }
+  
+  .writeIcon {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    border: 1px solid;
+    border-radius: 50%;
+    color: rgb(129, 125, 125);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .writeInput {
+    font-size: 30px;
+    border: none;
+    padding: 20px;
+    width: 70vw;
+  }
+
+  .writer-details,.category{
+    font-size: 15px;
+    border: none;
+    padding: 10px;
+    margin-top: 10px;
+  }
+
+  .writer-details,.category{
+    outline-style: none;
+  }
+  
+  .writeInput::placeholder {
+    color: rgb(189, 185, 185);
+    font-weight: 400;
+  }
+  
+  .writeInput:focus {
+    outline-style: none;
+  }
+
+
+  .text-area{
+    margin: auto ;
+  }
+  
+  .writeText {
+    width: 70vw;
+    height: 100vh;
+    border: 1px solid green;
+    font-family: inherit;
+    font-size: 15px;
+  }
+
+  /* .writer-details{
+    position: absolute;
+    top: 20px;
+    right: 50px;
+  } */
+
+
+  .writeSubmit {
+    color: white;
+    font-weight: 600;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 20px 0px;
+  }
+
+  #output{
+    display: none;
+  }
