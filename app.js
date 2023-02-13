@@ -1,14 +1,13 @@
 //jshint esversion:6
 require('dotenv').config();
 const express = require("express");
+const app = express();
 var cors = require('cors');
 const ejs = require("ejs");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
 const { User, Blog, Comment, Like, corsOptions } = require('./models.js');
-
-const app = express();
 const date = new Date().toLocaleDateString();
 
 app.use(cors(corsOptions))
@@ -16,11 +15,7 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(session({
-  secret:  process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(session({secret:process.env.SECRET, resave: false, saveUninitialized: false}));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -35,14 +30,6 @@ app.get("/",(req,res)=>{
     Blog.find({},(err,posts)=>{
       res.status(201).status(201).json(posts);
     })   
-});
-
-app.get("/signup",(req,res)=>{
-  res.status(201).json("signup")  
-});
-
-app.get("/login",(req,res)=>{
-  res.status(201).json("login")  
 });
 
 app.get("/dashboard/:userid",(req,res)=>{
@@ -152,8 +139,32 @@ app.post("/updateblog",(req,res)=>{
       res.status(201).json({message:"blog deleted succesfully",blog:blog})
     })
   });
+
+  app.post("/like",(req,res)=>{
+    console.log(req.body)
+    const like = new Like({
+      userId:req.body.userId,
+      blogId:req.body.blogId,
+      like:true
+    })
+    like.save(()=>{
+      res.status(201).json({message:"like is saved", docs:like})
+    })
+  })
   
-  
+  app.get("/like/:blogId/:userId",(req, res) => {
+    const { blogId, userId } = req.params;
+    let detect = true;
+    Like.find({blogId, userId},(err,user)=>{
+      detect = user[0].like;
+      Like.updateOne({ blogId, userId },{
+        like:!detect
+       },(err,like)=>{     
+         res.status(201).json({message:"like changed",user:user[0]});
+        });
+    })
+  });
+ 
   //tests start
   app.get("/blog/:blogTitle",(req,res)=>{
     const blogTitle = req.params.blogTitle;
@@ -179,4 +190,3 @@ app.post("/updateblog",(req,res)=>{
   app.listen(process.env.PORT, function() {
     console.log(`Server started on http://localhost:${process.env.PORT}`);
   });
-
