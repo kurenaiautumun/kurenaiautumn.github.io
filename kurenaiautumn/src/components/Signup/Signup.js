@@ -1,10 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import useTitle from '../hooks/useTItle';
 import './Signup.css'
 
 
 const Signup = () => {
+  useTitle("Signup")
     const {
         register,
         formState: { errors },
