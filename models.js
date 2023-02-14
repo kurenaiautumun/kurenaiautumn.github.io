@@ -29,12 +29,30 @@ const  blogSchema = new mongoose.Schema({
     date:String
   });
   
+  // const likeSchema = new mongoose.Schema({
+  //   userid:String,
+  //   blogId: String,
+  //   like:String,
+  //   date:String
+  // })
+
   const likeSchema = new mongoose.Schema({
-    userid:String,
-    blogId: String,
-    like:String,
-    date:String
-  })
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "User"
+    },
+    blogId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Blog"
+    },
+    like: {
+      type: Boolean,
+      required: true,
+      default: true
+    }
+  });
 
   const corsOptions = {
     origin:'*', 
@@ -46,7 +64,8 @@ const  blogSchema = new mongoose.Schema({
 
 const Blog = new mongoose.model("blog",blogSchema);
 const Comment = new mongoose.model("comment",commentSchema);
-const Like = new mongoose.model("like",likeSchema);
+// const Like = new mongoose.model("like",likeSchema);
+const Like = new mongoose.model("Like", likeSchema);
 
 
 module.exports = {
