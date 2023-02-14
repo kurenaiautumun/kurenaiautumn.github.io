@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
 const { User, Blog, Comment, Like, corsOptions } = require('./models.js');
+const sendEmail = require('./mail/mail');
+const mailRouter = require('./mail/mail_routes')
 
 const app = express();
 const date = new Date().toLocaleDateString();
@@ -16,13 +18,13 @@ app.use(express.static("public"));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-app.use(session({
-  secret:  process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(session({
+//  secret:  process.env.SECRET,
+//  resave: false,
+//  saveUninitialized: false
+//}));
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGOLAB_URI,{useNewUrlParser: true});
@@ -175,7 +177,14 @@ app.post("/updateblog",(req,res)=>{
     res.status(201).json({message:"blog saved",blog:blog});
   })
   //tests ends
+
+  //app.post("/mail/send", (req,res)=>{
+  //  sendEmail('sy')
+  //  res.json('sadfdsf')
+  //})
   
+  app.use('/mail', mailRouter);
+
   app.listen(process.env.PORT, function() {
     console.log(`Server started on http://localhost:${process.env.PORT}`);
   });
