@@ -14,10 +14,10 @@ const Signin = () => {
   const handleLogin = (data) => console.log(data);
 
   return (
-    <div className="main-div">
+    <div className="inner-div">
       <div className="justify-center">
         <form
-          className="form-div rounded-md"
+          className="form-div mt-4 rounded-md"
           onSubmit={handleSubmit(handleLogin)}
         >
           <div className="header flex justify-between py-3">
@@ -31,7 +31,7 @@ const Signin = () => {
               {...register("email", { required: "Enter your email" })}
               type="text"
               placeholder="Email"
-              className="user-input rounded-md w-full my-2 lg:mt-7"
+              className="user-input rounded-md w-full my-2"
             />
             {errors.email && (
               <span className="text-red-500 text-xs">{errors.email.message}</span>
@@ -49,7 +49,7 @@ const Signin = () => {
           <input
             type="submit"
             value="SIGN IN"
-            className="form-signin all-btn rounded text-white text-xs font-semibold"
+            className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
           />
         </form>
         <div className="create-account mt-6">

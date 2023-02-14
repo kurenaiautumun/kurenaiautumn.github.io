@@ -1,7 +1,7 @@
 import EditorJS from "@editorjs/editorjs"
 import OnlyEditor from "./OnlyEditor";
 import React, { useEffect } from 'react';
-import List from '@editorjs/list'; 
+import List from '@editorjs/list';
 
 function Editor(){
 

@@ -9,17 +9,16 @@ const Navbar = () => {
    <div className="nav">
      <div className="navbar">
       <div className="nav-left">
-        <Link to="/">
         <div className="circles">
           <div className="one"></div>
           <div className="two"></div>
           <div className="three"></div>
-        </div></Link>
+        </div><Link />
         <div className="form-control">
           <input
             type="text"
             placeholder="Search"
-            className="input bg-gray-100 rounded-full lg:w-48 w-40 input-sm"
+            className="input bg-gray-100 rounded-full w-48 input-sm"
           />
         </div>
       </div>

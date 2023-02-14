@@ -2,7 +2,6 @@
     background-image: linear-gradient(to bottom right,#DFFF00 ,#E8DAEF ,#DFFF00  );
     position: sticky;
     top: 0;
-    z-index: 100;
 }
 
 .navbar {
@@ -20,10 +19,6 @@
     display: flex;
     align-items: center;
     margin-right: 10px;
-}
-
-.signin-sm{
-    display: none;
 }
 
 .one,
@@ -68,22 +63,6 @@
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 600px) {
     .navbar {
-        max-width: 98%;
         display: flex;
-    }
-
-    .write-sm{
-        display: none;
-    }
-
-    .signup-btn{
-        display: none;
-    }
-
-    .signin-sm{
-        display:inline-block;
-    }
-    .signin-lg{
-        display:none;
     }
 }

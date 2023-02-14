@@ -9,7 +9,7 @@ const Blog = ({blog, handleSaveButton, handleUnsaveButton}) => {
     const {_id,title,details,author,image_url, isSaved}=blog;
  
     return (
-        <div className='flex mb-20 blog'>
+        <div className='flex mb-20'>
             <div>
                 <img className='blog-img' src={image_url} alt="" />
             </div>
