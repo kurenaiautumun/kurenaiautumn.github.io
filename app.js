@@ -7,7 +7,7 @@ const ejs = require("ejs");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
-const { User, Blog, Comment, Like, corsOptions } = require('./models.js');
+const { User, Blog, Comment, Like, corsOptions, Review, toggle } = require('./models.js');
 const date = new Date().toLocaleDateString();
 
 app.use(cors(corsOptions))
@@ -102,8 +102,14 @@ app.post("/newblog",(req,res)=>{
     date:date
   });
   blog.save((err,response)=>{
-    User.find({_id:req.body.userId},(err,user)=>{
-      res.status(201).json({message:"blog saved",user:user[0],blog:response});
+    const like = new Like({
+      blogId : response._id,
+      likes: {"1":"sample"}
+    })
+    like.save(()=>{
+      User.find({_id:req.body.userId},(err,user)=>{
+        res.status(201).json({message:"blog saved",user:user[0],blog:response, like});
+      });
     })
   });
 });
@@ -122,9 +128,7 @@ app.post("/newComment",(req,res)=>{
 });
 
 app.post("/updateblog",(req,res)=>{
-  let id = req.body.id;
-  let title = req.body.title;
-  let body = req.body.body;
+  let {id, title, body} = req.body;
   Blog.updateOne({_id:id}, 
     {body:body,title:title}, function (err, docs) {
       if (!err){
@@ -140,31 +144,53 @@ app.post("/updateblog",(req,res)=>{
     })
   });
 
-  app.post("/like",(req,res)=>{
-    console.log(req.body)
-    const like = new Like({
-      userId:req.body.userId,
-      blogId:req.body.blogId,
-      like:true
-    })
-    like.save(()=>{
-      res.status(201).json({message:"like is saved", docs:like})
+  app.get("/like/:blogId/:userId",(req,res)=>{
+    const { blogId, userId } = req.params;
+    Like.findOne({blogId},(err,blog)=>{
+      let like = false;
+      const totalLikes = blog.likes; 
+      for (let Key in totalLikes) {
+        if (totalLikes[Key] === userId) {
+          like = true
+          break; 
+        }
+      }
+      res.status(201).json({like})
     })
   })
   
-  app.get("/like/:blogId/:userId",(req, res) => {
+  app.post("/like/:blogId/:userId",(req,res)=>{
     const { blogId, userId } = req.params;
-    let detect = true;
-    Like.find({blogId, userId},(err,user)=>{
-      detect = user[0].like;
-      Like.updateOne({ blogId, userId },{
-        like:!detect
-       },(err,like)=>{     
-         res.status(201).json({message:"like changed",user:user[0]});
-        });
+    Like.findOne({blogId},(err,blog)=>{
+      toggle(blog.likes,userId)     
+        Like.updateOne({blogId},{
+          likes:blog.likes
+        },(err,docs)=>{
+          if (err) throw err;
+          res.json({message:"updated like",docs})
+        })
     })
-  });
- 
+  })
+
+  app.get("/review/:blogId",(req,res)=>{
+    const blogId = req.params.blogId;
+    Review.find({blogId},(err,review)=>{
+      res.json({message:"review details",review})
+    })
+  })
+
+  app.post("/newreview",(req,res)=>{
+    const review = new Review({
+      blogId: req.body.blogId,
+      userId:req.body.userId,
+      body:req.body.body,
+      score:req.body.score
+    }) 
+    review.save();
+    res.json({message:"revwiew is saved",review})
+  })
+  
+  
   //tests start
   app.get("/blog/:blogTitle",(req,res)=>{
     const blogTitle = req.params.blogTitle;
@@ -185,7 +211,52 @@ app.post("/updateblog",(req,res)=>{
     blog.save();
     res.status(201).json({message:"blog saved",blog:blog});
   })
+
   //tests ends
+  
+  
+
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
   
   app.listen(process.env.PORT, function() {
     console.log(`Server started on http://localhost:${process.env.PORT}`);

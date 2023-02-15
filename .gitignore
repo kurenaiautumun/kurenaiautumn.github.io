@@ -3,4 +3,5 @@ npm-debug.log
 .DS_Store
 .vscode
 /*.env
-code.txt
+codes.txt
+test.js
