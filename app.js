@@ -32,8 +32,8 @@ app.get("/",(req,res)=>{
     })   
 });
 
-app.get("/dashboard/:userid",(req,res)=>{
-  const userId = req.params.userid
+app.get("/dashboard/:userId",(req,res)=>{
+  const userId = req.params.userId
   if(req.isAuthenticated()){
     User.find({_id:userId},(err,user)=>{
       Blog.find({userId:userId},(err,blogs)=>{
@@ -108,6 +108,7 @@ app.post("/newblog",(req,res)=>{
     })
     like.save(()=>{
       User.find({_id:req.body.userId},(err,user)=>{
+        if (err) throw err;
         res.status(201).json({message:"blog saved",user:user[0],blog:response, like});
       });
     })
@@ -175,7 +176,7 @@ app.post("/updateblog",(req,res)=>{
   app.get("/review/:blogId",(req,res)=>{
     const blogId = req.params.blogId;
     Review.find({blogId},(err,review)=>{
-      res.json({message:"review details",review})
+      res.json({message:"review details",blogId, review})
     })
   })
 
@@ -187,7 +188,7 @@ app.post("/updateblog",(req,res)=>{
       score:req.body.score
     }) 
     review.save();
-    res.json({message:"revwiew is saved",review})
+    res.json({message:"review is saved",review})
   })
   
   

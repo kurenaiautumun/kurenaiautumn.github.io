@@ -12,7 +12,7 @@ userSchema.plugin(passportLocalMongoose);
 const  blogSchema = new mongoose.Schema({
   title:String,
   keys:Array,
-  body:String,
+  body:Object,
   userId:String,
   views:String,
   status:String,
