@@ -92,7 +92,7 @@ app.post("/login",function(req,res){
    })
 })
 
-app.post("/newblog",(req,res)=>{
+app.post("/newBlog",(req,res)=>{
   const blog = new Blog({
     userId: req.body.userId,
     title: req.body.title,
@@ -128,7 +128,7 @@ app.post("/newComment",(req,res)=>{
   });
 });
 
-app.post("/updateblog",(req,res)=>{
+app.post("/updateBlog",(req,res)=>{
   let {id, title, body} = req.body;
   Blog.updateOne({_id:id}, 
     {body:body,title:title}, function (err, docs) {
@@ -138,7 +138,7 @@ app.post("/updateblog",(req,res)=>{
     });
   });
   
-  app.post("/deleteblog/:id",(req,res)=>{
+  app.post("/deleteBlog/:id",(req,res)=>{
     const payload = req.params.id;
     Blog.deleteOne({_id:payload},(err,blog)=>{
       res.status(201).json({message:"blog deleted succesfully",blog:blog})
@@ -180,7 +180,7 @@ app.post("/updateblog",(req,res)=>{
     })
   })
 
-  app.post("/newreview",(req,res)=>{
+  app.post("/newReview",(req,res)=>{
     const review = new Review({
       blogId: req.body.blogId,
       userId:req.body.userId,
