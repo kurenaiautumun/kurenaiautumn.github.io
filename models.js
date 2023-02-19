@@ -37,7 +37,8 @@ const reviewSchema = new mongoose.Schema({
   blogId:String,
   userId:String,
   body:String,
-  score:Number
+  score:Number,
+  date:String
 })
 
 

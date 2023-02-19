@@ -54,12 +54,6 @@ app.get("/blog",(req,res)=>{
     })
 })
 
-app.get("/comment/:blogId",(req,res)=>{
-  const blog = req.params.blogId;
-  Comment.find({blogId:blog},(err,user)=>{
-    res.status(201).json({message:"all comments of blog",user:user});
-  })
-})
 
 app.post("/signup",function(req,res){
   User.register({username:req.body.username,email:req.body.email}, req.body.password,
@@ -93,40 +87,25 @@ app.post("/login",function(req,res){
 })
 
 app.post("/newBlog",(req,res)=>{
+  const {userId, title, body, views, status} = req.body;
   const blog = new Blog({
-    userId: req.body.userId,
-    title: req.body.title,
-    body: req.body.body,
-    views:req.body.views,
-    status:req.body.status,
-    date:date
-  });
-  blog.save((err,response)=>{
+    userId, title, body, views, status, date
+  })
+  blog.save((err,blog)=>{
     const like = new Like({
-      blogId : response._id,
+      blogId : blog._id,
       likes: {"1":"sample"}
     })
     like.save(()=>{
-      User.find({_id:req.body.userId},(err,user)=>{
+      User.findOne({_id:req.body.userId},(err,user)=>{
         if (err) throw err;
-        res.status(201).json({message:"blog saved",user:user[0],blog:response, like});
+        res.status(201).json({message:"blog saved", user, blog, like});
       });
     })
   });
 });
 
-app.post("/newComment",(req,res)=>{
-  const comment = new Comment({
-    userId:req.body.userId,
-    blogId:req.body.blogId,
-    body:req.body.body,
-    status:req.body.status,
-    date:date
-  });
-  comment.save(()=>{
-    res.status(201).json({message:"comment is saved",detail:comment})
-  });
-});
+
 
 app.post("/updateBlog",(req,res)=>{
   let {id, title, body} = req.body;
@@ -173,6 +152,23 @@ app.post("/updateBlog",(req,res)=>{
     })
   })
 
+  app.get("/comment/:blogId",(req,res)=>{
+    const blog = req.params.blogId;
+    Comment.find({blogId:blog},(err,user)=>{
+      res.status(201).json({message:"all comments of blog",user:user});
+    })
+  })
+  
+  app.post("/newComment",(req,res)=>{
+    const {userId, blogId, body, status} = req.body;
+    const comment = new Comment(
+      { userId, blogId, body, status, date }
+      )
+    comment.save(()=>{
+      res.status(201).json({message:"comment is saved",detail:comment})
+    });
+  });
+
   app.get("/review/:blogId",(req,res)=>{
     const blogId = req.params.blogId;
     Review.find({blogId},(err,review)=>{
@@ -181,12 +177,10 @@ app.post("/updateBlog",(req,res)=>{
   })
 
   app.post("/newReview",(req,res)=>{
-    const review = new Review({
-      blogId: req.body.blogId,
-      userId:req.body.userId,
-      body:req.body.body,
-      score:req.body.score
-    }) 
+    const {userId, blogId, body, score} = req.body;
+    const review = new Review(
+      { userId, blogId, body, score, date }
+      ) 
     review.save();
     res.json({message:"review is saved",review})
   })
