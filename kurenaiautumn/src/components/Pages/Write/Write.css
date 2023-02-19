@@ -2,6 +2,7 @@
     padding-top: 50px;
     max-width: 75%;
     margin: auto;
+    z-index: 0;
   }
   
   .writeImg {
@@ -13,6 +14,7 @@
   
   .writeForm {
     position: relative;
+    z-index: -100;
   }
   
   .writeFormGroup {
@@ -75,11 +77,11 @@
     font-size: 15px;
   }
 
-  /* .writer-details{
+  .writer-details{
     position: absolute;
     top: 20px;
     right: 50px;
-  } */
+  }
 
 
   .writeSubmit {

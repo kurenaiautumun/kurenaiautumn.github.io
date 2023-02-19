@@ -83,7 +83,7 @@ const Write = () => {
             body: {
               details: content,
               category_name: "",
-              image_url: imgData.data.url,
+              // image_url: imgData.data.url,
               date: "",
               author: {
                 name: data.WriterName,
@@ -91,11 +91,18 @@ const Write = () => {
             },
             views: "",
             status: ""
-          };
+          }
+          console.log(blog)
+
+          // const blog ={
+          //     userId:"",
+          //     body:content,
+          //     views:"",
+          //     status:""
+          // }
 
           // Save blog information to the database
-
-          fetch("http://100.25.166.88:8080/newblog", {
+fetch("https://kurenaiautumn-server.vercel.app/blogs", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -109,100 +116,95 @@ const Write = () => {
               }
             })
             .catch((err) => console.error(err));
-        }
-      });
+        
   };
+});
 
-  return (
-    <div className="write">
-      <img
-        className="writeImg"
-        src="https://images.unsplash.com/photo-1575721697801-937774cc44ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-        alt=""
-      />
-      <form onSubmit={handleSubmit(handleWriteBlog)} className="writeForm">
-        <div className="flex justify-between">
-          <section>
-            <input
-              {...register("WriterName", { required: "Enter writer name" })}
-              placeholder="Writer"
-              name="WriterName"
-              type="text"
-              className="writer-details"
-              autoFocus={true}
-            />
-            {errors.WriterName && (
-              <span className="text-red-500">{errors.WriterName.message}</span>
-            )}
+  
+};
 
-            <input
-              {...register("category")}
-              className="category"
-              placeholder="Category"
-              name="category"
-              type="text"
-              autoFocus={true}
-            />
-            {errors.category && (
-              <span className="text-red-500">{errors.category.message}</span>
-            )}
-          </section>
-
-          {
-            <button
-              onClick={saving}
-              className="writeSubmit all-btn"
-              type="submit"
-            >
-              Publish
-            </button>
-          }
-        </div>
-
-        <div className="writeFormGroup">
-          <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus"></i>
-          </label>
+return (
+  <div className="write">
+    <img
+      className="writeImg"
+      src="https://images.unsplash.com/photo-1575721697801-937774cc44ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      alt=""
+    />
+    <form onSubmit={handleSubmit(handleWriteBlog)} className="writeForm">
+      <div className="flex justify-between">
+        <section>
           <input
-            {...register("image")}
-            id="fileInput"
-            name="image"
-            type="file"
-            style={{ display: "none" }}
+            {...register("WriterName", { required: "Enter writer name" })}
+            placeholder="Writer"
+            name="WriterName"
+            type="text"
+            className="writer-details"
+            autoFocus={true}
           />
-          {errors.image && (
-            <span className="text-red-500">{errors.image.message}</span>
+          {errors.WriterName && (
+            <span className="text-red-500">{errors.WriterName.message}</span>
           )}
 
           <input
-            {...register("title", { required: "Enter title" })}
-            id="title"
-            className="writeInput"
-            placeholder="Title"
-            name="title"
+            {...register("category")}
+            className="category"
+            placeholder="Category"
+            name="category"
             type="text"
             autoFocus={true}
           />
-          {errors.title && (
-            <span className="text-red-500">{errors.title.message}</span>
+          {errors.category && (
+            <span className="text-red-500">{errors.category.message}</span>
           )}
-        </div>
+        </section>
 
-        <div className="text-area">
-          <pre id="output"></pre>
-<<<<<<< HEAD
-          <div id="editorjs" value={content}></div>
-        </div>
-      </form>
-=======
-          <div class ="content">
-            <div id="editorjs" value={content}></div>
-          </div>
+        {
+          <button
+            onClick={saving}
+            className="writeSubmit all-btn"
+            type="submit"
+          >
+            Publish
+          </button>
+        }
+      </div>
+
+      <div className="writeFormGroup">
+        {/* <label htmlFor="fileInput">
+          <i className="writeIcon fas fa-plus"></i>
+        </label> */}
+        <input
+          {...register("image")}
+          id="fileInput"
+          name="image"
+          type="file"
+          style={{ display: "none" }}
+        />
+        {errors.image && (
+          <span className="text-red-500">{errors.image.message}</span>
+        )}
+
+        <input
+          {...register("title", { required: "Enter title" })}
+          id="title"
+          className="writeInput"
+          placeholder="Title"
+          name="title"
+          type="text"
+          autoFocus={true}
+        />
+        {errors.title && (
+          <span className="text-red-500">{errors.title.message}</span>
+        )}
+      </div>
+
+      <div className="text-area">
+        <pre id="output"></pre>
+        <div id="editorjs" value={content}></div>
       </div>
     </form>
->>>>>>> 06a873d8124a90f40a3979945f5151b5e23f4a6d
-    </div>
-  );
-};
+  </div>
+);
+}
 
 export default Write;

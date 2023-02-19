@@ -9,7 +9,6 @@ const Home = () => {
   useTitle("Profile")
     const {
         data: blogs = [],
-        isLoading,
       } = useQuery({
         queryKey: ["blogs"],
         queryFn: async () => {
