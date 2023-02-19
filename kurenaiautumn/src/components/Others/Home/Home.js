@@ -1,12 +1,10 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import useTitle from '../../hooks/useTItle';
 import user from '../../img/user.png';
 import SavedBlog from '../SavedBlog/SavedBlog';
 import './Home.css';
 
 const Home = () => {
-  useTitle("Profile")
     const {
         data: blogs = [],
       } = useQuery({
@@ -14,11 +12,9 @@ const Home = () => {
         queryFn: async () => {
           const result = await fetch("https://kurenaiautumn-server.vercel.app/blogs");
           const data = await result.json();
-          console.log("data",data)
           return data;
         },
       });
-      console.log(blogs)
       
     
     return (
