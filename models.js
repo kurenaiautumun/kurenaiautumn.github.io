@@ -5,7 +5,9 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const  userSchema = new mongoose.Schema({
     username:String,
     email:String,
-    password: String
+    password: String,
+    followers:Array,
+    following:Array
   });
 userSchema.plugin(passportLocalMongoose);
 
@@ -41,6 +43,12 @@ const reviewSchema = new mongoose.Schema({
   date:String
 })
 
+const followSchema = new mongoose.Schema({
+  userId:String,
+  followers:Array,
+  following:Array
+})
+
 
 const corsOptions = {
     origin:'*', 
@@ -70,39 +78,8 @@ const corsOptions = {
   const Comment = new mongoose.model("comment",commentSchema);
   const Like = new mongoose.model("like", likeSchema);
   const Review = new mongoose.model("review", reviewSchema);
+  const Follow = new mongoose.model("follow", followSchema);
   
   module.exports = {
-    User, Blog, Comment, Like, corsOptions, Review, toggle
+    User, Blog, Comment, Like, corsOptions, Review, Follow, toggle
   }
-  
-  
-  
-
-
-
-
-
-
-
-
-
-
-
-
-    // const likeSchema = new mongoose.Schema({
-    //   userId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "User"
-    //   },
-    //   blogId: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     required: true,
-    //     ref: "Blog"
-    //   },
-    //   like: {
-    //     type: Boolean,
-    //     required: true,
-    //     default: true
-    //   }
-    // });

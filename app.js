@@ -1,4 +1,3 @@
-//jshint esversion:6
 require('dotenv').config();
 const express = require("express");
 const app = express();
@@ -7,7 +6,7 @@ const ejs = require("ejs");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
-const { User, Blog, Comment, Like, corsOptions, Review, toggle } = require('./models.js');
+const { User, Blog, Comment, Like, corsOptions, Review, Follow, toggle } = require('./models.js');
 const date = new Date().toLocaleDateString();
 
 app.use(cors(corsOptions))
@@ -178,11 +177,29 @@ app.post("/updateBlog",(req,res)=>{
 
   app.post("/newReview",(req,res)=>{
     const {userId, blogId, body, score} = req.body;
-    const review = new Review(
-      { userId, blogId, body, score, date }
-      ) 
+    const review = new Review({ 
+      userId, blogId, body, score, date 
+    })
     review.save();
     res.json({message:"review is saved",review})
+  })
+
+  app.get("/follow/:userId",(req,res)=>{
+    const _id = req.params.userId;
+    User.findOne({_id},(err,user)=>{
+      res.json({user:user.username, followers:user.followers, following:user.following})
+    })
+  })
+
+  app.post("/follow/:userId",(req,res)=>{
+    const _id = req.params.userId;
+    const {followers, following} = req.body;
+    User.updateOne({_id}, 
+      {$push:{followers,following}}, function (err, docs) {
+        if (!err){
+          res.status(201).json({message:"update succesfully",docs:docs})
+        }
+      });
   })
   
   
