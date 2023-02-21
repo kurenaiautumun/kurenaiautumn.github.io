@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 const Blog = ({blog, handleSaveButton, handleUnsaveButton}) => {
     // useTitle("Home")
     const {_id,title,author,image_url, isSaved, details}=blog;
+    
     // const {_id,title,details,author,image_url, isSaved}=blog;
  
     return (
