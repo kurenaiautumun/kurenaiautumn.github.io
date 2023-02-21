@@ -2,18 +2,20 @@ import React, { useState } from "react";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useTitle from "../hooks/useTItle";
 
 const Signin = () => {
   const [error,setError]=useState('');
 
 
-  // useTitle("Login")
+  useTitle("Signin")
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
   const handleLogin = (data) => {
+    console.log(data)
     fetch("http://100.25.166.88:8080/login", {
         method: "POST",
         headers: {
@@ -48,7 +50,7 @@ const Signin = () => {
           </div>
           <div className="form-control w-full px-4 mt-4">
             <input
-              {...register("email", { required: "Enter your email" })}
+              {...register("username", { required: "Enter your email" })}
               type="text"
               placeholder="Email"
               className="user-input rounded-md w-full my-2"

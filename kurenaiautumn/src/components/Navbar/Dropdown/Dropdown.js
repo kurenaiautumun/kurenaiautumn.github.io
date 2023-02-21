@@ -7,9 +7,11 @@ import help from "../../img/question.png";
 import logout from "../../img/log-out.png";
 import './Dropdown.css'
 import { Link } from "react-router-dom";
+import useTitle from "../../hooks/useTItle";
 
 const Dropdown = () => {
     const [open, setOpen] = useState(false);
+    useTitle("Profile")
 
   let menuRef = useRef();
 

@@ -5,6 +5,7 @@ import SavedBlog from '../SavedBlog/SavedBlog';
 import './Home.css';
 
 const Home = () => {
+ 
     const {
         data: blogs = [],
       } = useQuery({

@@ -7,7 +7,7 @@ import './Signup.css'
 
 const Signup = () => {
   const [error,setError]=useState('');
-  const name= "three"
+  
 
   useTitle("Signup")
     const {
