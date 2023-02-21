@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
-var cors = require('cors');
+const cors = require('cors');
 const ejs = require("ejs");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
-const { User, Blog, Comment, Like, corsOptions, Review, Follow, toggle } = require('./models.js');
+const { User, Blog, Comment, Like, corsOptions, Review, toggle } = require('./models.js');
 const date = new Date().toLocaleDateString();
 
 app.use(cors(corsOptions))
@@ -35,8 +35,8 @@ app.get("/dashboard/:userId",(req,res)=>{
   const userId = req.params.userId
   if(req.isAuthenticated()){
     User.find({_id:userId},(err,user)=>{
-      Blog.find({userId:userId},(err,blogs)=>{
-        Comment.find({userId:userId},(err,comments)=>{
+      Blog.find({userId},(err,blogs)=>{
+        Comment.find({userId},(err,comments)=>{
           res.status(201).json({message:"dashboard",user,blogs,comments})
         })
       })
@@ -47,8 +47,8 @@ app.get("/dashboard/:userId",(req,res)=>{
 });
 
 app.get("/blog",(req,res)=>{
-  const blogId = req.query.blogId;
-    Blog.find({_id:blogId},(err,user)=>{
+  const _id = req.query.blogId;
+    Blog.find({_id},(err,user)=>{
       res.status(201).json(user)
     })
 })
@@ -61,7 +61,7 @@ app.post("/signup",function(req,res){
       res.status(201).json({err:err});
     }else{
       passport.authenticate("local")(req,res,function(){
-        res.status(201).json({message:"user signup successfully",user:user});
+        res.status(201).json({message:"user signup successfully", user});
       })
     }
   })
@@ -75,8 +75,8 @@ app.post("/login",function(req,res){
    req.login(user, function(err){
     if(!err){
         passport.authenticate("local")(req,res,function(){
-          User.find({username:user.username},(err,user)=>{
-            res.status(201).json({message:"user login successfully",user:user[0]});
+          User.findOne({username:user.username},(err,user)=>{
+            res.status(201).json({message:"user login successfully",user});
           })
         })
     }else{
@@ -96,7 +96,7 @@ app.post("/newBlog",(req,res)=>{
       likes: {"1":"sample"}
     })
     like.save(()=>{
-      User.findOne({_id:req.body.userId},(err,user)=>{
+      User.findOne({_id:userId},(err,user)=>{
         if (err) throw err;
         res.status(201).json({message:"blog saved", user, blog, like});
       });
@@ -109,9 +109,9 @@ app.post("/newBlog",(req,res)=>{
 app.post("/updateBlog",(req,res)=>{
   let {id, title, body} = req.body;
   Blog.updateOne({_id:id}, 
-    {body:body,title:title}, function (err, docs) {
+    {body,title}, function (err, docs) {
       if (!err){
-        res.status(201).json({message:"update succesfully",docs:docs})
+        res.status(201).json({message:"update succesfully",docs})
       }
     });
   });
@@ -119,7 +119,7 @@ app.post("/updateBlog",(req,res)=>{
   app.post("/deleteBlog/:id",(req,res)=>{
     const payload = req.params.id;
     Blog.deleteOne({_id:payload},(err,blog)=>{
-      res.status(201).json({message:"blog deleted succesfully",blog:blog})
+      res.status(201).json({message:"blog deleted succesfully",blog})
     })
   });
 
@@ -152,9 +152,9 @@ app.post("/updateBlog",(req,res)=>{
   })
 
   app.get("/comment/:blogId",(req,res)=>{
-    const blog = req.params.blogId;
-    Comment.find({blogId:blog},(err,user)=>{
-      res.status(201).json({message:"all comments of blog",user:user});
+    const blogId = req.params.blogId;
+    Comment.find({blogId},(err,user)=>{
+      res.status(201).json({message:"all comments of blog", user});
     })
   })
   
@@ -164,14 +164,14 @@ app.post("/updateBlog",(req,res)=>{
       { userId, blogId, body, status, date }
       )
     comment.save(()=>{
-      res.status(201).json({message:"comment is saved",detail:comment})
+      res.status(201).json({message:"comment is saved", comment})
     });
   });
 
   app.get("/review/:blogId",(req,res)=>{
     const blogId = req.params.blogId;
     Review.find({blogId},(err,review)=>{
-      res.json({message:"review details",blogId, review})
+      res.status(201).json({message:"review details",blogId, review})
     })
   })
 
@@ -181,13 +181,14 @@ app.post("/updateBlog",(req,res)=>{
       userId, blogId, body, score, date 
     })
     review.save();
-    res.json({message:"review is saved",review})
+    res.status(201).json({message:"review is saved",review})
   })
 
   app.get("/follow/:userId",(req,res)=>{
     const _id = req.params.userId;
     User.findOne({_id},(err,user)=>{
-      res.json({user:user.username, followers:user.followers, following:user.following})
+      const {followers , username, following} = user;
+      res.status(201).json({message:"followers details",username, followers, following})
     })
   })
 
@@ -197,7 +198,7 @@ app.post("/updateBlog",(req,res)=>{
     User.updateOne({_id}, 
       {$push:{followers,following}}, function (err, docs) {
         if (!err){
-          res.status(201).json({message:"update succesfully",docs:docs})
+          res.status(201).json({message:"update succesfully",docs})
         }
       });
   })
@@ -205,8 +206,8 @@ app.post("/updateBlog",(req,res)=>{
   
   //tests start
   app.get("/blog/:blogTitle",(req,res)=>{
-    const blogTitle = req.params.blogTitle;
-    Blog.find({title:blogTitle},(err,user)=>{
+    const title = req.params.blogTitle;
+    Blog.find({title},(err,user)=>{
       res.status(201).json(user)
     })
   })

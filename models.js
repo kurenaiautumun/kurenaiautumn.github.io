@@ -43,13 +43,6 @@ const reviewSchema = new mongoose.Schema({
   date:String
 })
 
-const followSchema = new mongoose.Schema({
-  userId:String,
-  followers:Array,
-  following:Array
-})
-
-
 const corsOptions = {
     origin:'*', 
     credentials:true, 
@@ -78,8 +71,7 @@ const corsOptions = {
   const Comment = new mongoose.model("comment",commentSchema);
   const Like = new mongoose.model("like", likeSchema);
   const Review = new mongoose.model("review", reviewSchema);
-  const Follow = new mongoose.model("follow", followSchema);
   
   module.exports = {
-    User, Blog, Comment, Like, corsOptions, Review, Follow, toggle
+    User, Blog, Comment, Like, corsOptions, Review, toggle
   }
