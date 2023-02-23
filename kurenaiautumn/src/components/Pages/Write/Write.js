@@ -190,17 +190,9 @@ const Write = () => {
 
         <div className="text-area">
           <pre id="output"></pre>
-<<<<<<< HEAD
           <div id="editorjs" value={content}></div>
         </div>
       </form>
-=======
-          <div class ="content">
-            <div id="editorjs" value={content}></div>
-          </div>
-      </div>
-    </form>
->>>>>>> 06a873d8124a90f40a3979945f5151b5e23f4a6d
     </div>
   );
 };
