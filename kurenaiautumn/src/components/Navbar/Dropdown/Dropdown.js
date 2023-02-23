@@ -7,9 +7,11 @@ import help from "../../img/question.png";
 import logout from "../../img/log-out.png";
 import './Dropdown.css'
 import { Link } from "react-router-dom";
+import useTitle from "../../hooks/useTItle";
 
 const Dropdown = () => {
     const [open, setOpen] = useState(false);
+    useTitle("Profile")
 
   let menuRef = useRef();
 
@@ -17,7 +19,7 @@ const Dropdown = () => {
     let handler = (e)=>{
       if(!menuRef.current.contains(e.target)){
         setOpen(false);
-        console.log(menuRef.current);
+        // console.log(menuRef.current);
       }      
     };
 
@@ -54,7 +56,7 @@ function DropdownItem(props) {
     return (
       <li className="dropdownItem">
         <img src={props.img} alt=""></img>
-        <a > {props.text} </a>
+        <a> {props.text} </a>
       </li>
     );
   }

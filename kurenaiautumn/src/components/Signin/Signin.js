@@ -1,15 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import useTitle from "../hooks/useTItle";
+import { toast } from "react-hot-toast";
 
 const Signin = () => {
+  
+  useTitle("Signin")
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const handleLogin = (data) => console.log(data);
+  const handleLogin = (data) => {
+    console.log(data)
+    fetch("http://100.25.166.88:8080/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data)
+          console.log(data.user._id);
+          if(data.user._id !== null){
+            toast.success(data.message)
+          }
+        })
+        .catch((err) => {
+      console.error(err);
+      if(err){
+        toast.error("Wrong Username or Password")
+      }
+  });
+  };
+
+
 
   return (
     <div className="inner-div">
@@ -26,13 +55,13 @@ const Signin = () => {
           </div>
           <div className="form-control w-full px-4 mt-4">
             <input
-              {...register("email", { required: "Enter your email" })}
+              {...register("username", { required: "Enter your Username" })}
               type="text"
-              placeholder="Email"
+              placeholder="Username"
               className="user-input rounded-md w-full my-2"
             />
-            {errors.email && (
-              <span className="text-red-500 text-xs">{errors.email.message}</span>
+            {errors.username && (
+              <span className="text-red-500 text-xs">{errors.username.message}</span>
             )}
             <input
               {...register("password", { required: "Wrong password" })}
@@ -47,7 +76,7 @@ const Signin = () => {
           <input
             type="submit"
             value="SIGN IN"
-            className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
+            className="all-btn signin-button rounded text-white text-xs font-semibold py-2.5 px-36 my-5 mx-4 lg:mx-6"
           />
         </form>
         <div className="create-account mt-6">

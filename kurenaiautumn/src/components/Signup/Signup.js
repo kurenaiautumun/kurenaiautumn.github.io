@@ -1,23 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import useTitle from '../hooks/useTItle';
 import './Signup.css'
 
 
 const Signup = () => {
+  const [error,setError]=useState('');
+  
+
+  useTitle("Signup")
     const {
         register,
         formState: { errors },
         handleSubmit,
       } = useForm();
-      const handleSignup = (data) => console.log(data);
+      const handleSignup = (data) =>{
+        
+      fetch("http://100.25.166.88:8080/signup", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data.user._id);
+          if(data.user._id !== null){
+            toast.success(data.message)
+          }
+        })
+        .catch((error) => {
+          if(error){
+            toast.error("Signup failed")
+          }
+  });
+      }
 
-
+console.log(error)
     return (
       
       <div className='inner-div'>
       <div className="justify-center">
-      <form className="form-div rounded-md" onSubmit={handleSubmit(handleSignup)}>
+      <form className="signup-div rounded-md" onSubmit={handleSubmit(handleSignup)}>
         
         <div className="header flex justify-between py-3">
           <p className="text-fuchsia-700 text-xs font-semibold ml-4">NOT A MEMBER !</p>
@@ -25,17 +52,17 @@ const Signup = () => {
         </div>
         <div className="form-control w-full px-6 mt-4">
         <input
-            {...register("name", { required: "Enter your name" })}
+            {...register("username", { required: "Enter your username" })}
             type="text"
-            placeholder="Name"
+            placeholder="username"
             className="user-input rounded-md w-full my-2"
           />
-          {errors.name && (
-            <span className="text-red-500 text-xs">{errors.name.message}</span>
+          {errors.username && (
+            <span className="text-red-500 text-xs">{errors.username.message}</span>
           )}
           <input
             {...register("email", { required: "Enter your email" })}
-            type="text"
+            type="email"
             placeholder="Email"
             className="user-input rounded-md w-full my-2"
           />
@@ -57,7 +84,7 @@ const Signup = () => {
           value="SIGN UP"
           className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
         />      
-        
+        <p className="text-danger">{error}</p>
       </form>
       <div className="create-account mt-6">
     <p className="text-fuchsia-600 text-xs font-semibold">Already have an account?</p>
