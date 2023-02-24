@@ -8,7 +8,6 @@ import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
 import Signup from "../Signup/Signup";
 import Write from "../Pages/Write/Write";
-import Dashboard from "../Dashboard/dashboard";
 
 
 export const router=createBrowserRouter([
@@ -51,10 +50,6 @@ export const router=createBrowserRouter([
                         element: <About></About>
                     }
                 ]
-            },
-            {
-                path: "/dashboard",
-                element:<Dashboard />
             }
         ]
     }
