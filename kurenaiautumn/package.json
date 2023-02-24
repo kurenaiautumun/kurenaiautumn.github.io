@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
+    "@editorjs/image": "^2.8.1",
     "@editorjs/quote": "^2.5.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.21",

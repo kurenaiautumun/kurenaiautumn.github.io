@@ -3,13 +3,6 @@ import Main from "../Layout/Main";
 import About from "../Others/About/About";
 import Home from "../Others/Home/Home";
 import Profile from "../Others/Profile/Profile";
-<<<<<<< HEAD
-import EditProfile from "../Others/EditProfile/EditProfile/EditProfile";
-import Account from "../Others/EditProfile/Account/Account";
-//import BlogEdit from "../Blog/BlogEdit/BlogEdit";
-
-=======
->>>>>>> d9d4dee3f2448a6a0dbba6b47923a05a6dfa4a69
 import Blogs from "../Blogs/Blogs/Blogs";
 import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
