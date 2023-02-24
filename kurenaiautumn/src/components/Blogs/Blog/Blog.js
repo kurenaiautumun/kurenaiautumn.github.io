@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Blog.css';
 import parse from 'html-react-parser';
-import useTitle from '../../hooks/useTItle';
 
 const Blog = ({blog, handleSaveButton, handleUnsaveButton}) => {
-    useTitle("Home")
-    const {_id,title,details,author,image_url, isSaved}=blog;
+    // useTitle("Home")
+    const {_id,title,author,image_url, isSaved, details}=blog;
+    
+    // const {_id,title,details,author,image_url, isSaved}=blog;
  
     return (
         <div className='flex mb-20'>

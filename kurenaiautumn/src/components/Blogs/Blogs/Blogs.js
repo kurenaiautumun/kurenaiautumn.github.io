@@ -1,10 +1,14 @@
 import React from "react";
 import { toast } from "react-hot-toast";
 import { useQuery } from "react-query";
+import useTitle from "../../hooks/useTItle";
 import Blog from "../Blog/Blog";
 import "./Blogs.css";
 
 const Blogs = () => {
+  useTitle("Home");
+
+
   const {
     data: blogs = [],
     isLoading,

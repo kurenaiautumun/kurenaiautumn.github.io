@@ -4,27 +4,29 @@ import EditorJS from "@editorjs/editorjs";
 import List from "@editorjs/list";
 import "./Write.css";
 import Header from "@editorjs/header";
-import Quote from "@editorjs/quote";
 import useTitle from "../../hooks/useTItle";
+// import Quote from "@editorjs/quote";
 
 const Write = () => {
-  useTitle('Write Blog')
+  // const Header = require('@editorjs/header');
+  // Editor code
   const [array, setArray] = useState([]);
+  useTitle("Write");
+
+  let editor = { isReady: false };
 
   function saving() {
     const output = document.getElementById("output");
     editor.save().then((savedData) => {
       output.innerHTML = JSON.stringify(savedData, null, 4);
       console.log(savedData);
-      // savedData?.blocks?.map((a) => console.log(a?.data?.text));
+      savedData?.blocks?.map((a) => console.log(a?.data?.text));
       setArray(savedData?.blocks?.map((a) => a?.data?.text));
     });
   }
 
   let content = array.join("</br></br>");
   console.log(content);
-
-  let editor = { isReady: false };
 
   useEffect(() => {
     //
@@ -33,10 +35,10 @@ const Write = () => {
         autofocus: true,
         holder: "editorjs",
         tools: {
-          header: {
-            class: Header,
-            shortcut: "CMD+SHIFT+H",
-          },
+          // header: {
+          //   class: Header,
+          //   shortcut: "CMD+SHIFT+H",
+          // },
           list: {
             class: List,
             inlineToolbar: true,
@@ -44,14 +46,14 @@ const Write = () => {
               defaultStyle: "unordered",
             },
           },
-          quote: {
-            class: Quote,
-            inlineToolbar: true,
-            config: {
-              quotePlaceholder: "Enter a quote",
-              captionPlaceholder: "Quote's author",
-            },
-          },
+          //   quote: {
+          //     class: Quote,
+          //     inlineToolbar: true,
+          //     config: {
+          //       quotePlaceholder: 'Enter a quote',
+          //       captionPlaceholder: 'Quote\'s author'
+          //     }
+          //   },
         },
       });
     }
@@ -63,54 +65,43 @@ const Write = () => {
     handleSubmit,
   } = useForm();
 
-  const imageHostKey = process.env.REACT_APP_imgbb_key;
-
   const handleWriteBlog = (data) => {
-    const image = data.image[0];
-    const formData = new FormData();
-    formData.append("image", image);
-    const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`;
-    fetch(url, {
+    // const blog = {
+    //   title: data.title,
+    //   category_name: "",
+    //   details: content,
+    //   views: "",
+    //   status: "",
+    //   date: "",
+    //   author: {
+    //     name: data.WriterName,
+    //   },
+    // };
+
+    const blog = {
+      userId: "",
+      title: data.title,
+      body: content,
+      views: "",
+      status: "",
+    };
+
+    // Save blog information to the database
+
+    fetch("http://100.25.166.88:8080/newBlog", {
       method: "POST",
-      body: formData,
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(blog),
     })
       .then((res) => res.json())
-      .then((imgData) => {
-        if (imgData.success) {
-          const blog = {
-            userId: "",
-            title: data.title,
-            body: {
-              details: content,
-              category_name: "",
-              image_url: imgData.data.url,
-              date: "",
-              author: {
-                name: data.WriterName,
-              },
-            },
-            views: "",
-            status: ""
-          };
-
-          // Save blog information to the database
-
-          fetch("http://100.25.166.88:8080/newblog", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(blog),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              if (data.acknowledged) {
-                alert("Blog added successfully");
-              }
-            })
-            .catch((err) => console.error(err));
+      .then((data) => {
+        if (data.acknowledged) {
+          alert("Blog added successfully");
         }
-      });
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -122,30 +113,39 @@ const Write = () => {
       />
       <form onSubmit={handleSubmit(handleWriteBlog)} className="writeForm">
         <div className="flex justify-between">
-          <section>
-            <input
-              {...register("WriterName", { required: "Enter writer name" })}
-              placeholder="Writer"
-              name="WriterName"
-              type="text"
-              className="writer-details"
-              autoFocus={true}
-            />
-            {errors.WriterName && (
-              <span className="text-red-500">{errors.WriterName.message}</span>
-            )}
+          <section className="flex">
+            <div>
+              <input
+                {...register("WriterName", { required: "Enter writer name" })}
+                placeholder="Writer"
+                name="WriterName"
+                type="text"
+                className="writer-details"
+                autoFocus={true}
+              />
+              <br />
+              {errors.WriterName && (
+                <span className="text-red-500 text-xs">
+                  {errors.WriterName.message}
+                </span>
+              )}
+            </div>
 
-            <input
-              {...register("category")}
-              className="category"
-              placeholder="Category"
-              name="category"
-              type="text"
-              autoFocus={true}
-            />
-            {errors.category && (
-              <span className="text-red-500">{errors.category.message}</span>
-            )}
+            <div>
+              <input
+                {...register("category")}
+                className="category"
+                placeholder="Category"
+                name="category"
+                type="text"
+                autoFocus={true}
+              />
+              {errors.category && (
+                <span className="text-red-500 text-xs">
+                  {errors.category.message}
+                </span>
+              )}
+            </div>
           </section>
 
           {
@@ -160,20 +160,6 @@ const Write = () => {
         </div>
 
         <div className="writeFormGroup">
-          <label htmlFor="fileInput">
-            <i className="writeIcon fas fa-plus"></i>
-          </label>
-          <input
-            {...register("image")}
-            id="fileInput"
-            name="image"
-            type="file"
-            style={{ display: "none" }}
-          />
-          {errors.image && (
-            <span className="text-red-500">{errors.image.message}</span>
-          )}
-
           <input
             {...register("title", { required: "Enter title" })}
             id="title"
@@ -183,8 +169,9 @@ const Write = () => {
             type="text"
             autoFocus={true}
           />
+          <br />
           {errors.title && (
-            <span className="text-red-500">{errors.title.message}</span>
+            <span className="text-red-500 text-xs">{errors.title.message}</span>
           )}
         </div>
 

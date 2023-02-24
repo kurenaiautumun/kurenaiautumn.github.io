@@ -1,17 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useTitle from "../hooks/useTItle";
 
 const Signin = () => {
+  const [error,setError]=useState('');
+
+
   useTitle("Signin")
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const handleLogin = (data) => console.log(data);
+  const handleLogin = (data) => {
+    console.log(data)
+    fetch("http://100.25.166.88:8080/login", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+      console.error(err)
+    setError(err.message);
+  });
+  };
+
+  console.log(error)
 
   return (
     <div className="inner-div">
@@ -28,7 +50,7 @@ const Signin = () => {
           </div>
           <div className="form-control w-full px-4 mt-4">
             <input
-              {...register("email", { required: "Enter your email" })}
+              {...register("username", { required: "Enter your email" })}
               type="text"
               placeholder="Email"
               className="user-input rounded-md w-full my-2"
@@ -48,8 +70,8 @@ const Signin = () => {
           </div>
           <input
             type="submit"
-            value="SIGN IN"
-            className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
+            value="LOG IN"
+            className="all-btn signin-button rounded text-white text-xs font-semibold py-2.5 px-36 my-5 mx-4 lg:mx-6"
           />
         </form>
         <div className="create-account mt-6">
