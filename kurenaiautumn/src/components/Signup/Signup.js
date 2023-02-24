@@ -57,27 +57,27 @@ console.log(error)
             placeholder="username"
             className="user-input rounded-md w-full my-2"
           />
-          {errors.username && (
+          {/* {errors.username && (
             <span className="text-red-500 text-xs">{errors.username.message}</span>
-          )}
+          )} */}
           <input
             {...register("email", { required: "Enter your email" })}
             type="email"
             placeholder="Email"
             className="user-input rounded-md w-full my-2"
           />
-          {errors.email && (
+          {/* {errors.email && (
             <span className="text-red-500 text-xs">{errors.email.message}</span>
-          )}
+          )} */}
           <input
-            {...register("password", { required: "Wrong password" })}
+            {...register("password", { required: "Enter password" })}
             type="password"
             placeholder="password"
             className="user-input rounded-md w-full mt-2"
           />
-          {errors.password && (
-            <span className="text-red-500">{errors.password.message}</span>
-          )}
+          {/* {errors.password && (
+            <span className="text-red-500 text-xs">{errors.password.message}</span>
+          )} */}
         </div>
         <input
           type="submit"
