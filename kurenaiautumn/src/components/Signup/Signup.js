@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useTitle from '../hooks/useTItle';
 import './Signup.css'
@@ -27,15 +26,11 @@ const Signup = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data.user._id);
-          if(data.user._id !== null){
-            toast.success(data.message)
-          }
+          console.log(data);
         })
-        .catch((error) => {
-          if(error){
-            toast.error("Signup failed")
-          }
+        .catch((err) => {
+      console.error(err)
+    setError(err.message);
   });
       }
 
@@ -62,7 +57,7 @@ console.log(error)
           )} */}
           <input
             {...register("email", { required: "Enter your email" })}
-            type="email"
+            type="text"
             placeholder="Email"
             className="user-input rounded-md w-full my-2"
           />
