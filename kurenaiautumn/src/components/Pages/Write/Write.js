@@ -11,7 +11,7 @@ const Write = () => {
   // const Header = require('@editorjs/header');
   // Editor code
   const [array, setArray] = useState([]);
-  useTitle("Write")
+  useTitle("Write");
 
   let editor = { isReady: false };
 
@@ -28,8 +28,6 @@ const Write = () => {
   let content = array.join("</br></br>");
   console.log(content);
 
-  
-
   useEffect(() => {
     //
     if (!editor.isReady) {
@@ -37,10 +35,10 @@ const Write = () => {
         autofocus: true,
         holder: "editorjs",
         tools: {
-          header: {
-            class: Header,
-            shortcut: "CMD+SHIFT+H",
-          },
+          // header: {
+          //   class: Header,
+          //   shortcut: "CMD+SHIFT+H",
+          // },
           list: {
             class: List,
             inlineToolbar: true,
@@ -68,21 +66,29 @@ const Write = () => {
   } = useForm();
 
   const handleWriteBlog = (data) => {
+    // const blog = {
+    //   title: data.title,
+    //   category_name: "",
+    //   details: content,
+    //   views: "",
+    //   status: "",
+    //   date: "",
+    //   author: {
+    //     name: data.WriterName,
+    //   },
+    // };
+
     const blog = {
+      userId: "",
       title: data.title,
-      category_name: "",
-      details: content,
+      body: content,
       views: "",
       status: "",
-      date: "",
-      author: {
-        name: data.WriterName,
-      },
     };
 
     // Save blog information to the database
 
-    fetch("http://localhost:5000/blogs", {
+    fetch("http://100.25.166.88:8080/newBlog", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -135,7 +141,9 @@ const Write = () => {
                 autoFocus={true}
               />
               {errors.category && (
-                <span className="text-red-500 text-xs">{errors.category.message}</span>
+                <span className="text-red-500 text-xs">
+                  {errors.category.message}
+                </span>
               )}
             </div>
           </section>

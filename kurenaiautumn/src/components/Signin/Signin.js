@@ -3,10 +3,11 @@ import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useTitle from "../hooks/useTItle";
-import { toast } from "react-hot-toast";
 
 const Signin = () => {
-  
+  const [error,setError]=useState('');
+
+
   useTitle("Signin")
   const {
     register,
@@ -24,21 +25,15 @@ const Signin = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
-          console.log(data.user._id);
-          if(data.user._id !== null){
-            toast.success(data.message)
-          }
+          console.log(data);
         })
         .catch((err) => {
-      console.error(err);
-      if(err){
-        toast.error("Wrong Username or Password")
-      }
+      console.error(err)
+    setError(err.message);
   });
   };
 
-
+  console.log(error)
 
   return (
     <div className="inner-div">
@@ -55,13 +50,13 @@ const Signin = () => {
           </div>
           <div className="form-control w-full px-4 mt-4">
             <input
-              {...register("username", { required: "Enter your Username" })}
+              {...register("username", { required: "Enter your email" })}
               type="text"
-              placeholder="Username"
+              placeholder="Email"
               className="user-input rounded-md w-full my-2"
             />
-            {errors.username && (
-              <span className="text-red-500 text-xs">{errors.username.message}</span>
+            {errors.email && (
+              <span className="text-red-500 text-xs">{errors.email.message}</span>
             )}
             <input
               {...register("password", { required: "Wrong password" })}
@@ -75,7 +70,7 @@ const Signin = () => {
           </div>
           <input
             type="submit"
-            value="SIGN IN"
+            value="LOG IN"
             className="all-btn signin-button rounded text-white text-xs font-semibold py-2.5 px-36 my-5 mx-4 lg:mx-6"
           />
         </form>
