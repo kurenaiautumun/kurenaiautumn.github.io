@@ -187,6 +187,7 @@ app.post("/updateBlog",(req,res)=>{
   app.get("/follow/:userId",(req,res)=>{
     const _id = req.params.userId;
     User.findOne({_id},(err,user)=>{
+      if (err) throw err;
       const {followers , username, following} = user;
       res.status(201).json({message:"followers details",username, followers, following})
     })
