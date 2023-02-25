@@ -3,6 +3,8 @@ const express = require("express");
 const ejs = require("ejs");
 const mongoose = require('mongoose');
 const multer  = require('multer');
+const cors = require('cors');
+const corsOptions = require('./models.js');
 const { S3Client, PutObjectCommand, AbortMultipartUploadCommand } = require("@aws-sdk/client-s3"); 
 const uploads = multer({ dest: 'uploads/' })
 
@@ -14,11 +16,12 @@ const credentials = {
       secretAccessKey: process.env.SECRET_ACCESS_KEY
     }
   };
-  
   const s3 = new S3Client(credentials)
   
   
   const app = express();
+
+app.use(cors(corsOptions))
 app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.static("public"));
@@ -41,17 +44,22 @@ app.post("/image",upload.single('image'), async (req,res)=>{
 
     const params = {
         Bucket: process.env.BUCKET_NAME,
-        Key:req.file.originalname,
+        Key:'images/' + req.file.originalname,
         Body:req.file.buffer,
-        Contenttype:req.file.mimetype
+        Contenttype:req.file.mimetype,
+        ACL:'public-read'
     }
-    console.log(params)
 
     const command = new PutObjectCommand(params)
 
     await s3.send(command)
 
-    res.send({})
+    key = 'images/' + req.file.originalname
+
+    res.send({success:1,
+      file: {
+      url: "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/" + key,
+  }})
 })
 
 app.listen(process.env.PORT, function() {
