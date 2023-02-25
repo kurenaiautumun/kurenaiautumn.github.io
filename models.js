@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const passportLocalMongoose = require("passport-local-mongoose");
+const passport = require("passport");
 
 
 const  userSchema = new mongoose.Schema({
@@ -10,6 +11,7 @@ const  userSchema = new mongoose.Schema({
     following:Array
   });
 userSchema.plugin(passportLocalMongoose);
+
 
 const  blogSchema = new mongoose.Schema({
   title:String,
@@ -64,14 +66,19 @@ const corsOptions = {
       obj[newKey] = value;
     }
   }
-  
-  
+
+  const date = new Date().toLocaleDateString();
   const User = new mongoose.model("User",userSchema);
   const Blog = new mongoose.model("blog",blogSchema);
   const Comment = new mongoose.model("comment",commentSchema);
   const Like = new mongoose.model("like", likeSchema);
   const Review = new mongoose.model("review", reviewSchema);
+
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
   
   module.exports = {
-    User, Blog, Comment, Like, corsOptions, Review, toggle
+    date, User, Blog, Comment, Like, corsOptions, Review, toggle
   }
