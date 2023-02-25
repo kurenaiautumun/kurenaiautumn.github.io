@@ -5,11 +5,10 @@ import List from "@editorjs/list";
 import "./Write.css";
 import Header from "@editorjs/header";
 import useTitle from "../../hooks/useTItle";
+import ImageTool from '@editorjs/image';
 // import Quote from "@editorjs/quote";
 
 const Write = () => {
-  // const Header = require('@editorjs/header');
-  // Editor code
   const [array, setArray] = useState([]);
   useTitle("Write");
 
@@ -46,6 +45,15 @@ const Write = () => {
               defaultStyle: "unordered",
             },
           },
+          image: {
+            class: ImageTool,
+            config: {
+              endpoints: {
+                byFile: 'http://127.0.0.1:3000/image', // Your backend file uploader endpoint
+                byUrl: 'http://127.0.0.1:3000/image', // Your endpoint that provides uploading by Url
+              }
+            }
+          }
           //   quote: {
           //     class: Quote,
           //     inlineToolbar: true,
@@ -79,16 +87,18 @@ const Write = () => {
     // };
 
     const blog = {
-      userId: "",
+      userId: "63de7505c2944a7630ad9ae0",
       title: data.title,
       body: content,
       views: "",
       status: "",
     };
 
+    console.log(blog)
+
     // Save blog information to the database
 
-    fetch("http://100.25.166.88:8080/newBlog", {
+    fetch("http://100.25.166.88:8080/updateBlog", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -104,6 +114,10 @@ const Write = () => {
       .catch((err) => console.error(err));
   };
 
+  function prints(){
+    console.log('hello')
+  }
+
   return (
     <div className="write">
       <img
@@ -111,7 +125,13 @@ const Write = () => {
         src="https://images.unsplash.com/photo-1575721697801-937774cc44ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
         alt=""
       />
+      <button onClick={prints}>
+        Hello
+      </button>
       <form onSubmit={handleSubmit(handleWriteBlog)} className="writeForm">
+      <button onClick={prints}>
+        Hello
+      </button>
         <div className="flex justify-between">
           <section className="flex">
             <div>

@@ -8,7 +8,7 @@ import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
 import Signup from "../Signup/Signup";
 import Write from "../Pages/Write/Write";
-
+import Comments from "../Comments/comments";
 import Editor from "../TextEditor/TextEditor";
 
 
@@ -37,6 +37,10 @@ export const router=createBrowserRouter([
             {
                 path: '/write',
                 element:<Write></Write>
+            },
+            {
+                path: "/comments",
+                element:<Comments BlogId="63ef5ac2252b33ae5745b7b" />
             },
             {
                 path: '/profile',

@@ -2,7 +2,8 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import './Details.css';
 import parse from 'html-react-parser'
-
+import Comments from "../../Comments/comments";
+import Likes from "../../Likes/Likes";
 const Details = () => {
   const blogDetails= useLoaderData();
   const {title,image_url,details,author}=blogDetails;
@@ -27,6 +28,7 @@ const Details = () => {
       <p className="blog-details text-sm mb-16">
       {parse(details)}
       </p>
+    <Comments BlogId="63ef5ac2252b33ae5745b7b" />
     </div>
   );
 };
