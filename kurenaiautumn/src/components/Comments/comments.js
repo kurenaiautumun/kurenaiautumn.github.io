@@ -6,6 +6,7 @@ function Comments(BlogId){
     console.log("BlogID = ", BlogId["BlogId"])
     const [array, setArray] = useState([]);
     const [comment, setComment] = useState("");
+    let userid = document.getElementById('userid')
     useEffect(() => {
         //setArray({});
         //setComments({});
@@ -53,9 +54,9 @@ function Comments(BlogId){
         <div>
             <h2>Comments</h2>
             <input placeholder='add comment' onChange={updateInput} type="text"></input>
-            <button onClick={postComment("63edb20dbc6eeaedb267112a", BlogId)}>Post</button>
+            <button onClick={postComment(userid, BlogId)}>Post</button>
             {array.map((user) => (
-            <div>
+            <div id="comments">
                 <li>{user.userId}</li>
                 <li>{user.body}</li>
             </div>

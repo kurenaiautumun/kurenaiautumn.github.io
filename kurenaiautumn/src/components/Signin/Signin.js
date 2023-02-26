@@ -7,6 +7,11 @@ import useTitle from "../hooks/useTItle";
 const Signin = () => {
   const [error,setError]=useState('');
 
+  function setUser(id){
+    let div = document.getElementById('userid')
+    div.innerHTML = id
+  }
+
 
   useTitle("Signin")
   const {
@@ -26,6 +31,7 @@ const Signin = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          setUser(data.user._id)
         })
         .catch((err) => {
       console.error(err)
