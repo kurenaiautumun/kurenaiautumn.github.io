@@ -21,7 +21,7 @@ router.post("/image",upload.single('image'), async (req,res)=>{
   if(req.body.userId == undefined || req.body.blogId == undefined){
     res.json({message: "please provide a valid parameters"})
   }else{
-    const Key = (`images/${req.body.userId}${req.body.blogId}${req.file.originalname}`)
+    const Key = (`images/${req.body.userId}${req.body.blogId}/${req.file.originalname}`)
       const params = {
           Bucket: process.env.BUCKET_NAME,
           Key,
