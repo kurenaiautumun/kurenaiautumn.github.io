@@ -51,7 +51,11 @@ const Write = () => {
               endpoints: {
                 byFile: 'http://127.0.0.1:3000/image', // Your backend file uploader endpoint
                 byUrl: 'http://127.0.0.1:3000/image', // Your endpoint that provides uploading by Url
-              }
+              },
+              additionalRequestData: {
+                "userId": 'asdas',
+                "blogId": "12345"
+              },
             }
           }
           //   quote: {
