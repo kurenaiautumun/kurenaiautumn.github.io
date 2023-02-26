@@ -21,7 +21,7 @@ router.get("/like/:blogId/:userId",(req,res)=>{
   router.post("/like/:blogId/:userId",(req,res)=>{
     const { blogId, userId } = req.params;
     Like.findOne({blogId},(err,blog)=>{
-      toggle(blog.likes,userId)     
+      toggle(blog.likes,userId)
         Like.updateOne({blogId},{
           likes:blog.likes
         },(err,docs)=>{

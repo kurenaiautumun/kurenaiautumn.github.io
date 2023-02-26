@@ -18,24 +18,27 @@ const upload = multer({storage})
 
 
 router.post("/image",upload.single('image'), async (req,res)=>{
-  const Key = ("images/"+ req.body.userId + req.body.blogId + req.file.originalname)
-
-    const params = {
-        Bucket: process.env.BUCKET_NAME,
-        Key,
-        Body:req.file.buffer,
-        Contenttype:req.file.mimetype,
-        ACL:'public-read'
-    }
-
-    const command = new PutObjectCommand(params)
-
-    await s3.send(command)
-
-    res.status(201).json({success:1,
-      file: {
-      url: "https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/" + Key,
-  }})
+  if(req.body.userId == undefined || req.body.blogId == undefined){
+    res.json({message: "please provide a valid parameters"})
+  }else{
+    const Key = (`images/${req.body.userId}${req.body.blogId}${req.file.originalname}`)
+      const params = {
+          Bucket: process.env.BUCKET_NAME,
+          Key,
+          Body:req.file.buffer,
+          Contenttype:req.file.mimetype,
+          ACL:'public-read'
+      }
+  
+      const command = new PutObjectCommand(params)
+  
+      await s3.send(command)
+  
+      res.status(201).json({success:1,
+        file: {
+        url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,
+    }})
+  }
 })
 
 module.exports =router;

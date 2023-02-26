@@ -28,8 +28,6 @@ app.use(passport.session());
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGOLAB_URI,{useNewUrlParser: true});
 
-
-
 app.use("/",blogRoute)
 app.use("/",dashRoute)
 app.use("/",signupRoute)
@@ -42,9 +40,6 @@ app.use("/",reviewRoute)
 app.use("/",likeRoute)
 
 
-
-
-  
 app.listen(process.env.PORT, function() {
   console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
