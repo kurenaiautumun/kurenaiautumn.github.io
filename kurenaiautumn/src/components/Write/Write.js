@@ -3,61 +3,60 @@ import { useForm } from "react-hook-form";
 import EditorJS from "@editorjs/editorjs";
 import List from "@editorjs/list";
 import "./Write.css";
-import Header from "@editorjs/header";
-import useTitle from "../../hooks/useTItle";
-// import Quote from "@editorjs/quote";
+import useTitle from "../hooks/useTItle";
+import { toast } from "react-hot-toast";
+
 
 const Write = () => {
-  // const Header = require('@editorjs/header');
-  // Editor code
   const [array, setArray] = useState([]);
+  
+  console.log(window.location.href)
+ 
+
   useTitle("Write");
 
-  let editor = { isReady: false };
+  let userid=(document.getElementById('userid').innerText)
+  console.log(userid)
 
   function saving() {
     const output = document.getElementById("output");
     editor.save().then((savedData) => {
       output.innerHTML = JSON.stringify(savedData, null, 4);
-      console.log(savedData);
-      savedData?.blocks?.map((a) => console.log(a?.data?.text));
+      // console.log(savedData);
+      savedData?.blocks?.map((a) => a?.data?.items?.map(item => 
+        console.log(item)
+      ));
       setArray(savedData?.blocks?.map((a) => a?.data?.text));
+      // setArray(savedData?.blocks?.map((a) => a?.data?.text || a?.data?.items?.map(item => <li>{item}</li>)));
     });
   }
+
+  console.log(array)
 
   let content = array.join("</br></br>");
   console.log(content);
 
+  let editor = { isReady: false };
+
   useEffect(() => {
-    //
+    // setUserid(document.getElementById('userid').innerText)
+    // console.log(userid)
     if (!editor.isReady) {
       editor = new EditorJS({
         autofocus: true,
         holder: "editorjs",
         tools: {
-          // header: {
-          //   class: Header,
-          //   shortcut: "CMD+SHIFT+H",
-          // },
           list: {
             class: List,
             inlineToolbar: true,
             config: {
               defaultStyle: "unordered",
-            },
-          },
-          //   quote: {
-          //     class: Quote,
-          //     inlineToolbar: true,
-          //     config: {
-          //       quotePlaceholder: 'Enter a quote',
-          //       captionPlaceholder: 'Quote\'s author'
-          //     }
-          //   },
-        },
+            }
+          }
+        }
       });
     }
-  }, []);
+  }, [editor]);
 
   const {
     register,
@@ -79,7 +78,7 @@ const Write = () => {
     // };
 
     const blog = {
-      userId: "",
+      userId: userid ,
       title: data.title,
       body: content,
       views: "",
@@ -97,11 +96,15 @@ const Write = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.acknowledged) {
+        console.log(data.like.blogId)
+        if (data.like.blogId) {
           alert("Blog added successfully");
         }
       })
-      .catch((err) => console.error(err));
+      .catch((err) => {
+        console.error(err);
+        toast.error("Blog not published.Please login again")
+      });
   };
 
   return (
@@ -111,7 +114,7 @@ const Write = () => {
         src="https://images.unsplash.com/photo-1575721697801-937774cc44ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
         alt=""
       />
-      <form onSubmit={handleSubmit(handleWriteBlog)} className="writeForm">
+      <form onSubmit={handleSubmit(handleWriteBlog)} className="write-blog">
         <div className="flex justify-between">
           <section className="flex">
             <div>
@@ -177,7 +180,7 @@ const Write = () => {
 
         <div className="text-area">
           <pre id="output"></pre>
-          <div id="editorjs" value={content}></div>
+          <div className="details-blog" id="editorjs" ></div>
         </div>
       </form>
     </div>

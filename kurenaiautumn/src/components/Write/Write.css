@@ -12,11 +12,6 @@
   object-fit: cover;
 }
 
-.writeForm {
-  position: relative;
-  z-index: -100;
-}
-
 .writeFormGroup {
   display: flex;
   align-items: center;

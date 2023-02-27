@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useTitle from '../hooks/useTItle';
 import './Signup.css'
 
 
 const Signup = () => {
-  const [error,setError]=useState('');
-  
+ 
 
   useTitle("Signup")
     const {
         register,
-        formState: { errors },
         handleSubmit,
       } = useForm();
+
       const handleSignup = (data) =>{
         
       fetch("http://100.25.166.88:8080/signup", {
@@ -27,14 +27,20 @@ const Signup = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
+          console.log(data.user._id);
+          if(data.user._id !== null){
+            toast.success(data.message)
+          }
         })
         .catch((err) => {
-      console.error(err)
-    setError(err.message);
+          // console.log(err.message)
+          if(err){
+            toast.error("A user with the given username is already registered")
+          }
   });
       }
 
-console.log(error)
+
     return (
       
       <div className='inner-div'>
@@ -79,7 +85,7 @@ console.log(error)
           value="SIGN UP"
           className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
         />      
-        <p className="text-danger">{error}</p>
+        {/* <p className="text-danger">{error}</p> */}
       </form>
       <div className="create-account mt-6">
     <p className="text-fuchsia-600 text-xs font-semibold">Already have an account?</p>

@@ -6,8 +6,9 @@ import Profile from "../Others/Profile/Profile";
 import Blogs from "../Blogs/Blogs/Blogs";
 import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
+import Write from "../Write/Write";
 import Signup from "../Signup/Signup";
-import Write from "../Pages/Write/Write";
+import Dashboard from "../Others/Dashboard/Dashboard";
 
 
 export const router=createBrowserRouter([
@@ -50,6 +51,11 @@ export const router=createBrowserRouter([
                         element: <About></About>
                     }
                 ]
+            },
+            {
+                path: '/dashboard/:id',
+                element: <Dashboard></Dashboard>,
+                loader: ({params}) =>fetch(`http://100.25.166.88:8080/dashboard/${params.id}`)
             }
         ]
     }
