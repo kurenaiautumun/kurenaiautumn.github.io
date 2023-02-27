@@ -6,10 +6,11 @@ import settings from "../../img/settings.png";
 import help from "../../img/question.png";
 import logout from "../../img/log-out.png";
 import './Dropdown.css'
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import useTitle from "../../hooks/useTItle";
 
-const Dropdown = () => {
+const Dropdown = (_id) => {
+
     const [open, setOpen] = useState(false);
     useTitle("Profile")
 
@@ -42,7 +43,7 @@ const Dropdown = () => {
           <ul>
             <Link to="/profile"><DropdownItem img = {user} text = {"My Profile"}/></Link>
             <Link to="/editprofile"><DropdownItem img = {edit} text = {"Edit Profile"}/></Link>
-            <DropdownItem img = {inbox} text = {"Inbox"}/>
+            <Link to={`/dashboard/${_id}`}><DropdownItem img = {inbox} text = {"Dashboard"}/></Link>
             <DropdownItem img = {settings} text = {"Settings"}/>
             <DropdownItem img = {help} text = {"Helps"}/>
             <DropdownItem img = {logout} text = {"Logout"}/>
@@ -56,7 +57,7 @@ function DropdownItem(props) {
     return (
       <li className="dropdownItem">
         <img src={props.img} alt=""></img>
-        <a> {props.text} </a>
+        <p> {props.text} </p>
       </li>
     );
   }

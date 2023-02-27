@@ -6,10 +6,10 @@ import Profile from "../Others/Profile/Profile";
 import Blogs from "../Blogs/Blogs/Blogs";
 import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
+import Write from "../Write/Write";
 import Signup from "../Signup/Signup";
-import Write from "../Pages/Write/Write";
+import Dashboard from "../Others/Dashboard/Dashboard";
 import Comments from "../Comments/comments";
-import Editor from "../TextEditor/TextEditor";
 
 
 export const router=createBrowserRouter([
@@ -18,7 +18,7 @@ export const router=createBrowserRouter([
         element:<Main></Main>,
         children: [
             {
-                path:'/',
+                path:'/:id',
                 element:<Blogs></Blogs>
             },
             {
@@ -35,7 +35,7 @@ export const router=createBrowserRouter([
                 element:<Signup></Signup>
             },
             {
-                path: '/write',
+                path: '/write/:id',
                 element:<Write></Write>
             },
             {
@@ -56,6 +56,11 @@ export const router=createBrowserRouter([
                         element: <About></About>
                     }
                 ]
+            },
+            {
+                path: '/dashboard/:id',
+                element: <Dashboard></Dashboard>,
+                loader: ({params}) =>fetch(`http://100.25.166.88:8080/dashboard/${params.id}`)
             }
         ]
     }

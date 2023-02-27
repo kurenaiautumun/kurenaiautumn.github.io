@@ -1,17 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useTitle from "../hooks/useTItle";
+import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 const Signin = () => {
-  const [error,setError]=useState('');
+  const [user, setUser] =useState();
+  const navigate = useNavigate();
 
-  function setUser(id){
-    let div = document.getElementById('userid')
-    div.innerHTML = id
-  }
+  //function setUser(id){
+  //  let div = document.getElementById('userid')
+  //  div.innerHTML = id
+  //}
 
+  const [isLoggedIn, setisLoggedIn] = useState(false);
+  console.log('is logged in  = ', isLoggedIn)  
+    useEffect(() => {
+      // Checking if user is not loggedIn
+      if (isLoggedIn) {
+        navigate(`/${user}`);
+      }
+    }, [navigate, isLoggedIn]);
+
+console.log(window.location.href)
 
   useTitle("Signin")
   const {
@@ -30,16 +44,21 @@ const Signin = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
-          setUser(data.user._id)
+          console.log(data)
+          setUser(data.user._id);
+          if(data.user._id !== null){
+            toast.success(data.message)
+            setisLoggedIn(true);
+          }
         })
         .catch((err) => {
       console.error(err)
-    setError(err.message);
+      if(err){
+        toast.error("Wrong Username or Password")
+      }
   });
   };
 
-  console.log(error)
 
   return (
     <div className="inner-div">
@@ -56,13 +75,13 @@ const Signin = () => {
           </div>
           <div className="form-control w-full px-4 mt-4">
             <input
-              {...register("username", { required: "Enter your email" })}
+              {...register("username", { required: "Enter username" })}
               type="text"
-              placeholder="Email"
+              placeholder="User name"
               className="user-input rounded-md w-full my-2"
             />
-            {errors.email && (
-              <span className="text-red-500 text-xs">{errors.email.message}</span>
+            {errors.username && (
+              <span className="text-red-500 text-xs">{errors.username.message}</span>
             )}
             <input
               {...register("password", { required: "Wrong password" })}
@@ -76,7 +95,7 @@ const Signin = () => {
           </div>
           <input
             type="submit"
-            value="LOG IN"
+            value="SIGN IN"
             className="all-btn signin-button rounded text-white text-xs font-semibold py-2.5 px-36 my-5 mx-4 lg:mx-6"
           />
         </form>

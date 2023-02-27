@@ -22,7 +22,7 @@ const Blog = ({blog, handleSaveButton, handleUnsaveButton}) => {
           Read more
         </button></Link>
         {
-            isSaved === "saved"? <button onClick={() =>handleUnsaveButton(_id)} className='mx-4 text-slate-400 text-xs'> Saved</button> : <button onClick={() =>handleSaveButton(_id)} className='mx-4'><i class="fa-regular fa-bookmark"></i></button>
+            isSaved === "saved"? <button onClick={() =>handleUnsaveButton(_id)} className='mx-4 text-slate-400 text-xs'> Saved</button> : <button onClick={() =>handleSaveButton(_id)} className='mx-4'><i ClassName="fa-regular fa-bookmark"></i></button>
         }
                     {/* <p className='text-xs mt-1'>Date</p> */}
                
