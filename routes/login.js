@@ -6,22 +6,35 @@ const passport = require("passport");
 
 
 router.post("/login",function(req,res){
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password
-     });
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+  });
      req.login(user, function(err){
       if(!err){
           passport.authenticate("local")(req,res,function(){
-            User.findOne({username:user.username},(err,user)=>{
+            User.findOne({$or:[{username:user.username},{email:user.username}]},(err,user)=>{
               res.status(201).json({message:"user login successfully",user});
             })
           })
       }else{
-        res.status(404).json("username or password is wrong")
+        res.status(404).json({message:"username or password is wrong"})
       }
      })
   })
+
+// router.post("/login2",function(req,res){
+//     const user = new User({
+//       username: req.body.username,
+//       email: req.body.email,
+//       password: req.body.password
+//      });
+     
+//       User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] },(err,user)=>{
+//         console.log({user})
+//         res.status(201).json({message:"user login successfully",user});
+//       })
+//   })
   
   router.post('/logout', function(req, res, next){
     req.logout(function(err) {

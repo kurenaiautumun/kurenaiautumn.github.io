@@ -17,11 +17,11 @@ const storage = multer.memoryStorage()
 const upload = multer({storage})
 
 
-router.post("/image",upload.single('image'), async (req,res)=>{
-  if(req.body.userId == undefined || req.body.blogId == undefined){
+router.post("/image/:userId/:blogId",upload.single('image'), async (req,res)=>{
+  if(req.params.userId == undefined || req.params.blogId == undefined){
     res.json({message: "please provide a valid parameters"})
   }else{
-    const Key = (`images/${req.body.userId}/${req.body.blogId}/${req.file.originalname}`)
+    const Key = (`images/${req.params.userId}/${req.params.blogId}/${req.file.originalname}`)
       const params = {
           Bucket: process.env.BUCKET_NAME,
           Key,
