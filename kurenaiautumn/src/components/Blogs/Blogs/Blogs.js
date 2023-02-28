@@ -6,6 +6,7 @@ import Blog from "../Blog/Blog";
 import "./Blogs.css";
 
 const Blogs = () => {
+  console.log("in blogs = ", window.location.pathname.split('/'))
   useTitle("Home");
 
 

@@ -9,12 +9,6 @@ import { toast } from "react-hot-toast";
 
 const Write = () => {
   const [array, setArray] = useState([]);
-  
-  console.log(window.location.pathname)
- 
-  let userid = window.location.pathname.split('/')[2]
-
-  console.log('user id = ', userid)
 
   useTitle("Write");
 
@@ -37,6 +31,13 @@ const Write = () => {
   console.log(content);
 
   let editor = { isReady: false };
+
+  const [userid, setID] = useState('')
+    useEffect(() => {
+        const userid = JSON.parse(localStorage.getItem('userid'));
+        setID(userid)
+      }, '');
+    console.log("user id in write = ", userid)
 
   useEffect(() => {
     // setUserid(document.getElementById('userid').innerText)

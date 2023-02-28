@@ -10,6 +10,7 @@ import Write from "../Write/Write";
 import Signup from "../Signup/Signup";
 import Dashboard from "../Others/Dashboard/Dashboard";
 import Comments from "../Comments/comments";
+import Signout from "../Signin/Signout";
 
 
 export const router=createBrowserRouter([
@@ -31,11 +32,15 @@ export const router=createBrowserRouter([
                 element:<Signin></Signin>,
             },
             {
+                path:'/signout',
+                element:<Signout></Signout>,
+            },
+            {
                 path:'/signup',
                 element:<Signup></Signup>
             },
             {
-                path: '/write/:id',
+                path: '/write/:blogid',
                 element:<Write></Write>
             },
             {
@@ -58,7 +63,7 @@ export const router=createBrowserRouter([
                 ]
             },
             {
-                path: '/dashboard/:id',
+                path: '/dashboard',
                 element: <Dashboard></Dashboard>,
                 loader: ({params}) =>fetch(`http://100.25.166.88:8080/dashboard/${params.id}`)
             }

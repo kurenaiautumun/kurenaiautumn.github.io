@@ -6,26 +6,12 @@ import useTitle from "../hooks/useTItle";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { createBrowserHistory } from "history";
+import qs from "qs"
 
 const Signin = () => {
-  const [user, setUser] =useState();
+  const [user, setUser] =useState([]);
   const navigate = useNavigate();
-
-  //function setUser(id){
-  //  let div = document.getElementById('userid')
-  //  div.innerHTML = id
-  //}
-
-  const [isLoggedIn, setisLoggedIn] = useState(false);
-  console.log('is logged in  = ', isLoggedIn)  
-    useEffect(() => {
-      // Checking if user is not loggedIn
-      if (isLoggedIn) {
-        navigate(`/${user}`);
-      }
-    }, [navigate, isLoggedIn]);
-
-console.log(window.location.href)
 
   useTitle("Signin")
   const {
@@ -48,7 +34,9 @@ console.log(window.location.href)
           setUser(data.user._id);
           if(data.user._id !== null){
             toast.success(data.message)
-            setisLoggedIn(true);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            navigate("/");
+            window.location.reload(false);
           }
         })
         .catch((err) => {
