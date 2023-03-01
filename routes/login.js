@@ -22,19 +22,6 @@ router.post("/login",function(req,res){
       }
      })
   })
-
-// router.post("/login2",function(req,res){
-//     const user = new User({
-//       username: req.body.username,
-//       email: req.body.email,
-//       password: req.body.password
-//      });
-     
-//       User.findOne({ $or: [{ username: req.body.username }, { email: req.body.email }] },(err,user)=>{
-//         console.log({user})
-//         res.status(201).json({message:"user login successfully",user});
-//       })
-//   })
   
   router.post('/logout', function(req, res, next){
     req.logout(function(err) {

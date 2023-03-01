@@ -1,9 +1,7 @@
 const express=require('express')
 const router=express.Router()
-const { User } = require('../models.js');
+const { User, transporter } = require('../models.js');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
-
 
 
 router.post("/signup",function(req,res){
@@ -13,7 +11,28 @@ router.post("/signup",function(req,res){
         res.status(201).json({err});
       }else{
         passport.authenticate("local")(req,res,function(){
-          res.status(201).json({message:"user signup successfully", user});
+            // const mailData = {
+            //   from:'dev.swayam@outlook.com',
+            //   to: req.body.email,
+            //   subject: "Thank you to become a member!",
+            //   html: "<h1>hello</h1>",
+            // };
+            var mailData = {
+              from: 'autumnkurenai@gmail.com',
+              to: 'abhinavchaudhary10@gmail.com',
+              subject: 'Sending Email mailer',
+              template: 'sample',
+              context: {
+                name: "Abhinav"
+              }
+              //text: 'That was easy!'
+            };
+
+            transporter.sendMail(mailData, (error, info) => {
+              if (error) return console.log(error);
+      
+              res.status(201).json({ message:"user signup successfully", user, message_id: info.messageId });
+            });
         })
       }
     })

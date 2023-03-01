@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require("passport-local-mongoose");
 const LocalStrategy = require('passport-local').Strategy;
 const passport = require("passport");
+const nodemailer = require('nodemailer');
 
 
 const  userSchema = new mongoose.Schema({
@@ -11,7 +12,6 @@ const  userSchema = new mongoose.Schema({
     followers:Array,
     following:Array
   });
-// userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(passportLocalMongoose, {usernameQueryFields: ["username","email"]});
 
 
@@ -69,6 +69,23 @@ const corsOptions = {
     }
   }
 
+  // const transporter = nodemailer.createTransport({
+  //   port: 587,
+  //   host: "smtp.office365.com",
+  //   auth: {
+  //       user: 'dev.swayam@outlook.com',
+  //       pass: process.env.PASSWORD,
+  //   },
+  // });
+  
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'autumnkurenai@gmail.com',
+      pass: 'hrihtjreflykyiqe'
+    }
+  });
+
   const date = new Date().toLocaleDateString();
   const User = new mongoose.model("User",userSchema);
   const Blog = new mongoose.model("blog",blogSchema);
@@ -80,21 +97,7 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-
-// passport.use(new LocalStrategy({ 
-//   usernameField: 'login', // the name of the field that will be used to identify the user (either username or email)
-//   passwordField: 'password'
-// }, function(login, password, done) {
-//   User.findOne({ $or: [{ username: login }, { email: login }] }, function(err, user) {
-//     if (err) { return done(err); }
-//     if (!user) { return done(null, false, { message: 'Incorrect login.' }); }
-//     if (!user.validPassword(password)) { return done(null, false, { message: 'Incorrect password.' }); }
-//     return done(null, user);
-//   });
-// }
-// ));
-
   
   module.exports = {
-    date, User, Blog, Comment, Like, corsOptions, Review, toggle
+    date, User, Blog, Comment, Like, corsOptions, Review, toggle, transporter
   }

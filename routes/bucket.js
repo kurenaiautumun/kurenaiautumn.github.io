@@ -17,8 +17,8 @@ const storage = multer.memoryStorage()
 const upload = multer({storage})
 
 
-router.post("/image/:userId/:blogId",upload.single('image'), async (req,res)=>{
-  if(req.params.userId == undefined || req.params.blogId == undefined){
+router.post("/image",upload.single('image'), async (req,res)=>{
+  if(req.body.userId == undefined || req.body.blogId == undefined){
     res.json({message: "please provide a valid parameters"})
   }else{
     const Key = (`images/${req.params.userId}/${req.params.blogId}/${req.file.originalname}`)
@@ -36,7 +36,7 @@ router.post("/image/:userId/:blogId",upload.single('image'), async (req,res)=>{
   
       res.status(201).json({success:1,
         file: {
-        url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,
+        url: `https://kurenai-image-testing.s3.ap-south-1.amazon aws.com/${Key}`,
     }})
   }
 })
