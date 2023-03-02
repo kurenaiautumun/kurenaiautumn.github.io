@@ -1,11 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import EditorJS from "@editorjs/editorjs";
+import ImageTool from '@editorjs/image';
 import List from "@editorjs/list";
 import "./Write.css";
 import useTitle from "../hooks/useTItle";
 import { toast } from "react-hot-toast";
 import { useAsyncError } from "react-router-dom";
+
+const Header = require('@editorjs/header');
+const Quote = require('@editorjs/quote');
 
 
 const Write = () => {
@@ -31,6 +35,7 @@ const Write = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log("data = ", data[0]);
+        console.log("body in data = ", data[0].body);
         if (data["body"]) {
           console.log("got data")
           setBody(data[0].body);
@@ -47,12 +52,14 @@ const Write = () => {
       });
   }
 
+  console.log("blogBody = ", blogBody)
+
   function saving() {
     console.log("in saving")
     console.log(editor);
     editor.save().then((savedData) => {
       console.log("data in saving fucntion = ", savedData);
-      setArray(savedData?.blocks?.map((a) => a?.data?.text));
+      setArray(savedData);
     });
   }
 
@@ -74,8 +81,22 @@ const Write = () => {
       let editor1 = new EditorJS({
         autofocus: true,
         holder: "editorjs",
-        //data: blogBody,
+        data: blogBody,
         tools: {
+          quote: Quote,
+          header: Header,
+          image: {
+            class: ImageTool,
+              config: {
+                endpoints: {
+                  byFile: 'http://100.25.166.88:8080/image', // Your backend file uploader endpoint
+                  byUrl: 'http://100.25.166.88:8080/image', // Your endpoint that provides uploading by Url
+                },
+                additionalRequestData:{
+                  "blogId": blogId,
+                  "userId": userid},
+            }
+          },
           list: {
             class: List,
             inlineToolbar: true,
@@ -94,7 +115,7 @@ const Write = () => {
     console.log('inside handleWriteBlog')
     saving();
     const blog = {
-      userId: userid['id'] ,
+      id: blogId,
       body: array,
     };
 
@@ -126,7 +147,6 @@ const Write = () => {
 
   return (
     <div>
-        <h1 id="title" contentEditable="true">Title</h1>
         <button className="writeSubmit all-btn" id="submit-blog" onClick={updateBlog}>Publish</button>
         <div className="text-area">
           <pre id="output"></pre>
