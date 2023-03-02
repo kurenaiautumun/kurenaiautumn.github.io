@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router()
-const {date, User, Blog, Like} = require('../models.js');
+const {date, User, Blog} = require('../models.js');
 
 
 router.get("/blog",(req,res)=>{
@@ -10,28 +10,22 @@ router.get("/blog",(req,res)=>{
       })
   })
 
-router.post("/newBlog",(req,res)=>{
+router.post("/newblog",(req,res)=>{
 const {userId, title, body, views, status} = req.body;
 const blog = new Blog({
     userId, title, body, views, status, date
 })
     blog.save((err,blog)=>{
-        const like = new Like({
-        blogId : blog._id,
-        likes: {"1":"sample"}
-        })
-        like.save(()=>{
         User.findOne({_id:userId},(err,user)=>{
             if (err) throw err;
-            res.status(201).json({message:"blog saved", user, blog, like});
-        });
-        })
+            res.status(201).json({message:"blog saved", user, blog});
+        }); 
     });
 });
 
 router.post("/updateBlog",(req,res)=>{
-    let {_id, title, body} = req.body;
-    Blog.updateOne({_id}, 
+    let {_id,userId , title, body} = req.body;
+    Blog.updateOne({_id, userId}, 
       {body,title}, function (err, docs) {
         if (!err){
           res.status(201).json({message:"update succesfully",docs})

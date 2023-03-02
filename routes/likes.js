@@ -1,36 +1,31 @@
 const express=require('express')
 const router=express.Router()
-const {Like, toggle} = require('../models.js');
+const {Blog, toggle} = require('../models.js');
 
 
 router.get("/like/:blogId/:userId",(req,res)=>{
     const { blogId, userId } = req.params;
-    Like.findOne({blogId},(err,blog)=>{
+    Blog.findOne({_id:blogId},(err,blog)=>{
       let like = false;
-      const totalLikes = blog.likes; 
-      for (let Key in totalLikes) {
-        if (totalLikes[Key] === userId) {
-          like = true
-          break; 
-        }
-      }
+      blog.likes.forEach(element => {
+        if(element == userId) like=true;
+      });
       res.status(201).json({like})
     })
   })
   
   router.post("/like/:blogId/:userId",(req,res)=>{
     const { blogId, userId } = req.params;
-    Like.findOne({blogId},(err,blog)=>{
+    Blog.findOne({_id:blogId},(err,blog)=>{
       toggle(blog.likes,userId)
-        Like.updateOne({blogId},{
+        Blog.updateOne({_id:blogId},{
           likes:blog.likes
         },(err,docs)=>{
           if (err) throw err;
-          res.json({message:"updated like",docs})
+          res.json({message:"updated like",blog,docs})
         })
     })
   })
-
 
 
 module.exports=router;
