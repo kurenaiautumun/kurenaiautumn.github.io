@@ -20,8 +20,6 @@ const Write = () => {
 
   const dataFetchedRef = useRef(false);
 
-  console.log("url = ", window.location.pathname.split('/')[2])
-
   useTitle("Write");
 
   function getSavedData(blogId){
@@ -34,16 +32,14 @@ const Write = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data = ", data[0]);
-        console.log("body in data = ", data[0].body);
-        if (data["body"]) {
-          console.log("got data")
+        console.log("data in saved data = ", data[0]);
+        console.log("body in saved data = ", data[0].body);
+        if (data[0].body) {
           setBody(data[0].body);
+          setUpEditor(data[0].body)
         }
-        if (data[0]["title"]){
-          console.log(document.getElementById('title'))
-          document.getElementById('title').value = data[0].title
-          console.log('title is here - ', data[0].title)
+        else{
+          setUpEditor([])
         }
       })
       .catch((err) => {
@@ -52,11 +48,7 @@ const Write = () => {
       });
   }
 
-  console.log("blogBody = ", blogBody)
-
   function saving() {
-    console.log("in saving")
-    console.log(editor);
     editor.save().then((savedData) => {
       console.log("data in saving fucntion = ", savedData);
       setArray(savedData);
@@ -69,19 +61,18 @@ const Write = () => {
         console.log("user id in useEffect =", userid)
         setBlogId(window.location.pathname.split('/')[2])
       }, []);
-  console.log("user id in write = ", userid);
-  console.log("blog id after useeffect = ", blogId)
+
   const [editor, setEditor] = useState({isReady:false});
 
-  useEffect(() => {
-    getSavedData(window.location.pathname.split('/')[2]);
-    if (dataFetchedRef.current) return;
-      dataFetchedRef.current = true;
+  function setUpEditor(body){
     if (!editor.isReady) {
+      if (dataFetchedRef.current) return;
+      dataFetchedRef.current = true;
+      console.log("body in editor ", blogBody)
       let editor1 = new EditorJS({
         autofocus: true,
         holder: "editorjs",
-        data: blogBody,
+        data: body,
         tools: {
           quote: Quote,
           header: Header,
@@ -93,8 +84,8 @@ const Write = () => {
                   byUrl: 'http://100.25.166.88:8080/image', // Your endpoint that provides uploading by Url
                 },
                 additionalRequestData:{
-                  "blogId": blogId,
-                  "userId": userid},
+                  blogId: blogId,
+                  userId: userid},
             }
           },
           list: {
@@ -108,8 +99,11 @@ const Write = () => {
       });
       setEditor(editor1);
     }
-  console.log("editor = ", editor)
-  }, [editor]);
+  }
+
+  useEffect(() => {
+    getSavedData(window.location.pathname.split('/')[2])
+    }, [editor]);
 
   function updateBlog() {
     console.log('inside handleWriteBlog')
@@ -141,9 +135,6 @@ const Write = () => {
       });
   };
 
-  function prints(){
-    console.log('hello')
-  }
 
   return (
     <div>

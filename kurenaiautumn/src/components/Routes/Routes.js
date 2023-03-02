@@ -66,7 +66,6 @@ export const router=createBrowserRouter([
             {
                 path: '/dashboard',
                 element: <Dashboard></Dashboard>,
-                loader: ({params}) =>fetch(`http://100.25.166.88:8080/dashboard/${params.id}`)
             }
         ]
     }

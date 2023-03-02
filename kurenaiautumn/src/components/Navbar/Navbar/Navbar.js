@@ -17,11 +17,7 @@ const Navbar = () => {
     setUser(user)
   }, []);
 
-
-  console.log("in nvabar start = ", user)
-
   function Sign(id){
-    console.log("id in signin = ", id['id'])
     if (id['id']==null){
       return <a href='/signin'>Signin</a>
     }
@@ -44,7 +40,6 @@ const Navbar = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.blog["_id"]) {
           alert(`Blog added successfully with id ${data.blog["_id"]}`);
           navigate(`/write/${data.blog["_id"]}`);
