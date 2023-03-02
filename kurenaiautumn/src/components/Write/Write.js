@@ -5,47 +5,77 @@ import List from "@editorjs/list";
 import "./Write.css";
 import useTitle from "../hooks/useTItle";
 import { toast } from "react-hot-toast";
+import { useAsyncError } from "react-router-dom";
 
 
 const Write = () => {
   const [array, setArray] = useState([]);
+  const [blogId, setBlogId] = useState([]);
+  const [blogBody, setBody] = useState([]);
+
+  console.log("url = ", window.location.pathname.split('/')[2])
 
   useTitle("Write");
 
+  function getSavedData(blogId){
+    fetch(`http://100.25.166.88:8080/blog?blogId=${blogId}`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data = ", data[0]);
+        if (data["body"]) {
+          console.log("got data")
+          setBody(data[0].body);
+        }
+        if (data[0]["title"]){
+          console.log(document.getElementById('title'))
+          document.getElementById('title').value = data[0].title
+          console.log('title is here - ', data[0].title)
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        toast.error("Blog not published.Please login again")
+      });
+  }
+
   function saving() {
+    console.log("in saving")
     const output = document.getElementById("output");
     editor.save().then((savedData) => {
       output.innerHTML = JSON.stringify(savedData, null, 4);
-      // console.log(savedData);
+      console.log("data in saving fucntion = ", savedData);
       savedData?.blocks?.map((a) => a?.data?.items?.map(item => 
         console.log(item)
       ));
       setArray(savedData?.blocks?.map((a) => a?.data?.text));
-      // setArray(savedData?.blocks?.map((a) => a?.data?.text || a?.data?.items?.map(item => <li>{item}</li>)));
     });
   }
 
-  console.log(array)
+  console.log("array = ", array)
 
-  let content = array.join("</br></br>");
+  let content = array;
   console.log(content);
-
-  let editor = { isReady: false };
 
   const [userid, setID] = useState('')
     useEffect(() => {
         const userid = JSON.parse(localStorage.getItem('userid'));
         setID(userid)
+        setBlogId(window.location.pathname.split('/')[2])
       }, '');
     console.log("user id in write = ", userid)
 
   useEffect(() => {
-    // setUserid(document.getElementById('userid').innerText)
-    // console.log(userid)
+    getSavedData(window.location.pathname.split('/')[2]);
     if (!editor.isReady) {
       editor = new EditorJS({
         autofocus: true,
         holder: "editorjs",
+        data: blogBody,
         tools: {
           list: {
             class: List,
@@ -66,18 +96,7 @@ const Write = () => {
   } = useForm();
 
   const handleWriteBlog = (data) => {
-    // const blog = {
-    //   title: data.title,
-    //   category_name: "",
-    //   details: content,
-    //   views: "",
-    //   status: "",
-    //   date: "",
-    //   author: {
-    //     name: data.WriterName,
-    //   },
-    // };
-
+    saving();
     const blog = {
       userId: userid ,
       title: data.title,
@@ -100,8 +119,9 @@ const Write = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        if (data.like.blogId) {
-          alert("Blog added successfully");
+        if (data.message) {
+          console.log(data.message)
+          toast.success(`Blog added successfully with title ${blog["title"]}`);
         }
       })
       .catch((err) => {
@@ -162,6 +182,7 @@ const Write = () => {
             <button
               onClick={saving}
               className="writeSubmit all-btn"
+              id="publish-button"
               type="submit"
             >
               Publish
