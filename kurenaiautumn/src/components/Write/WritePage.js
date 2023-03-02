@@ -11,7 +11,9 @@ import { useAsyncError } from "react-router-dom";
 const Write = () => {
   const [array, setArray] = useState([]);
   const [blogId, setBlogId] = useState([]);
+  const [userid, setID] = useState([])
   const [blogBody, setBody] = useState([]);
+
   const dataFetchedRef = useRef(false);
 
   console.log("url = ", window.location.pathname.split('/')[2])
@@ -48,29 +50,20 @@ const Write = () => {
   function saving() {
     console.log("in saving")
     console.log(editor);
-    const output = document.getElementById("output");
     editor.save().then((savedData) => {
-      output.innerHTML = JSON.stringify(savedData, null, 4);
       console.log("data in saving fucntion = ", savedData);
-      savedData?.blocks?.map((a) => a?.data?.items?.map(item => 
-        console.log(item)
-      ));
       setArray(savedData?.blocks?.map((a) => a?.data?.text));
     });
   }
 
-  console.log("array = ", array)
-
-  let content = array;
-
-  const [userid, setID] = useState('')
     useEffect(() => {
-        const userid = JSON.parse(localStorage.getItem('userid'));
-        setID(userid)
+        const userid = JSON.parse(localStorage.getItem('user'));
+        setID(userid);
+        console.log("user id in useEffect =", userid)
         setBlogId(window.location.pathname.split('/')[2])
       }, []);
-    console.log("user id in write = ", userid);
-
+  console.log("user id in write = ", userid);
+  console.log("blog id after useeffect = ", blogId)
   const [editor, setEditor] = useState({isReady:false});
 
   useEffect(() => {
@@ -81,7 +74,7 @@ const Write = () => {
       let editor1 = new EditorJS({
         autofocus: true,
         holder: "editorjs",
-        data: blogBody,
+        //data: blogBody,
         tools: {
           list: {
             class: List,
@@ -97,26 +90,13 @@ const Write = () => {
   console.log("editor = ", editor)
   }, [editor]);
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
-
-  const handleWriteBlog = (data) => {
+  function updateBlog() {
     console.log('inside handleWriteBlog')
     saving();
     const blog = {
-      userId: userid ,
-      title: data.title,
-      body: content,
-      views: "",
-      status: "",
+      userId: userid['id'] ,
+      body: array,
     };
-
-
-
-    // Save blog information to the database
 
     fetch("http://100.25.166.88:8080/updateBlog", {
       method: "POST",
@@ -145,81 +125,13 @@ const Write = () => {
   }
 
   return (
-    <div className="write">
-      <img
-        className="writeImg"
-        src="https://images.unsplash.com/photo-1575721697801-937774cc44ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-        alt=""
-      />
-      <form onSubmit={handleSubmit(handleWriteBlog)} className="write-blog">
-        <div className="flex justify-between">
-          <section className="flex">
-            <div>
-              <input
-                {...register("WriterName", { required: "Enter writer name" })}
-                placeholder="Writer"
-                name="WriterName"
-                type="text"
-                className="writer-details"
-                autoFocus={true}
-              />
-              <br />
-              {errors.WriterName && (
-                <span className="text-red-500 text-xs">
-                  {errors.WriterName.message}
-                </span>
-              )}
-            </div>
-
-            <div>
-              <input
-                {...register("category")}
-                className="category"
-                placeholder="Category"
-                name="category"
-                type="text"
-                autoFocus={true}
-              />
-              {errors.category && (
-                <span className="text-red-500 text-xs">
-                  {errors.category.message}
-                </span>
-              )}
-            </div>
-          </section>
-
-          {
-            <button
-              className="writeSubmit all-btn"
-              id="publish-button"
-              type="submit"
-            >
-              Publish
-            </button>
-          }
-        </div>
-
-        <div className="writeFormGroup">
-          <input
-            {...register("title", { required: "Enter title" })}
-            id="title"
-            className="writeInput"
-            placeholder="Title"
-            name="title"
-            type="text"
-            autoFocus={true}
-          />
-          <br />
-          {errors.title && (
-            <span className="text-red-500 text-xs">{errors.title.message}</span>
-          )}
-        </div>
-
+    <div>
+        <h1 id="title" contentEditable="true">Title</h1>
+        <button className="writeSubmit all-btn" id="submit-blog" onClick={updateBlog}>Publish</button>
         <div className="text-area">
           <pre id="output"></pre>
           <div className="details-blog" id="editorjs" ></div>
         </div>
-      </form>
     </div>
   );
 };

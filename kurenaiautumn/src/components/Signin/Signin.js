@@ -35,6 +35,7 @@ const Signin = () => {
           if(data.user._id !== null){
             toast.success(data.message)
             localStorage.setItem('user', JSON.stringify(data.user));
+            console.log("data to be stored locally = ", data.user)
             navigate("/");
             window.location.reload(false);
           }

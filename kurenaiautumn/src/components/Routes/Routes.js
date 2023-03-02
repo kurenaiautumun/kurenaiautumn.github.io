@@ -6,11 +6,12 @@ import Profile from "../Others/Profile/Profile";
 import Blogs from "../Blogs/Blogs/Blogs";
 import Details from "../Blogs/Details/Details";
 import Signin from "../Signin/Signin"
-import Write from "../Write/Write";
+//import Write from "../Write/Write";
 import Signup from "../Signup/Signup";
 import Dashboard from "../Others/Dashboard/Dashboard";
 import Comments from "../Comments/comments";
 import Signout from "../Signin/Signout";
+import Write from "../Write/WritePage"
 
 
 export const router=createBrowserRouter([
