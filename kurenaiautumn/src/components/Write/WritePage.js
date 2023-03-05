@@ -83,9 +83,10 @@ const Write = () => {
                   byFile: 'http://100.25.166.88:8080/image', // Your backend file uploader endpoint
                   byUrl: 'http://100.25.166.88:8080/image', // Your endpoint that provides uploading by Url
                 },
-                additionalRequestData:{
-                  blogId: blogId,
-                  userId: userid},
+                additionalRequestData: {
+                  "userId": 'asdas',
+                  "blogId": "12345"
+                },
             }
           },
           list: {
