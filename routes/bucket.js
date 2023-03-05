@@ -36,7 +36,7 @@ router.post("/image",upload.single('image'), async (req,res)=>{
   
       res.status(201).json({success:1,
         file: {
-        url: `https://kurenai-image-testing.s3.ap-south-1.amazon aws.com/${Key}`,
+        url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,
     }})
   }
 })

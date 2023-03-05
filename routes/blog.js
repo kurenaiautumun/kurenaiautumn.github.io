@@ -24,8 +24,8 @@ const blog = new Blog({
 });
 
 router.post("/updateBlog",(req,res)=>{
-    let {blogId, userId , title, body} = req.body;
-    Blog.updateOne({_id:blogId, userId}, 
+    let {id, title, body} = req.body;
+    Blog.updateOne({_id:id}, 
       {body,title}, function (err, docs) {
         if (!err){
           res.status(201).json({message:"update succesfully",docs})
