@@ -4,7 +4,10 @@ const { User, Blog, Comment} = require('../models');
 
 
 router.get("/",(req,res)=>{
-    Blog.find({},(err,posts)=>{
+    Blog.find()
+    .sort({'date': -1})
+    .limit(10)
+    .exec({},(err,posts)=>{
       res.status(201).json(posts);
     })   
 });

@@ -5,7 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require("passport");
-const passportLocalMongoose = require("passport-local-mongoose");
+
 const {corsOptions} = require('./models.js');
 const blogRoute=require('./routes/blog')
 const dashRoute=require('./routes/dashboard')
@@ -16,6 +16,7 @@ const followRoute=require('./routes/follow')
 const likeRoute=require('./routes/likes')
 const reviewRoute=require('./routes/review')
 const bucketRoute=require('./routes/bucket')
+const recomandationRoute=require('./routes/recomandation')
 
 
 app.use(cors(corsOptions))
@@ -39,6 +40,7 @@ app.use("/",reviewRoute)
 app.use("/",commentRoute)
 app.use("/",reviewRoute)
 app.use("/",likeRoute)
+app.use("/",recomandationRoute)
 
 
 app.listen(process.env.PORT, function() {
