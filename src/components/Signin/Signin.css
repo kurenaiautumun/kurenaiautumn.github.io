@@ -1,0 +1,106 @@
+.inner-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   max-width: 100%;
+   margin:auto;
+   padding:  50px 0px 135px;
+   background: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+ url("https://images.unsplash.com/photo-1575721697801-937774cc44ab?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+    background-size: cover;
+  
+}
+
+.first-div{
+    width: 400px;
+    background: #1E5861;    
+}
+
+.first-div img{
+    margin-top: 75px;
+}
+
+
+
+.form-div{
+    height: 270px;
+    width: 380px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.header{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+
+.text-gray{
+    color: gray;
+}
+
+.user-input{
+    border-radius: 5px;
+    padding: 8px;
+    background: #F2F4F4 ;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.create-account{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.signin-btn{
+    background: #1E5861;
+}
+
+.text-green{
+    color: #1E5861;
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+    .main-div{
+        height: 1000px;
+        padding: 50px 100px;
+        flex-direction: column-reverse;
+    }
+
+    .first-div{
+        width: 500px; 
+    }
+
+    .first-div img{
+        margin-left: 65px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+    .main-div{
+        height: 550px;
+        padding: 30px 5%;
+        flex-direction: column-reverse;
+    }
+
+    .first-div{
+        display: none;
+    }
+
+    .form-div{
+        max-width: 71%;
+        margin: auto;
+        height: 250px;
+    }
+
+    .signin-button{
+        padding-left: 95px ;
+        padding-right: 95px;
+    }
+}
