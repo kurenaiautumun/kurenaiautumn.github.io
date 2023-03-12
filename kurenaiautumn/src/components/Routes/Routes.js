@@ -20,15 +20,6 @@ export const router=createBrowserRouter([
         element:<Main></Main>,
         children: [
             {
-                path:'/:id',
-                element:<Blogs></Blogs>
-            },
-            {
-                path:'/blog/:id',
-                element:<Details></Details>,
-                loader: ({params})=> fetch(`https://kurenaiautumn-server.vercel.app/blog/${params.id}`)
-            },
-            {
                 path:'/signin',
                 element:<Signin></Signin>,
             },
@@ -41,7 +32,11 @@ export const router=createBrowserRouter([
                 element:<Signup></Signup>
             },
             {
-                path: '/write/:blogid',
+                path: '/',
+                element: <Home></Home>
+            },
+            {
+                path: '/blog/:blogId',
                 element:<Write></Write>
             },
             {
@@ -64,7 +59,7 @@ export const router=createBrowserRouter([
                 ]
             },
             {
-                path: '/dashboard',
+                path: 'dashboard/:userid',
                 element: <Dashboard></Dashboard>,
             }
         ]

@@ -5,9 +5,13 @@ import { useEffect, useState } from "react";
 function Likes(BlogId){
     console.log("BlogID = ", BlogId["BlogId"])
     const [array, setArray] = useState([]);
+    const [user, setUser] = useState([]);
+
     useEffect(() => {
         //setArray({});
         //setComments({});
+        const user = JSON.parse(localStorage.getItem('user'));
+        setUser(user)
         AllLikes();
     }, []);
 
@@ -25,9 +29,9 @@ function Likes(BlogId){
 
     function SendLike(BlogId){
         let body = {
-            "blogId": "sdfdasf",
-            "userId": "DFadsf",
-            "Date": "20230101",
+            "blogId": BlogId,
+            "userId": user["_id"],
+            //"Date": "20230101",
         }
         console.log('sent')
         fetch(`http://100.25.166.88:8080/Likes/${BlogId["BlogId"]}`, {

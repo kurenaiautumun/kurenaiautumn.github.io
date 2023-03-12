@@ -5,6 +5,7 @@ import "./Navbar.css";
 import { useEffect } from 'react';
 import { toast } from "react-hot-toast";
 import {useNavigate } from "react-router-dom";
+import Comments from '../../Comments/comments';
 
 
 const Navbar = () => {
@@ -42,7 +43,7 @@ const Navbar = () => {
       .then((data) => {
         if (data.blog["_id"]) {
           alert(`Blog added successfully with id ${data.blog["_id"]}`);
-          navigate(`/write/${data.blog["_id"]}`);
+          navigate(`/blog/${data.blog["_id"]}`,{b: "abc"});
         }
       })
       .catch((err) => {
