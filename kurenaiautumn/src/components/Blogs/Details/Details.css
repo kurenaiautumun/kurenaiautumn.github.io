@@ -1,0 +1,22 @@
+.details-div{
+    max-width: 60%;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.author-img{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+
+.details-img{
+    height: 300px;
+    width: 220px;
+    margin-right: 20px;
+    object-fit: cover;
+    filter: drop-shadow(.1rem .1rem .5rem black)
+}
