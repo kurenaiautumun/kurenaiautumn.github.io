@@ -6,7 +6,6 @@ const { User, Blog, Comment} = require('../models');
 router.get("/",(req,res)=>{
     Blog.find()
     .sort({date:1})
-    .limit(5)
     .exec({},(err,posts)=>{
       res.status(201).json(posts);
     })   
