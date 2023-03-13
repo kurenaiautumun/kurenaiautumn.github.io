@@ -9,6 +9,7 @@ import Signin from "../Signin/Signin"
 //import Write from "../Write/Write";
 import Signup from "../Signup/Signup";
 import Dashboard from "../Others/Dashboard/Dashboard";
+import Homepage from "../homepage/homepage";
 import Comments from "../Comments/comments";
 import Signout from "../Signin/Signout";
 import Write from "../Write/WritePage"
@@ -43,6 +44,10 @@ export const router=createBrowserRouter([
             {
                 path: '/write/:blogid',
                 element:<Write></Write>
+            },
+            {
+                path: '/h',
+                element:<Homepage></Homepage>
             },
             {
                 path: "/comments",
