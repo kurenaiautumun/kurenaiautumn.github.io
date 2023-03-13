@@ -9,7 +9,8 @@ const  userSchema = new mongoose.Schema({
     email:String,
     password: String,
     followers:Array,
-    following:Array
+    following:Array,
+    recommandation:Array
   });
 userSchema.plugin(passportLocalMongoose, {usernameQueryFields: ["username","email"]});
 
