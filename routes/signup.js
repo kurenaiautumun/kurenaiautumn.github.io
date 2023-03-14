@@ -14,7 +14,7 @@ router.post("/signup",function(req,res){
             
             var mailData = {
               from: 'autumnkurenai@gmail.com',
-              to: 'arjunsinghlahor189@gmail.com',
+              to: req.body.email,
               subject: 'Sending Email mailer',
               template: 'sample',
               context: {
