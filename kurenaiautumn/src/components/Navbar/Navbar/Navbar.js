@@ -20,10 +20,10 @@ const Navbar = () => {
 
   function Sign(id){
     if (id['id']==null){
-      return <a href='/signin'>Signin</a>
+      return <Link to='/signin'>Signin</Link>
     }
     else{
-      return <a href='/signout'>Signout</a>
+      return <Link to='/signout'>Signout</Link>
     }
   }
 
