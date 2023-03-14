@@ -15,8 +15,8 @@ const Dashboard = () => {
 
     function AllBlogs(user){
         console.log("user id in allBlogs dashbiard= ", user)
-        console.log(`http://100.25.166.88:8080/dashboard/${user}`)
-        fetch(`http://100.25.166.88:8080/dashboard/${user}`, {
+        console.log(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/dashboard/${user}`)
+        fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/dashboard/${user}`, {
           method: "GET",
           headers: {
             "content-type": "application/json",

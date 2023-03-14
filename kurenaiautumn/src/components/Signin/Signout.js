@@ -15,7 +15,7 @@ const Signout = () => {
   const navigate = useNavigate();
 
   useTitle("Sign Out")
-    fetch("http://100.25.166.88:8080/logout", {
+    fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/logout", {
         method: "POST",
         headers: {
           "content-type": "application/json",

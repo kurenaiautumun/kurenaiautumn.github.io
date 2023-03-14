@@ -40,7 +40,7 @@ const Home = () => {
     GetAllBlogs();
     }, []);
   async function GetAllBlogs(){
-    fetch(`http://100.25.166.88:8080/`, {
+    fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/`, {
         method: "GET",
         headers: {
           "content-type": "application/json",

@@ -28,7 +28,7 @@ const Write = () => {
 
   function getSavedData(blogId){
     console.log('inside saved data')
-    fetch(`http://100.25.166.88:8080/blog?blogId=${blogId}`, {
+    fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/blog?blogId=${blogId}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -97,8 +97,8 @@ const Write = () => {
             class: ImageTool,
               config: {
                 endpoints: {
-                  byFile: 'http://100.25.166.88:8080/image', // Your backend file uploader endpoint
-                  byUrl: 'http://100.25.166.88:8080/image', // Your endpoint that provides uploading by Url
+                  byFile: 'https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/image', // Your backend file uploader endpoint
+                  byUrl: 'https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/image', // Your endpoint that provides uploading by Url
                 },
                 additionalRequestData:{
                   blogId: blogId,
@@ -131,7 +131,7 @@ const Write = () => {
       title: document.getElementById("BlogTitle").innerHTML
     };
 
-    fetch("http://100.25.166.88:8080/updateBlog", {
+    fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/updateBlog", {
       method: "POST",
       headers: {
         "content-type": "application/json",
