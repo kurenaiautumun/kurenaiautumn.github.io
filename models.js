@@ -61,7 +61,7 @@ const corsOptions = {
     service: 'gmail',
     auth: {
       user: 'autumnkurenai@gmail.com',
-      pass: 'hrihtjreflykyiqe'
+      pass: 'fcvrlrtyofmwomjz'
     }
   });
 

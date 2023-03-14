@@ -13,7 +13,7 @@ router.get("/",(req,res)=>{
 
 router.get("/dashboard/:userId",(req,res)=>{
     const userId = req.params.userId
-    if(req.isAuthenticated()){
+   
       User.find({_id:userId},(err,user)=>{
         Blog.find({userId},(err,blogs)=>{
           Comment.find({userId},(err,comments)=>{
@@ -21,9 +21,9 @@ router.get("/dashboard/:userId",(req,res)=>{
           })
         })
       })
-    }else{
+   
       res.status(201).json("user is not login");
-    }
+    
   });
 
 module.exports=router;
