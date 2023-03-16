@@ -1,21 +1,36 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import './Profile.css'
+import { useEffect, useState } from 'react';
+import userImage from "../../img/user.png";
+import { Form } from 'react-router-dom';
 
-const Profile = () => {
-    return (
-        <div className='profile'>
-            <div className='mt-5 flex justify-between'>
-                <div>
-                <Link to="/profile" className='mr-5 text-gray-500 editProfile-nav-item'>Home</Link>
-                <Link to="/profile/about" className='text-gray-500 editProfile-nav-item'>About</Link>
+function Profile(){
+    const [user, setUser] = useState([]);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUser(user)
+    console.log(user)
+    }, []);
+
+    return(
+        <div style={{marginLeft:"30%"}}>
+            <img style={{width:"100px", "height": "100px"}} src={userImage} alt=""></img>
+            <Form>
+                <div class="form-group">
+                    <label for="name">Name</label><br></br>
+                    <input type="text" class="form-control" name="email"></input>
                 </div>
-                <button className='all-btn rounded-full text-xs text-white font-semibold px-3 py-2 mb-2'>Get Unlimited Access</button>
-            </div>
-            <hr />
-            <Outlet></Outlet>
+
+                <div class="form-group">
+                    <label for="">Email</label><br></br>
+                    <input type="text" class="form-control" editable={false} name="email"></input>
+                </div>
+                <div class="form-group">
+                    <label for="name">Mobile Number</label><br></br>
+                    <input type="text" name="mobile" class="form-control"></input>
+                </div>
+            </Form>
         </div>
-    );
-};
+    )
+}
 
 export default Profile;

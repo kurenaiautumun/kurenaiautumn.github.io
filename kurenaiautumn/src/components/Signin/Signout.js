@@ -29,7 +29,7 @@ const Signout = () => {
             localStorage.setItem('user', JSON.stringify(null));
             console.log('user id set to empty')
             navigate("/")
-            //window.location.reload(false);
+            window.location.reload(false);
           }
         })
         .catch((err) => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import './Home.css';
 import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([])
@@ -18,8 +19,7 @@ const Home = () => {
       return (
       <div>
         <Link to={url}>{value['title']}</Link>
-        <li>{value["userId"]}</li>
-        <li>{value["_id"]}</li>
+        <img src="" style={{width:"200px", height: "200px"}}></img>
       </div>
     )});
 
@@ -27,6 +27,11 @@ const Home = () => {
 
     return (
       <div>
+        <div className="row">
+          <div className='col-sm-3'>a</div>
+          <div className='col-sm-3'>b</div>
+          <div className='col-sm-3'>c</div>
+        </div>
         {body}
       </div>
     )

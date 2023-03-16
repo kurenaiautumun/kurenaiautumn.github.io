@@ -4,14 +4,14 @@ import { useParams } from 'react-router-dom';
 // import { useQuery } from 'react-query';
 
 const Dashboard = () => {
-  //const [user, setUser] = useState([]);
-  //useEffect(() => {
-  //  const user = JSON.parse(localStorage.getItem('user'));
-  //  setUser(user)
-  //  AllBlogs(user);
-  //}, []);
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setUser(user)
+    AllBlogs(user["_id"]);
+  }, []);
 
-  const { userid } = useParams();
+  //const { userid } = useParams();
 
     function AllBlogs(user){
         console.log("user id in allBlogs dashbiard= ", user)
@@ -26,7 +26,7 @@ const Dashboard = () => {
           .then((data) => (console.log(data)))
           .catch((err) => console.error(err));
     }
-    AllBlogs(userid)
+    //AllBlogs(user)
     return (
         <div>
             <p>This is dashboard</p>

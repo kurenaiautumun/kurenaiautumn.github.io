@@ -59,7 +59,7 @@ export const router=createBrowserRouter([
                 ]
             },
             {
-                path: 'dashboard/:userid',
+                path: 'dashboard',
                 element: <Dashboard></Dashboard>,
             }
         ]

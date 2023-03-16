@@ -34,22 +34,13 @@ const Dropdown = (_id) => {
   });
     return (
         <div className='menu-container' ref={menuRef}>
-        <div className='menu-trigger' onClick={()=>{setOpen(!open)}}>
+        <a className='menu-trigger' onClick={()=>{setOpen(!open)}}>
+        <Link to="/profile">
           <img src={user} alt=""></img>
+        </Link>
+        </a>
         </div>
 
-        <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} >
-          <h3>Zinat<br/><span>Website Designer</span></h3>
-          <ul>
-            <Link to="/profile"><DropdownItem img = {user} text = {"My Profile"}/></Link>
-            <Link to="/editprofile"><DropdownItem img = {edit} text = {"Edit Profile"}/></Link>
-            <Link to={`/dashboard/${_id}`}><DropdownItem img = {inbox} text = {"Dashboard"}/></Link>
-            <DropdownItem img = {settings} text = {"Settings"}/>
-            <DropdownItem img = {help} text = {"Helps"}/>
-            <DropdownItem img = {logout} text = {"Logout"}/>
-          </ul>
-        </div>
-      </div>
     );
 };
 
