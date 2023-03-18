@@ -1,6 +1,6 @@
 const express=require('express')
 const router=express.Router()
-const { User, transporter } = require('../models.js');
+const { User, transporter, UserInfo } = require('../models.js');
 const passport = require("passport");
 
 
@@ -47,6 +47,24 @@ router.post('/changepassword', function (req, res) {
           });
       }
   });
+});
+
+router.post('/userinfo/', function (req, res) {
+const userInfo = new UserInfo({
+    userId:req.body.userId,
+    body:req.body.body
+})
+    userInfo.save((err,info)=>{
+      if (err) throw err;
+      res.status(201).json({message:"userInfo saved", info});
+    });
+});
+
+router.get('/userinfo', function (req, res) {
+  const userId = req.body.userId; 
+    UserInfo.findOne({userId},(err,userInfo)=>{
+      res.status(201).json({userInfo});
+    })
 });
 
 module.exports=router;

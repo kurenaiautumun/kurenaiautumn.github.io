@@ -42,6 +42,11 @@ const reviewSchema = new mongoose.Schema({
   date:String
 })
 
+const userInfoSchema = new mongoose.Schema({
+  userId:String,
+  body:String,
+})
+
 const corsOptions = {
     origin:'*', 
     credentials:true, 
@@ -61,7 +66,7 @@ const corsOptions = {
     service: 'gmail',
     auth: {
       user: 'autumnkurenai@gmail.com',
-      pass: 'fcvrlrtyofmwomjz'
+      pass: process.env.PASSWORD
     }
   });
 
@@ -70,6 +75,7 @@ const corsOptions = {
   const Blog = new mongoose.model("blog",blogSchema);
   const Comment = new mongoose.model("comment",commentSchema);
   const Review = new mongoose.model("review", reviewSchema);
+  const UserInfo = new mongoose.model("userinfo", userInfoSchema);
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -77,5 +83,5 @@ passport.deserializeUser(User.deserializeUser());
 
   
   module.exports = {
-    date, User, Blog, Comment, corsOptions, Review, toggle, transporter
+    date, User, Blog, Comment, corsOptions, Review, UserInfo , toggle, transporter
   }

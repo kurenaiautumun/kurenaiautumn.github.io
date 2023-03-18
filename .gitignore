@@ -5,3 +5,4 @@ npm-debug.log
 /*.env
 codes.txt
 test.js
+mail.js

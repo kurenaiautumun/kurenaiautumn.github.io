@@ -4,11 +4,15 @@ const { User, Blog, Comment} = require('../models');
 
 
 router.get("/",(req,res)=>{
-    Blog.find()
-    .sort({date:1})
-    .exec({},(err,posts)=>{
-      res.status(201).json(posts);
-    })   
+    // Blog.find()
+    // .sort({date:1})
+    // .exec({},(err,posts)=>{
+    //   res.status(201).json(posts);
+    // })  
+    
+    Blog.find().exec({}, (err, posts) => {
+      res.status(201).json(posts.reverse());
+    });
 });
 
 router.get("/dashboard/:userId",(req,res)=>{
