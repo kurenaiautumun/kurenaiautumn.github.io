@@ -44,7 +44,7 @@ const reviewSchema = new mongoose.Schema({
 
 const userInfoSchema = new mongoose.Schema({
   userId:String,
-  body:String,
+  body:Object,
 })
 
 const corsOptions = {
