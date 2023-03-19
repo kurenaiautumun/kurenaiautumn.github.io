@@ -15,6 +15,8 @@ const upload = multer(multer.memoryStorage())
 
 
 router.post("/image",upload.single('image'), async (req,res)=>{
+  console.log(req.body)
+  console.log(req.file)
   if(req.body.userId == undefined || req.body.blogId == undefined){
     res.json({message: "please provide a valid parameters"})
   }else{
@@ -30,6 +32,33 @@ router.post("/image",upload.single('image'), async (req,res)=>{
   
       await s3.send(command)
   
+      res.status(201).json({success:1,
+        file: {
+        url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,
+    }})
+  }
+})
+
+router.use(express.json());
+
+router.post("/titleImage",upload.single('image'), async (req,res)=>{
+  console.log(req.body)
+  console.log(req.file)
+  if(req.body.userId == undefined || req.body.blogId == undefined){
+    res.json({message: "please provide a valid parameters"})
+  }else{
+    const Key = (`images/${req.body.userId}/${req.body.blogId}/${req.file.originalname}`)
+  
+      const command = new PutObjectCommand({
+        Bucket: process.env.BUCKET_NAME,
+        Key,
+        Body:req.file.buffer,
+        Contenttype:req.file.mimetype,
+        ACL:'public-read'
+    })
+  
+      await s3.send(command)
+
       res.status(201).json({success:1,
         file: {
         url: `https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/${Key}`,
