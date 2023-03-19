@@ -2,6 +2,7 @@ const express=require('express')
 const router=express.Router()
 const { User, transporter, UserInfo } = require('../models.js');
 const passport = require("passport");
+const template=require('../routes/template')
 
 
 router.post("/signup",function(req,res){
@@ -15,11 +16,8 @@ router.post("/signup",function(req,res){
             var mailData = {
               from: 'autumnkurenai@gmail.com',
               to: req.body.email,
-              subject: 'Sending Email mailer',
-              template: 'sample',
-              context: {
-                name: "Abhinav"
-              }
+              subject: 'Welcome to Kurenai',
+              html: template,
             };
 
             transporter.sendMail(mailData, (error, info) => {
