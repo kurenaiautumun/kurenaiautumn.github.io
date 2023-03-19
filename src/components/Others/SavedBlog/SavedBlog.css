@@ -1,0 +1,21 @@
+.saved-blog{
+    margin: 10px 0px;
+    padding: 20px;
+    border-radius: 6px;
+}
+
+.author-img{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.blog-text{
+    overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
