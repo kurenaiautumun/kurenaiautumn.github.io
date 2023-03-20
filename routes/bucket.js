@@ -15,8 +15,7 @@ const upload = multer(multer.memoryStorage())
 
 
 router.post("/image",upload.single('image'), async (req,res)=>{
-  console.log(req.body)
-  console.log(req.file)
+
   if(req.body.userId == undefined || req.body.blogId == undefined){
     res.json({message: "please provide a valid parameters"})
   }else{
@@ -42,8 +41,7 @@ router.post("/image",upload.single('image'), async (req,res)=>{
 router.use(express.json());
 
 router.post("/titleImage",upload.single('image'), async (req,res)=>{
-  console.log(req.body)
-  console.log(req.file)
+  
   if(req.body.userId == undefined || req.body.blogId == undefined){
     res.json({message: "please provide a valid parameters"})
   }else{

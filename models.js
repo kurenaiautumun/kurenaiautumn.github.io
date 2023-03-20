@@ -10,7 +10,7 @@ const  userSchema = new mongoose.Schema({
     password: String,
     followers:Array,
     following:Array,
-    recommandation:Array
+    recommendation:Array
   });
 userSchema.plugin(passportLocalMongoose, {usernameQueryFields: ["username","email"]});
 
@@ -23,7 +23,8 @@ const  blogSchema = new mongoose.Schema({
   views:String,
   status:String,
   date:String,
-  likes:Array
+  likes:Array,
+  recommendation:Array
 });
 
 const  commentSchema = new mongoose.Schema({

@@ -2,21 +2,21 @@ const express = require("express");
 const { User, Blog } = require("../models");
 const router = express.Router();
 
-router.post("/recommandation/:userId", async (req, res) => {
+router.post("/recommendation/:userId", async (req, res) => {
   const _id = req.params.userId;
-  const { recommandation } = req.body;
-  User.updateOne({ _id }, { $push: { recommandation } }, function (err, docs) {
+  const { recommendation } = req.body;
+  User.updateOne({ _id }, { $push: { recommendation } }, function (err, docs) {
     if (!err) {
       res.status(201).json({ message: "update succesfully", docs });
     }
   });
 });
 
-router.get("/recommandation/:userId", async (req, res) => {
+router.get("/recommendation/:userId", async (req, res) => {
     let _id = req.params.userId;
-    let {recommandation} = await User.findOne({_id});
+    let {recommendation} = await User.findOne({_id});
     var allBlog={};
-    recommandation.forEach(async element => {
+    recommendation.forEach(async element => {
         let blog = await Blog.find({
             $or: [{ title: { $regex: element, $options: "i" } }],
         }).exec();
@@ -26,7 +26,7 @@ router.get("/recommandation/:userId", async (req, res) => {
     res.status(201).send({allBlog})
 });
 
-// router.get("/recommandation/:userId", async (req, res) => {
+// router.get("/recommendation/:userId", async (req, res) => {
 //     let _id = req.params.userId;
 //     try {
 //         const user = await User.findOne({ _id });
