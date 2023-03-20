@@ -15,6 +15,17 @@ router.get("/",(req,res)=>{
     });
 });
 
+router.get("/random", (req, res) => {
+  const size = req.query.limit || 1
+  Blog.aggregate([{ $sample: { size } }])
+    .exec((err, posts) => {
+      if (err) {
+        return res.status(500).json({ error: err });
+      }
+      res.status(200).json(posts);
+    });
+});
+
 router.get("/dashboard/:userId",(req,res)=>{
     const userId = req.params.userId
    
