@@ -102,7 +102,7 @@ const Write = () => {
 
     // Save blog information to the database
 
-    fetch("http://100.25.166.88:8080/updateBlog", {
+    fetch(`${process.env.REACT_APP_URL}/updateBlog`, {
       method: "POST",
       headers: {
         "content-type": "application/json",

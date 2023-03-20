@@ -31,7 +31,7 @@ const Write = () => {
 
   function getSavedData(blogId){
     console.log('inside saved data')
-    fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/blog?blogId=${blogId}`, {
+    fetch(`${process.env.REACT_APP_URL}/blog?blogId=${blogId}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -49,7 +49,7 @@ const Write = () => {
           console.log("no title")
         }
         var read
-        if (data[0].userId==userid){
+        if (data[0].userId === userid){
           read=false
         }
         else{
@@ -79,7 +79,7 @@ const Write = () => {
         title: document.getElementById("BlogTitle").innerHTML
       };
   
-      fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/updateBlog", {
+      fetch(`${process.env.REACT_APP_URL}/updateBlog`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -164,7 +164,7 @@ const Write = () => {
   }
 
   async function handleFileChange(e){
-    if (e.target.files!=""){
+    if (e.target.files!==""){
       console.log("files = ", e.target.files[0])
       let body = new FormData();
       body.append("blogId", blogId)
@@ -176,8 +176,7 @@ const Write = () => {
       //  userId: userid["_id"]
       //}
       console.log("body = ", body)
-      //fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/image", {
-      fetch("http://127.0.0.1:8000/titleImage", {
+      fetch(`${process.env.REACT_APP_URL}/image`, {
         method: "POST",
         body: body
       }).then((res) => res.json())

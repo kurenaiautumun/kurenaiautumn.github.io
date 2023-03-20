@@ -17,7 +17,7 @@ const Signup = () => {
 
       const handleSignup = (data) =>{
         
-      fetch("http://100.25.166.88:8080/signup", {
+      fetch(`${process.env.REACT_APP_URL}/signup`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

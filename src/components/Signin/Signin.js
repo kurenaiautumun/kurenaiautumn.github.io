@@ -21,7 +21,7 @@ const Signin = () => {
   } = useForm();
   const handleLogin = (data) => {
     console.log(data)
-    fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/login", {
+    fetch(`${process.env.REACT_APP_URL}/login`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

@@ -15,7 +15,7 @@ const Signout = () => {
   const navigate = useNavigate();
 
   useTitle("Sign Out")
-    fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/logout", {
+    fetch(`${process.env.REACT_APP_URL}/logout`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

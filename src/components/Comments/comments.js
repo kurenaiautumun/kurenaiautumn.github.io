@@ -14,7 +14,7 @@ function Comments(BlogId){
     }, []);
 
     function AllComments(){
-        fetch(`http://100.25.166.88:8080/comment/${BlogId["BlogId"]}`, {
+        fetch(`${process.env.REACT_APP_URL}/comment/${BlogId["BlogId"]}`, {
           method: "GET",
           headers: {
             "content-type": "application/json",
@@ -34,7 +34,7 @@ function Comments(BlogId){
                 "body": comment,
                 "status": "review"
             }
-        fetch(`http://100.25.166.88:8080/newComment`, {
+        fetch(`${process.env.REACT_APP_URL}/newComment`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

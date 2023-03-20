@@ -16,7 +16,7 @@ function Likes(BlogId){
     }, []);
 
     function AllLikes(){
-        fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/Likes/${BlogId["BlogId"]}`, {
+        fetch(`${process.env.REACT_APP_URL}/Likes/${BlogId["BlogId"]}`, {
           method: "GET",
           headers: {
             "content-type": "application/json",
@@ -34,7 +34,7 @@ function Likes(BlogId){
             //"Date": "20230101",
         }
         console.log('sent')
-        fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/Likes/${BlogId["BlogId"]}`, {
+        fetch(`${process.env.REACT_APP_URL}/Likes/${BlogId["BlogId"]}`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
