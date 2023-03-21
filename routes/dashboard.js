@@ -16,8 +16,8 @@ router.get("/",(req,res)=>{
 });
 
 router.get("/random", (req, res) => {
-  const size = req.query.limit || 1
-  Blog.aggregate([{ $sample: { size } }])
+  const limit = parseInt(req.query.limit) || 10;
+  Blog.aggregate([{ $sample: { size: limit } }])
     .exec((err, posts) => {
       if (err) {
         return res.status(500).json({ error: err });

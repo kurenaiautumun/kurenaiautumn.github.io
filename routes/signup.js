@@ -47,9 +47,9 @@ router.post('/changepassword', function (req, res) {
   });
 });
 
-router.post('/userinfo/', function (req, res) {
+router.post('/userinfo/:userId', function (req, res) {
 const userInfo = new UserInfo({
-    userId:req.body.userId,
+    userId:req.params.userId,
     body:req.body.body
 })
     userInfo.save((err,info)=>{
@@ -58,8 +58,8 @@ const userInfo = new UserInfo({
     });
 });
 
-router.get('/userinfo', function (req, res) {
-  const userId = req.body.userId; 
+router.get('/userinfo/:userId', function (req, res) {
+  const userId = req.params.userId; 
     UserInfo.findOne({userId},(err,userInfo)=>{
       res.status(201).json({userInfo});
     })
