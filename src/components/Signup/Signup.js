@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useTitle from '../hooks/useTItle';
-import './Signup.css'
+
+import { Form } from 'react-router-dom';
 
 
 const Signup = () => {
+
+  const [success, setSuccess] = useState(false)
+
+  function printe(){
+    console.log("success = ", success)
+  }
  
 
   useTitle("Signup")
-    const {
-        register,
-        handleSubmit,
-      } = useForm();
+      async function handleSignup(e){
 
-      const handleSignup = (data) =>{
+        e.preventDefault()
+
+        console.log(e.target)
+
+        let data={}
+
+        data["username"] = e.target.name.value
+        data["email"] = e.target.email.value
+        data["password"] = e.target.password.value
+
+        console.log("in singup handle")
         
       fetch("http://100.25.166.88:8080/signup", {
         method: "POST",
@@ -26,7 +40,8 @@ const Signup = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          setSuccess(true);
+          console.log("data in signup", data);
           console.log(data.user._id);
           if(data.user._id !== null){
             toast.success(data.message)
@@ -35,6 +50,7 @@ const Signup = () => {
         .catch((err) => {
           // console.log(err.message)
           if(err){
+            console.log(err)
             toast.error("A user with the given username is already registered")
           }
   });
@@ -42,59 +58,33 @@ const Signup = () => {
 
 
     return (
-      
-      <div className='inner-div'>
-      <div className="justify-center">
-      <form className="signup-div rounded-md" onSubmit={handleSubmit(handleSignup)}>
-        
-        <div className="header flex justify-between py-3">
-          <p className="text-fuchsia-700 text-xs font-semibold ml-4">NOT A MEMBER !</p>
-          {/* <p className="text-gray text-xs font-semibold mr-4">Need help?</p> */}
-        </div>
-        <div className="form-control w-full px-6 mt-4">
-        <input
-            {...register("username", { required: "Enter your username" })}
-            type="text"
-            placeholder="username"
-            className="user-input rounded-md w-full my-2"
-          />
-          {/* {errors.username && (
-            <span className="text-red-500 text-xs">{errors.username.message}</span>
-          )} */}
-          <input
-            {...register("email", { required: "Enter your email" })}
-            type="text"
-            placeholder="Email"
-            className="user-input rounded-md w-full my-2"
-          />
-          {/* {errors.email && (
-            <span className="text-red-500 text-xs">{errors.email.message}</span>
-          )} */}
-          <input
-            {...register("password", { required: "Enter password" })}
-            type="password"
-            placeholder="password"
-            className="user-input rounded-md w-full mt-2"
-          />
-          {/* {errors.password && (
-            <span className="text-red-500 text-xs">{errors.password.message}</span>
-          )} */}
-        </div>
-        <input
-          type="submit"
-          value="SIGN UP"
-          className="all-btn rounded text-white text-xs font-semibold py-2.5 px-36 m-6"
-        />      
-        {/* <p className="text-danger">{error}</p> */}
-      </form>
-      <div className="create-account mt-6">
-    <p className="text-fuchsia-600 text-xs font-semibold">Already have an account?</p>
-      <Link to='/signin'><button className="all-btn rounded-full text-xs text-white font-semibold px-3 py-2 mt-2">
-          Sign in
-        </button></Link>
-    </div>
-    </div>     
+      <div className="inner-div">
+        <button onClick={printe}>adsfads</button>
+        <div style={{marginLeft: "37%"}}>
+          <h2>Please enter your details</h2>
+        <Form onSubmit={handleSignup}>
+                  <label for="body">
+                      <div class="form-group" style={{marginTop: "20px"}}>
+                          <input id="name" placeholder="User Name" type="text" class="form-control input-lg" name="name"></input>
+                      </div>
+
+                      <div class="form-group" style={{marginTop: "20px"}}>
+                          <input id="email" placeholder="email" type="email" class="form-control input-lg" editable={false} name="email"></input>
+                      </div>
+                      <div class="form-group" style={{marginTop: "20px"}}>
+                          <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
+                      </div>
+                  </label>
+                  <div>
+                      <button class="btn btn-primary" style={{marginTop: "10px"}}>Register</button>
+                  </div>
+        </Form>
+        <p className="text-fuchsia-600 text-xs font-semibold" style={{marginTop: "10px"}}>Already have an account?</p>
+        <Link to='/signin'><button style={{marginTop: "5px"}} className="btn btn-success ">
+            Sign in
+          </button></Link>
       </div>
+    </div>
  
     );
 };

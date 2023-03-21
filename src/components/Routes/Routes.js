@@ -46,17 +46,6 @@ export const router=createBrowserRouter([
             {
                 path: '/profile',
                 element:<Profile></Profile>,
-                children:[
-                    {
-                        path:'/profile',
-                        element:<Home></Home>,
-                        loader: ()=> fetch(`https://kurenaiautumn-server.vercel.app/blogs`),
-                    },
-                    {
-                        path: '/profile/about',
-                        element: <About></About>
-                    }
-                ]
             },
             {
                 path: 'dashboard',

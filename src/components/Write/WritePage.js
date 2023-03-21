@@ -16,21 +16,31 @@ const Quote = require('@editorjs/quote');
 
 
 const Write = () => {
-  const { blogId } = useParams();
-  const {titleImage, setTitleImage} = useState([]);
-  console.log("id = ", blogId)
   const [array, setArray] = useState([]);
+  const [read, setRead] = useState(true)
   //const [blogId, setBlogId] = useState([]);
-  const [userid, setID] = useState([])
+  const [userid, setID] = useState(false)
   const [blogBody, setBody] = useState([]);
+  const [blogId, setBlogId] = useState(window.location.pathname.split('/')[2]);
+  console.log("blogId = ", blogId)
+  const [gotData, setGotData] = useState(false)
+
   const [image, setImage] = useState("");
 
   const dataFetchedRef = useRef(false);
 
   useTitle("Write");
 
-  function getSavedData(blogId){
-    console.log('inside saved data')
+  function GetSavedData(){
+    if (gotData){
+      return null
+    }
+    if (userid==false){
+      console.log("user id in not here")
+      return null
+    }
+    console.log("user id = ", userid)
+    console.log('inside saved data in ', `https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/blog?blogId=${blogId}`)
     fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/blog?blogId=${blogId}`, {
       method: "GET",
       headers: {
@@ -39,8 +49,8 @@ const Write = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        setGotData(true);
         console.log("data in saved data = ", data[0]);
-        console.log("body in saved data = ", data[0].body);
         if (data[0].title){
           document.getElementById("BlogTitle").innerHTML = data[0].title
           console.log(document.getElementById("BlogTitle"))
@@ -48,19 +58,22 @@ const Write = () => {
         else{
           console.log("no title")
         }
-        var read
-        if (data[0].userId==userid){
-          read=false
+        console.log("user id from backend = ", data[0].userId)
+        var read;
+        if (data[0].userId==userid["_id"]){
+          console.log(data[0].userId, " you are the writer - ", userid["_id"])
+          setRead(false);
         }
         else{
-          read=true
+          console.log(data[0].userId, " you are not the writer - ", userid["_id"])
+          setRead(true)
         }
         if (data[0].body) {
           setBody(data[0].body);
-          setUpEditor(data[0].body, read)
+          //setUpEditor(data[0].body)
         }
         else{
-          setUpEditor([], read)
+          //setUpEditor([])
         }
       })
       .catch((err) => {
@@ -76,10 +89,12 @@ const Write = () => {
       const blog = {
         id: blogId,
         body: savedData,
-        title: document.getElementById("BlogTitle").innerHTML
+        title: document.getElementById("BlogTitle").innerHTML,
+        titleImage: gotImage["url"]
       };
   
-      fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/updateBlog", {
+      fetch("http://127.0.0.1:8080/updateBlog", {
+      //fetch("http://127.0.0.1:8000/updateBlog", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -106,11 +121,15 @@ const Write = () => {
         const userid = JSON.parse(localStorage.getItem('user'));
         setID(userid);
         console.log("user id in useEffect =", userid)
+        //getSavedData(window.location.pathname.split('/')[2])
       }, []);
 
   const [editor, setEditor] = useState({isReady:false});
 
-  function setUpEditor(body, read){
+  function SetUpEditor(){
+    if (gotData==false){
+      return null
+    }
     if (!editor.isReady) {
       if (dataFetchedRef.current) return;
       dataFetchedRef.current = true;
@@ -118,8 +137,8 @@ const Write = () => {
       let editor1 = new EditorJS({
         autofocus: true,
         holder: "editorjs",
-        //readOnly: read,
-        data: body,
+        readOnly: read,
+        data: blogBody,
         tools: {
           quote: Quote,
           header: Header,
@@ -148,19 +167,16 @@ const Write = () => {
     }
   }
 
-  useEffect(() => {
-    getSavedData(window.location.pathname.split('/')[2])
-    }, [editor]);
 
   function updateBlog() {
     console.log('inside handleWriteBlog')
     saving();
   };
 
-  const [a, seta] = useState([]);
+  const [gotImage, setGotImage] = useState([]);
 
   function middleImage(data){
-    seta(data)
+    setGotImage(data)
   }
 
   async function handleFileChange(e){
@@ -177,13 +193,12 @@ const Write = () => {
       //}
       console.log("body = ", body)
       //fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/image", {
-      fetch("http://127.0.0.1:8000/titleImage", {
+      fetch("http://127.0.0.1:8080/titleImage", {
         method: "POST",
         body: body
       }).then((res) => res.json())
       .then((data) => {
         middleImage(data.file);
-        document.getElementById("imageURL").innerHTML=data.file["url"];
         console.log("url image of uploaded = ", data.file);
         })
       .catch((err) => {
@@ -194,10 +209,10 @@ const Write = () => {
 }
 
 function TitularImage(){
-  if (a){
-    console.log("title image = ", a)
+  if (gotImage){
+    console.log("title image = ", gotImage)
     return(
-      <img src={a["url"]} style={{width: "300px", height:"200px"}}></img>
+      <img src={gotImage["url"]} style={{width: "300px", height:"200px"}}></img>
     )
   }
   else{
@@ -206,10 +221,13 @@ function TitularImage(){
   }
 }
 
+console.log("user id = ", userid)
+
 
   return (
     <div>
-        <div id="imageURL"></div>
+       <GetSavedData />
+       <SetUpEditor />
         <button className="writeSubmit all-btn" id="submit-blog" style={{float: "right"}}onClick={updateBlog}>Publish</button>
         <div className="text-area">
           <TitularImage />

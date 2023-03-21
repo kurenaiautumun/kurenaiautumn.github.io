@@ -15,23 +15,21 @@ const Home = () => {
     }
     console.log("plotBlogs = ", blogs)
     let body = blogs.map((value)=>{
-      let url = `blog/${value["_id"]}`
-      return (
-      <div>
-        <Link to={url}>{value['title']}</Link>
-        <img src="" style={{width:"200px", height: "200px"}}></img>
-      </div>
-    )});
+      if (value["title"]){
+        let url = `blog/${value["_id"]}`
+        return (
+        <div>
+          <div>
+            <Link to={url}>{value['title']}</Link>
+          </div>
+          <img src={value["titleImage"]} style={{width:"200px", height: "200px"}}></img>
+        </div>
+    )}});
 
     console.log("body = ", body)
 
     return (
       <div>
-        <div className="row">
-          <div className='col-sm-3'>a</div>
-          <div className='col-sm-3'>b</div>
-          <div className='col-sm-3'>c</div>
-        </div>
         {body}
       </div>
     )

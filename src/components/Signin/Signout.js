@@ -1,5 +1,4 @@
 import React from "react";
-import "./Signin.css";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import useTitle from "../hooks/useTItle";
