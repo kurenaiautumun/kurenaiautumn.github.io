@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 const Main = () => {
     //let id;
     return (
-        <div>
+        <div style={{width: "100%"}}>
             <Navbar></Navbar>
             <Outlet></Outlet>
         </div>

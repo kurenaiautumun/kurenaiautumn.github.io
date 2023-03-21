@@ -12,6 +12,8 @@ import Dashboard from "../Others/Dashboard/Dashboard";
 import Comments from "../Comments/comments";
 import Signout from "../Signin/Signout";
 import Write from "../Write/WritePage"
+import Bootstrapped from "../testing/bootstrap";
+import Recommendations from "../Recommendations/recommend"
 
 
 export const router=createBrowserRouter([
@@ -50,6 +52,14 @@ export const router=createBrowserRouter([
             {
                 path: 'dashboard',
                 element: <Dashboard></Dashboard>,
+            },
+            {
+                path: "bootstrap",
+                element: <Bootstrapped></Bootstrapped>
+            },
+            {
+                path: "recommendations",
+                element: <Recommendations />
             }
         ]
     }

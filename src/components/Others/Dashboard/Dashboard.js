@@ -27,9 +27,9 @@ const Dashboard = () => {
       if (value["title"]){
         let url = `blog/${value["_id"]}`
         return (
-        <div>
+        <div class="row" style={{marginLeft: "20px", marginBottom: "20px"}}>
           <div>
-            <Link to={url}>{value['title']}</Link>
+            <a href={url}><h3 style={{float:"left", width:"100px", color: "#FA013D"}}>{value['title']}</h3></a>
           </div>
           <img src={value["titleImage"]} style={{width:"200px", height: "200px"}}></img>
         </div>
@@ -47,7 +47,7 @@ const Dashboard = () => {
 function Welcome(){
   if (user){
     return (
-      <h2>Welcome, <p style={{color: "red", display: "inline"}}>{user["username"]}</p></h2>
+      <h2 style={{marginLeft: "20px"}}>Welcome, <p style={{color: "red", display: "inline"}}>{user["username"]}</p></h2>
     )
   }
 }
@@ -59,8 +59,8 @@ useEffect(() => {
 
     function AllBlogs(user){
         console.log("user id in allBlogs dashbiard= ", user)
-        console.log(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/dashboard/${user}`)
-        fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/dashboard/${user}`, {
+        console.log(`${process.env.REACT_APP_URL}/dashboard/${user}`)
+        fetch(`${process.env.REACT_APP_URL}/dashboard/${user}`, {
           method: "GET",
           headers: {
             "content-type": "application/json",

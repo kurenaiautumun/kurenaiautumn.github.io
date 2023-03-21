@@ -25,9 +25,8 @@ function Profile(){
     }
 
     function getValues(id){
-        fetch("http://127.0.0.1:8080/userinfo", {
-            method: "POST",
-            body: JSON.stringify({userId: id, body: {}})
+        fetch(`${process.env.REACT_APP_URL}/userinfo?userId=${id}`, {
+            method: "GET",
         })
         .then((res => res.json()))
         .then((data => {setValues(data.info); console.log("data = ", data.info)}))
@@ -47,7 +46,7 @@ function Profile(){
         total_body["body"] = body
         console.log(e.target.name.value)
         console.log("body = ", profileData)
-        fetch("http://127.0.0.1:8080/userinfo", {
+        fetch(`${process.env.REACT_APP_URL}/userinfo`, {
             method:"POST",
             headers: {
                 "content-type": "application/json",

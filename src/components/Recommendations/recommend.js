@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Home = () => {
+const Recommendations = () => {
   const [blogs, setBlogs] = useState([])
   const [confirm, setConfirm] = useState(0)
 
@@ -16,20 +16,26 @@ const Home = () => {
     console.log("plotBlogs = ", blogs)
     let body = blogs.map((value)=>{
       if (value["title"]){
-        let url = `blog/${value["_id"]}`
+        let url = `../blog/${value["_id"]}`
         return (
-        <div class="row" style={{marginLeft: "20px"}}> 
-          <div>
-            <Link to={url}><h3 style={{float:"left", width:"100px", color: "#FA013D"}}>{value['title']}</h3></Link>
-          </div>
-          <img src={value["titleImage"]} style={{width:"200px", height: "200px"}}></img>
+        <div class="col-sm-4">
+            <div class="row" style={{marginLeft: "20px"}}> 
+            <div class="col-sm-6">
+                <img src={value["titleImage"]} style={{width:"100px", height: "100px"}}></img>
+            </div>
+            <div class="col-sm-6">
+              <a href={url}>
+                <h5 style={{float:"left", width:"100%", color: "#FA013D", overflow: "hidden"}}>{value['title']}</h5>
+            </a>
+            </div>
+            </div>
         </div>
     )}});
 
     console.log("body = ", body)
 
     return (
-      <div>
+      <div class="row">
         {body}
       </div>
     )
@@ -54,13 +60,9 @@ const Home = () => {
   }
   return (
     <div class="container-fluid">
-      <div class="row">
-        <h1 style={{float: "right", width: "60%", textAlign: "right"}}>Autumn Kurenai</h1>
-        <img style={{width:"60px", height:"44px", float:"left"}} src="https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logow+(1).jpeg"></img>
-      </div>
       <PlotBlogs />
     </div>
   )
 };
 
-export default Home;
+export default Recommendations;

@@ -6,13 +6,17 @@ import useTitle from '../hooks/useTItle';
 
 import { Form } from 'react-router-dom';
 
+import { useNavigate } from 'react-router-dom';
+
 
 const Signup = () => {
 
   const [success, setSuccess] = useState(false)
+  const navigate = useNavigate();
 
-  function printe(){
+  function Printe(){
     console.log("success = ", success)
+    return (<div>{success}</div>)
   }
  
 
@@ -31,7 +35,7 @@ const Signup = () => {
 
         console.log("in singup handle")
         
-      fetch("http://100.25.166.88:8080/signup", {
+      fetch(`${process.env.REACT_APP_URL}/signup`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -53,40 +57,82 @@ const Signup = () => {
             console.log(err)
             toast.error("A user with the given username is already registered")
           }
-  });
+  });   console.log("after fetch")
+        alert("Signup Successful")
+        navigate("/signin")
+        window.location.reload(false);
       }
 
 
+    //return (
+    //  <div className="inner-div">
+    //    <Printe />
+    //    <div style={{marginLeft: "37%"}}>
+    //      <h2>Please enter your details</h2>
+    //    <Form onSubmit={handleSignup}>
+    //              <label for="body">
+    //                  <div class="form-group" style={{marginTop: "20px"}}>
+    //                      <input id="name" placeholder="User Name" type="text" class="form-control input-lg" name="name"></input>
+    //                  </div>
+//
+    //                  <div class="form-group" style={{marginTop: "20px"}}>
+    //                      <input id="email" placeholder="email" type="email" class="form-control input-lg" editable={false} name="email"></input>
+    //                  </div>
+    //                  <div class="form-group" style={{marginTop: "20px"}}>
+    //                      <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
+    //                  </div>
+    //              </label>
+    //              <div>
+    //                  <button class="btn btn-primary" style={{marginTop: "10px"}}>Register</button>
+    //              </div>
+    //    </Form>
+    //    <p className="text-fuchsia-600 text-xs font-semibold" style={{marginTop: "10px"}}>Already have an account?</p>
+    //    <Link to='/signin'><button style={{marginTop: "5px"}} className="btn btn-success ">
+    //        Sign in
+    //      </button></Link>
+    //  </div>
+    //</div>
+ //
+    //);
     return (
-      <div className="inner-div">
-        <button onClick={printe}>adsfads</button>
-        <div style={{marginLeft: "37%"}}>
-          <h2>Please enter your details</h2>
-        <Form onSubmit={handleSignup}>
-                  <label for="body">
-                      <div class="form-group" style={{marginTop: "20px"}}>
-                          <input id="name" placeholder="User Name" type="text" class="form-control input-lg" name="name"></input>
-                      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12 d-flex justify-content-center">
+            <h2>Please enter your details</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 d-flex justify-content-center">
+            <Form onSubmit={handleSignup}>
+                    <label for="body">
+                        <div class="form-group" style={{marginTop: "20px"}}>
+                            <input id="name" placeholder="User Name" type="text" class="form-control input-lg" name="name"></input>
+                        </div>
 
-                      <div class="form-group" style={{marginTop: "20px"}}>
-                          <input id="email" placeholder="email" type="email" class="form-control input-lg" editable={false} name="email"></input>
-                      </div>
-                      <div class="form-group" style={{marginTop: "20px"}}>
-                          <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
-                      </div>
-                  </label>
-                  <div>
-                      <button class="btn btn-primary" style={{marginTop: "10px"}}>Register</button>
-                  </div>
-        </Form>
-        <p className="text-fuchsia-600 text-xs font-semibold" style={{marginTop: "10px"}}>Already have an account?</p>
-        <Link to='/signin'><button style={{marginTop: "5px"}} className="btn btn-success ">
-            Sign in
-          </button></Link>
+                        <div class="form-group" style={{marginTop: "20px"}}>
+                            <input id="email" placeholder="email" type="email" class="form-control input-lg" editable={false} name="email"></input>
+                        </div>
+                        <div class="form-group" style={{marginTop: "20px"}}>
+                            <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
+                        </div>
+                    </label>
+                    <div>
+                        <button class="btn btn-primary" style={{marginTop: "10px"}}>Register</button>
+                    </div>
+          </Form>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12 d-flex justify-content-center">
+          <p className="text-fuchsia-600 text-xs font-semibold" style={{marginTop: "10px"}}>Already have an account?  </p>
+          <Link to='/signin'><button style={{marginLeft: "5px",marginTop: "5px"}} className="btn btn-success ">
+              Sign in
+            </button>
+          </Link>
+          </div>
+        </div>
       </div>
-    </div>
- 
-    );
+    )
 };
 
 export default Signup;

@@ -16,7 +16,6 @@ const Signin = () => {
 
   useTitle("Signin")
 
-
   async function handleLogin(e){
 
     e.preventDefault()
@@ -31,7 +30,7 @@ const Signin = () => {
 
     console.log("in singup handle", data)
     
-  fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/login", {
+  fetch(`${process.env.REACT_APP_URL}/login`, {
     method: "POST",
     headers: {
       "content-type": "application/json",
@@ -43,7 +42,10 @@ const Signin = () => {
       console.log("data in signup", data);
       console.log(data.user._id);
       if(data.user._id !== null){
+        localStorage.setItem('user', JSON.stringify(data.user));
         toast.success(data.message)
+        navigate(`/dashboard`);
+        window.location.reload(false);
       }
     })
     .catch((err) => {
@@ -85,34 +87,75 @@ const Signin = () => {
   //};
 
 
+  //return (
+  //  <div className="inner-div">
+  //    <div class="row" style={{marginLeft: "37%"}}>
+  // 
+  // <Form onSubmit={handleLogin}>
+  //                <label for="body">
+  //                    <div class="form-group" style={{marginTop: "20px"}}>
+  //                        <input id="name" placeholder="User Name / Email" type="text" class="form-control input-lg" name="name"></input>
+  //                    </div>
+  //                    <div class="form-group" style={{marginTop: "20px"}}>
+  //                        <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
+  //                    </div>
+  //                </label>
+  //                <div>
+  //                    <button class="btn btn-primary" style={{marginTop: "10px"}}>Login</button>
+  //                </div>
+  //      </Form>
+  //        <p>
+  //          Do you have an account yet?
+  //        </p>
+  //        <Link to="/signup">
+  //          <p>
+  //            Create an account
+  //          </p>
+  //        </Link>
+  //      </div>
+  //    </div>
+  //);
   return (
-    <div className="inner-div">
-      <div class="row" style={{marginLeft: "37%"}}>
-   
-   <Form onSubmit={handleLogin}>
-                  <label for="body">
-                      <div class="form-group" style={{marginTop: "20px"}}>
-                          <input id="name" placeholder="User Name / Email" type="text" class="form-control input-lg" name="name"></input>
-                      </div>
-                      <div class="form-group" style={{marginTop: "20px"}}>
-                          <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
-                      </div>
-                  </label>
-                  <div>
-                      <button class="btn btn-primary" style={{marginTop: "10px"}}>Login</button>
-                  </div>
-        </Form>
-          <p>
-            Do you have an account yet?
-          </p>
-          <Link to="/signup">
-            <p>
-              Create an account
-            </p>
-          </Link>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center">
+          <h2>Please login with your account Details</h2>
         </div>
       </div>
-  );
+      <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center">
+        <Form onSubmit={handleLogin}>
+         <label for="body">
+             <div class="form-group" style={{marginTop: "20px"}}>
+                 <input id="name" placeholder="User Name / Email" type="text" class="form-control input-lg" name="name"></input>
+             </div>
+             <div class="form-group" style={{marginTop: "20px"}}>
+                 <input id="password" placeholder="password" type="password" name="password" class="form-control input-lg"></input>
+             </div>
+         </label>
+         <div>
+             <button class="btn btn-primary" style={{marginTop: "10px"}}>Login</button>
+         </div>
+      </Form>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center">
+        <p>
+          Do you have an account yet?
+        </p>
+        <Link to="/signup">
+          <p>
+            Create an account
+          </p>
+        </Link>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12 d-flex justify-content-center"></div>
+      </div>
+    </div>
+  )
 };
 
 export default Signin;

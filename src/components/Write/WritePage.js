@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import EditorJS from "@editorjs/editorjs";
 import ImageTool from '@editorjs/image';
 import List from "@editorjs/list";
-import "./Write.css";
 import useTitle from "../hooks/useTItle";
 import { toast } from "react-hot-toast";
 import { useAsyncError, useParams } from "react-router-dom";
 import Likes from "../Likes/Likes";
 import Comments from "../Comments/comments";
 import { data } from "autoprefixer";
+import Recommendations from "../Recommendations/recommend";
 
 const Header = require('@editorjs/header');
 const Quote = require('@editorjs/quote');
@@ -25,7 +25,11 @@ const Write = () => {
   console.log("blogId = ", blogId)
   const [gotData, setGotData] = useState(false)
 
+  const [owner, setOwner] = useState();
+
   const [image, setImage] = useState("");
+
+  const [title, setTitle] = useState(false)
 
   const dataFetchedRef = useRef(false);
 
@@ -40,8 +44,7 @@ const Write = () => {
       return null
     }
     console.log("user id = ", userid)
-    console.log('inside saved data in ', `https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/blog?blogId=${blogId}`)
-    fetch(`https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/blog?blogId=${blogId}`, {
+    fetch(`${process.env.REACT_APP_URL}/blog?blogId=${blogId}`, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -50,10 +53,13 @@ const Write = () => {
       .then((res) => res.json())
       .then((data) => {
         setGotData(true);
+        if (data[0].titleImage){
+          console.log("image title = ", data[0].titleImage)
+          middleImage(data[0].titleImage);
+        }
         console.log("data in saved data = ", data[0]);
         if (data[0].title){
-          document.getElementById("BlogTitle").innerHTML = data[0].title
-          console.log(document.getElementById("BlogTitle"))
+          setTitle(data[0].title)
         }
         else{
           console.log("no title")
@@ -90,11 +96,10 @@ const Write = () => {
         id: blogId,
         body: savedData,
         title: document.getElementById("BlogTitle").innerHTML,
-        titleImage: gotImage["url"]
+        titleImage: gotImage
       };
   
-      fetch("http://127.0.0.1:8080/updateBlog", {
-      //fetch("http://127.0.0.1:8000/updateBlog", {
+      fetch(`${process.env.REACT_APP_URL}/updateBlog`, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -146,8 +151,8 @@ const Write = () => {
             class: ImageTool,
               config: {
                 endpoints: {
-                  byFile: 'http://127.0.0.1:8000/image', // Your backend file uploader endpoint
-                  byUrl: 'http://127.0.0.1:8000/image', // Your endpoint that provides uploading by Url
+                  byFile: `${process.env.REACT_APP_URL}/image`, // Your backend file uploader endpoint
+                  byUrl: `${process.env.REACT_APP_URL}/image`, // Your endpoint that provides uploading by Url
                 },
                 additionalRequestData:{
                   blogId: blogId,
@@ -180,7 +185,7 @@ const Write = () => {
   }
 
   async function handleFileChange(e){
-    if (e.target.files!=""){
+    if (e.target.files!==""){
       console.log("files = ", e.target.files[0])
       let body = new FormData();
       body.append("blogId", blogId)
@@ -193,12 +198,12 @@ const Write = () => {
       //}
       console.log("body = ", body)
       //fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/image", {
-      fetch("http://127.0.0.1:8080/titleImage", {
+      fetch(`${process.env.REACT_APP_URL}/titleImage`, {
         method: "POST",
         body: body
       }).then((res) => res.json())
       .then((data) => {
-        middleImage(data.file);
+        middleImage(data.file["url"]);
         console.log("url image of uploaded = ", data.file);
         })
       .catch((err) => {
@@ -212,7 +217,7 @@ function TitularImage(){
   if (gotImage){
     console.log("title image = ", gotImage)
     return(
-      <img src={gotImage["url"]} style={{width: "300px", height:"200px"}}></img>
+      <img src={gotImage} style={{marginLeft:"25%",width: "550px", height:"400px"}}></img>
     )
   }
   else{
@@ -223,20 +228,68 @@ function TitularImage(){
 
 console.log("user id = ", userid)
 
+function ShowUploadImage(){
+  if (read==false){
+    return (
+      <input type="file" onChange={handleFileChange} style={{marginLeft: "65%"}}/>
+    )
+  }
+}
+
+function PublishButton(){
+  console.log("read = ", read)
+  if (read==false){
+    return (
+      <div class="row">
+        <div class="sm-3"><button className="btn btn-danger" style={{marginTop: "10px"}} id="submit-blog" onClick={updateBlog}>Publish</button></div>
+    </div>
+    )
+  }
+  else{
+    return null
+  }
+}
+
 
   return (
-    <div>
-       <GetSavedData />
-       <SetUpEditor />
-        <button className="writeSubmit all-btn" id="submit-blog" style={{float: "right"}}onClick={updateBlog}>Publish</button>
-        <div className="text-area">
-          <TitularImage />
-          <img src="" id="TitleImage"></img>
-          <input type="file" onChange={handleFileChange} />
-          <h1 id="BlogTitle" style={{marginLeft: "400px", marginRight: "200px"}} contentEditable="True">Title</h1>
-          <div className="details-blog" id="editorjs"></div>
-        </div>
+    //<div class="container-fluid">
+    //   <GetSavedData />
+    //   <SetUpEditor />
+    //   <PublishButton />
+    //   <div className="row">
+    //    <div className="text-area">
+    //      <TitularImage />
+    //      <img src="" id="TitleImage"></img><br></br>
+    //      <ShowUploadImage />
+    //      <div className="details-blog" id="editorjs"></div>
+    //    </div>
+    //  </div>
+    //</div>
+    <div class="container-fluid">
+      <GetSavedData />
+      <SetUpEditor />
+  <div class="row">
+    <div class="col-sm-10 text-center"><h1 id="BlogTitle" contentEditable={!read}>{title}</h1></div>
+    <div class="col-sm-2"><PublishButton /></div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-12">
+      <TitularImage />
+      <ShowUploadImage />
     </div>
+  </div>
+  <div class="row d-flex justify-content-center">
+    <div class="col-sm-12">
+      <div id="editorjs"></div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+      <Recommendations />
+    </div>
+  </div>
+  </div>
   );
 };
 
