@@ -59,7 +59,7 @@ const Recommendations = () => {
         .then((data) => {console.log(data); setBlogs(data); setConfirm(1)})
   }
   return (
-    <div class="container-fluid">
+    <div class="container-fluid" style={{width: "82%"}}>
       <PlotBlogs />
     </div>
   )

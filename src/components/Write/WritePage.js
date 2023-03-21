@@ -66,6 +66,7 @@ const Write = () => {
         }
         console.log("user id from backend = ", data[0].userId)
         var read;
+        try{
         if (data[0].userId==userid["_id"]){
           console.log(data[0].userId, " you are the writer - ", userid["_id"])
           setRead(false);
@@ -73,6 +74,9 @@ const Write = () => {
         else{
           console.log(data[0].userId, " you are not the writer - ", userid["_id"])
           setRead(true)
+        }}
+        catch(err){
+          console.log(err)
         }
         if (data[0].body) {
           setBody(data[0].body);
@@ -156,7 +160,7 @@ const Write = () => {
                 },
                 additionalRequestData:{
                   blogId: blogId,
-                  userId: userid["_id"]},
+                  userId: imageUploading()},
             }
           },
           list: {
@@ -169,6 +173,15 @@ const Write = () => {
         }
       });
       setEditor(editor1);
+    }
+  }
+
+  function imageUploading(){
+    if (userid){
+      return userid["_id"]
+    }
+    else{
+      return null
     }
   }
 
@@ -265,7 +278,7 @@ function PublishButton(){
     //    </div>
     //  </div>
     //</div>
-    <div class="container-fluid">
+    <div class="container-fluid divisions">
       <GetSavedData />
       <SetUpEditor />
   <div class="row">

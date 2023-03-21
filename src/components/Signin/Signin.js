@@ -52,7 +52,7 @@ const Signin = () => {
       // console.log(err.message)
       if(err){
         console.log(err)
-        toast.error("A user with the given username is already registered")
+        toast.error("Check Email or Password")
       }
 });
   }
@@ -116,7 +116,7 @@ const Signin = () => {
   //    </div>
   //);
   return (
-    <div class="container-fluid">
+    <div class="container-fluid" style={{marginTop: "200px"}}>
       <div class="row">
         <div class="col-sm-12 d-flex justify-content-center">
           <h2>Please login with your account Details</h2>
@@ -151,8 +151,8 @@ const Signin = () => {
         </Link>
         </div>
       </div>
-      <div class="row">
-        <div class="col-sm-12 d-flex justify-content-center"></div>
+      <div class="row" style={{marginTop: "300px"}}>
+        <div class="col-sm-12 d-flex justify-content-center">Brought to you by Kurenai</div>
       </div>
     </div>
   )

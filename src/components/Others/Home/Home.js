@@ -53,7 +53,7 @@ const Home = () => {
         .then((data) => {console.log(data); setBlogs(data); setConfirm(1)})
   }
   return (
-    <div class="container-fluid">
+    <div class="container-fluid" style={{opacity: "1"}}>
       <div class="row">
         <h1 style={{float: "right", width: "60%", textAlign: "right"}}>Autumn Kurenai</h1>
         <img style={{width:"60px", height:"44px", float:"left"}} src="https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logow+(1).jpeg"></img>

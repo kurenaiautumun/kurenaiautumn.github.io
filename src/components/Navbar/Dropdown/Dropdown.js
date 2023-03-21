@@ -24,22 +24,6 @@ const Dropdown = (_id) => {
 
   let menuRef = useRef();
 
-  useEffect(() => {
-    let handler = (e)=>{
-      if(!menuRef.current.contains(e.target)){
-        setOpen(false);
-        // console.log(menuRef.current);
-      }      
-    };
-
-    document.addEventListener("mousedown", handler);
-    
-
-    return() =>{
-      document.removeEventListener("mousedown", handler);
-    }
-
-  });
   if (user){
     return (
         <div className='menu-container' ref={menuRef}>

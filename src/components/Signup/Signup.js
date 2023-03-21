@@ -95,7 +95,7 @@ const Signup = () => {
  //
     //);
     return (
-      <div class="container-fluid">
+      <div class="container-fluid" style={{marginTop: "200px"}}>
         <div class="row">
           <div class="col-sm-12 d-flex justify-content-center">
             <h2>Please enter your details</h2>
@@ -130,6 +130,9 @@ const Signup = () => {
             </button>
           </Link>
           </div>
+        </div>
+        <div class="text-center" style={{marginTop: "200px"}}>
+          Brought to you by Kurenai
         </div>
       </div>
     )
