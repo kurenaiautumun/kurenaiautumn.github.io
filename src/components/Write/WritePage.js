@@ -11,6 +11,8 @@ import Comments from "../Comments/comments";
 import { data } from "autoprefixer";
 import Recommendations from "../Recommendations/recommend";
 
+//import 'Write.css'
+
 const Header = require('@editorjs/header');
 const Quote = require('@editorjs/quote');
 
@@ -130,6 +132,7 @@ const Write = () => {
         const userid = JSON.parse(localStorage.getItem('user'));
         setID(userid);
         console.log("user id in useEffect =", userid)
+        getValues(userid["_id"])
         //getSavedData(window.location.pathname.split('/')[2])
       }, []);
 
@@ -230,7 +233,12 @@ function TitularImage(){
   if (gotImage){
     console.log("title image = ", gotImage)
     return(
-      <img src={gotImage} style={{marginLeft:"25%",width: "550px", height:"400px"}}></img>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-4">
+          <img src={gotImage} style={{height:"400px"}}></img>
+        </div>
+      </div>
     )
   }
   else{
@@ -239,9 +247,33 @@ function TitularImage(){
   }
 }
 
+function getValues(id){
+  console.log("id = ", id)
+  fetch(`${process.env.REACT_APP_URL}/userinfo/${id}`, {
+      method: "GET",
+  })
+  .then((res => res.json()))
+  .then((data => {console.log("data = ", data["userInfo"].body); setDetails(data);}))
+}
+
 console.log("user id = ", userid)
 
+const [userDetails, setDetails] = useState()
+
+function UserNames(){
+  if (userDetails){
+    return(
+      <div class="row" style={{float: "right"}}>
+        <div class="col-sm-12">Writer</div>
+        <div class="col-sm-12">{userDetails["userInfo"].body["name"]}</div>
+      </div>
+    )
+  }
+}
+
 function ShowUploadImage(){
+  //getValues();
+  console.log("user details = ", userDetails)
   if (read==false){
     return (
       <input type="file" onChange={handleFileChange} style={{marginLeft: "65%"}}/>
@@ -295,6 +327,9 @@ function PublishButton(){
     <div class="col-sm-12">
       <div id="editorjs"></div>
     </div>
+  </div>
+  <div class="row">
+    <UserNames/>
   </div>
   <div class="row">
     <div class="col-sm-1"></div>

@@ -19,17 +19,18 @@ function Profile(){
         let ids = ["name", "email", "mobile"]
         console.log("data = ", data)
         for (let i in ids){
-            console.log(ids[i])
-            document.getElementById(ids[i]).value = data[i]
+            console.log(ids[i], data[ids[i]])
+            document.getElementById(ids[i]).value = data[ids[i]]
         }
     }
 
     function getValues(id){
-        fetch(`${process.env.REACT_APP_URL}/userinfo?userId=${id}`, {
+        console.log("id = ", id)
+        fetch(`${process.env.REACT_APP_URL}/userinfo/${id}`, {
             method: "GET",
         })
         .then((res => res.json()))
-        .then((data => {setValues(data.info); console.log("data = ", data.info)}))
+        .then((data => {console.log("data = ", data["userInfo"]); setValues(data["userInfo"].body);}))
     }
 
     function sendProfile(e){
@@ -45,8 +46,8 @@ function Profile(){
         }
         total_body["body"] = body
         console.log(e.target.name.value)
-        console.log("body = ", profileData)
-        fetch(`${process.env.REACT_APP_URL}/userinfo`, {
+        console.log("body = ", total_body, `${process.env.REACT_APP_URL}/userinfo/${user["_id"]}`)
+        fetch(`${process.env.REACT_APP_URL}/userinfo/${user["_id"]}`, {
             method:"POST",
             headers: {
                 "content-type": "application/json",
@@ -65,7 +66,7 @@ function Profile(){
     }
 
     return(
-        <div style={{marginLeft:"30%"}}>
+        <div style={{marginLeft:"30%", marginTop: "200px"}}>
             <img style={{width:"100px", "height": "100px"}} src={userImage} alt=""></img>
             <Form onSubmit={sendProfile}>
                 <label for="body">
@@ -76,7 +77,7 @@ function Profile(){
 
                     <div class="form-group">
                         <label for="email">Email</label><br></br>
-                        <input id="email" onChange={changeProfile} type="email" class="form-control" editable={false} name="email"></input>
+                        <input id="email" disabled onChange={changeProfile} type="email" class="form-control" editable={false} name="email"></input>
                     </div>
                     <div class="form-group">
                         <label for="mobile">Mobile Number</label><br></br>
@@ -87,6 +88,9 @@ function Profile(){
                     <button class="btn btn-primary">Save</button>
                 </div>
             </Form>
+            <div style={{marginTop: "200px"}}>
+                Brought to you by Kurenai
+            </div>
         </div>
     )
 }

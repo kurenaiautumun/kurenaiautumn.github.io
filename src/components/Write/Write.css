@@ -1,0 +1,5 @@
+@media only screen and (max-width: 300px) {
+    #flex-body {
+       // Whatever Styles you want to have at 300px or less
+    }
+  }
