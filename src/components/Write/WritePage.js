@@ -265,7 +265,8 @@ function UserNames(){
     return(
       <div class="row" style={{float: "right"}}>
         <div class="col-sm-12">Writer</div>
-        <div class="col-sm-12">{userDetails["userInfo"].body["name"]}</div>
+        {/*<div class="col-sm-12">{userDetails["userInfo"].body["name"]}</div>*/}
+        <div class="col-sm-12">{userid["username"]}</div>
       </div>
     )
   }
