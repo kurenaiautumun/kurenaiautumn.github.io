@@ -49,7 +49,7 @@ const Recommendations = () => {
     GetAllBlogs();
     }, []);
   async function GetAllBlogs(){
-    fetch(`${process.env.REACT_APP_URL}`, {
+    fetch(`${process.env.REACT_APP_URL}/random?limit=6`, {
         method: "GET",
         headers: {
           "content-type": "application/json",

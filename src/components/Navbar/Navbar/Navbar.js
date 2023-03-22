@@ -81,7 +81,7 @@ const Navbar = () => {
     }
     console.log('user in newBlog route', blog)
     //https://usershtttps-1398927084.us-east-1.elb.amazonaws.com
-    fetch("https://usershtttps-1398927084.us-east-1.elb.amazonaws.com/newBlog", {
+    fetch(`${process.env.REACT_APP_URL}/newBlog`, {
     //fetch("http://127.0.0.1:8000/newBlog", {
       method: "POST",
       headers: {
