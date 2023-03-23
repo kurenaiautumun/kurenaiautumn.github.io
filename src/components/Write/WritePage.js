@@ -134,7 +134,7 @@ const Write = () => {
         const userid = JSON.parse(localStorage.getItem('user'));
         setID(userid);
         //console.log("user id in useEffect =", userid)
-        getValues(userid["_id"])
+        //getValues(userid["_id"])
         //getSavedData(window.location.pathname.split('/')[2])
       }, []);
 
