@@ -11,9 +11,9 @@ router.get("/blog",(req,res)=>{
   })
 
 router.post("/newblog",(req,res)=>{
-const {userId, title, body, views, status} = req.body;
+const {userId, title, body, views, status, titleImage} = req.body;
 const blog = new Blog({
-    userId, title, body, views, status, date
+    userId, title, body, views, status, date, titleImage
 })
     blog.save((err,blog)=>{
         User.findOne({_id:userId},(err,user)=>{

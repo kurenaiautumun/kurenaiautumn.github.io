@@ -24,7 +24,8 @@ const  blogSchema = new mongoose.Schema({
   status:String,
   date:String,
   likes:Array,
-  recommendation:Array
+  recommendation:Array,
+  titleImage:String
 });
 
 const  commentSchema = new mongoose.Schema({

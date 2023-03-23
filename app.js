@@ -10,7 +10,7 @@ const {corsOptions} = require('./models.js');
 const blogRoute=require('./routes/blog')
 const dashRoute=require('./routes/dashboard')
 const loginRoute=require('./routes/login')
-const signupRoute=require('./routes/signup')
+const userRoute=require('./routes/user')
 const commentRoute=require('./routes/comments')
 const followRoute=require('./routes/follow')
 const likeRoute=require('./routes/likes')
@@ -32,7 +32,7 @@ mongoose.connect(process.env.MONGOLAB_URI,{useNewUrlParser: true});
 
 app.use("/",blogRoute)
 app.use("/",dashRoute)
-app.use("/",signupRoute)
+app.use("/",userRoute)
 app.use("/",loginRoute)
 app.use("/",bucketRoute)
 app.use("/",followRoute)
