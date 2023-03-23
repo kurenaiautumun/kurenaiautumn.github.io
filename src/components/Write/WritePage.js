@@ -329,7 +329,9 @@ function PublishButton(){
     //    </div>
     //  </div>
     //</div>
-    <div class="container-fluid divisions">
+    <div class="row">
+      <div class="col-sm-10">
+      <div class="container-fluid divisions">
       <GetSavedData />
       <SetUpEditor />
   <div class="row">
@@ -357,10 +359,26 @@ function PublishButton(){
   <div class="row">
     <div class="col-sm-1"></div>
     <div class="col-sm-10">
-      <Recommendations />
+      {/*<Recommendations />*/}
     </div>
   </div>
   </div>
+      </div>
+      <div class="col-sm-2">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3320277782605537"
+     crossorigin="anonymous"></script>
+{/*(<!-- right bar -->*/}
+<ins class="adsbygoogle"
+     style={{display:"block"}}
+     data-ad-client="ca-pub-3320277782605537"
+     data-ad-slot="8749506338"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+    </div>
   );
 };
 
