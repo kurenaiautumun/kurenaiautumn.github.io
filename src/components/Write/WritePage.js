@@ -70,11 +70,11 @@ const Write = () => {
         var read;
         try{
         if (data[0].userId==userid["_id"]){
-          //console.log(data[0].userId, " you are the writer - ", userid["_id"])
+          console.log(data[0].userId, " you are the writer - ", userid["_id"])
           setRead(false);
         }
         else{
-          //console.log(data[0].userId, " you are not the writer - ", userid["_id"])
+          console.log(data[0].userId, " you are not the writer - ", userid["_id"])
           setRead(true)
         }}
         catch(err){
@@ -101,9 +101,11 @@ const Write = () => {
       const blog = {
         id: blogId,
         body: savedData,
-        title: document.getElementById("BlogTitle").innerHTML,
+        title: cleanHtml(document.getElementById("BlogTitle").innerHTML),
         titleImage: gotImage
       };
+
+      //console.log(cleanHtml(document.getElementById("BlogTitle").text))
   
       fetch(`${process.env.REACT_APP_URL}/updateBlog`, {
         method: "POST",
@@ -229,6 +231,13 @@ const Write = () => {
     }
 }
 
+function cleanHtml(innerHTML) {
+  innerHTML = innerHTML.replaceAll('<div>', '')
+  innerHTML = innerHTML.replaceAll("</div>", '')
+  return innerHTML
+}
+
+
 function TitularImage(){
   if (gotImage){
     //console.log("title image = ", gotImage)
@@ -253,7 +262,7 @@ function getValues(id){
       method: "GET",
   })
   .then((res => res.json()))
-  .then((data => {console.log("data = ", data["userInfo"].body); setDetails(data);}))
+  .then((data => {console.log("data = ", data["userInfo"]); setDetails(data);}))
 }
 
 //console.log("user id = ", userid)
@@ -306,7 +315,6 @@ function PublishButton(){
   }
 }
 
-
   return (
     //<div class="container-fluid">
     //   <GetSavedData />
@@ -325,11 +333,15 @@ function PublishButton(){
       <GetSavedData />
       <SetUpEditor />
   <div class="row">
-    <div class="col-sm-10 text-center"><h1 id="BlogTitle" contentEditable={!read}>{title}</h1></div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 text-center">
+        <pre style={{minHeight: "50px", "white-space": "pre-wrap", minWidth: "100px", fontSize: "45px", fontFamily: "arial", fontStyle: "bold"}} id="BlogTitle" class="text-center" contentEditable={!read}>{title}</pre>
+    </div>
     <div class="col-sm-2"><PublishButton /></div>
   </div>
   <div class="row d-flex justify-content-center">
-    <div class="col-sm-12">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-11">
       <TitularImage />
       <ShowUploadImage />
     </div>

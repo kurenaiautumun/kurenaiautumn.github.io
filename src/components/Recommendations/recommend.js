@@ -18,7 +18,7 @@ const Recommendations = () => {
       if (value["title"]){
         let url = `../blog/${value["_id"]}`
         return (
-        <div class="col-sm-4">
+        <div class="col-sm-4" style={{marginBottom: "20px"}}>
             <div class="row" style={{marginLeft: "20px"}}> 
             <div class="col-sm-6" style={{display: "flex"}}>
                 <img src={value["titleImage"]} style={{width:"100px", height: "100px"}}></img>

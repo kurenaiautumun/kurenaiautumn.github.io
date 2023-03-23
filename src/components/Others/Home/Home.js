@@ -20,9 +20,9 @@ const Home = () => {
         return (
         <div class="row" style={{marginLeft: "20px"}}> 
           <div>
-            <Link to={url}><h3 style={{float:"left", width:"100px", color: "#FA013D"}}>{value['title']}</h3></Link>
+            <Link to={url}><h3 style={{float:"left", width:"300px", color: "#FA013D"}}>{value['title']}</h3></Link>
           </div>
-          <img src={value["titleImage"]} style={{width:"200px", height: "200px"}}></img>
+          <img src={value["titleImage"]} style={{width:"300px", height: "200px"}}></img>
         </div>
     )}});
 
