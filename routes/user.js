@@ -65,22 +65,17 @@ router.get('/userinfo/:userId', function (req, res) {
     })
 });
 
-router.get('/userUpdate', async (req, res) => {
+router.post('/userUpdate/:userId', async (req, res) => {
   try {
-    const user = req.user; // assuming you have middleware that sets the user object on the request
-    const { name, email, bio, profilePicture } = req.body; // assuming these are the fields the user can update
+    const _id = req.params.userId; 
+    const { username, email } = req.body; // assuming these are the fields the user can update
 
-    // Update user information based on what was provided in the request
-    if (name) user.name = name;
-    if (email) user.email = email;
-    if (bio) user.bio = bio;
-    if (profilePicture) user.profilePicture = profilePicture;
-
-    // Save the updated user object to the database
-    await user.save();
-
-    // Send a success response back to the client
-    res.status(200).json({ message: 'User profile updated successfully', user });
+    User.updateOne({_id},
+      {username,email},
+      (error,docs)=>{
+        if (error) throw error;
+        res.status(201).json({message:"User profile updated successfully",docs});
+      })
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error occurred while updating user profile' });
