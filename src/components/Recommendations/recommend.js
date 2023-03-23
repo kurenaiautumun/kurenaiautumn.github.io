@@ -20,13 +20,11 @@ const Recommendations = () => {
         return (
         <div class="col-sm-4">
             <div class="row" style={{marginLeft: "20px"}}> 
-            <div class="col-sm-6">
+            <div class="col-sm-6" style={{display: "flex"}}>
                 <img src={value["titleImage"]} style={{width:"100px", height: "100px"}}></img>
-            </div>
-            <div class="col-sm-6">
-              <a href={url}>
-                <h5 style={{float:"left", width:"100%", color: "#FA013D", overflow: "hidden"}}>{value['title']}</h5>
-            </a>
+                <a href={url}>
+                  <h5 style={{width:"100%", color: "#FA013D", overflow: "hidden"}}>{value['title']}</h5>
+                </a>
             </div>
             </div>
         </div>
@@ -59,7 +57,8 @@ const Recommendations = () => {
         .then((data) => {console.log(data); setBlogs(data); setConfirm(1)})
   }
   return (
-    <div class="container-fluid" style={{width: "82%"}}>
+    <div class="container-fluid" style={{width: "82%", marginTop:"10px"}}>
+      <h6>Continue reading more articles by our writers</h6>
       <PlotBlogs />
     </div>
   )

@@ -9,7 +9,7 @@ function Profile(){
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     setUser(user)
-    console.log(user)
+    //console.log(user)
     let dict = {userId: user["_id"], body: {}}
     setProfile(dict)
     getValues(user["_id"]);
@@ -26,6 +26,7 @@ function Profile(){
 
     function getValues(id){
         console.log("id = ", id)
+        console.log(`${process.env.REACT_APP_URL}/userinfo/${id}`)
         fetch(`${process.env.REACT_APP_URL}/userinfo/${id}`, {
             method: "GET",
         })

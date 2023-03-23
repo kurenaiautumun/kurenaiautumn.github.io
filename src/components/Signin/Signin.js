@@ -20,7 +20,7 @@ const Signin = () => {
 
     e.preventDefault()
 
-    console.log(e.target)
+    //console.log(e.target)
 
     let data={}
 
@@ -28,7 +28,7 @@ const Signin = () => {
     //data["email"] = e.target.email.value
     data["password"] = e.target.password.value
 
-    console.log("in singup handle", data)
+    //console.log("in singup handle", data)
     
   fetch(`${process.env.REACT_APP_URL}/login`, {
     method: "POST",
@@ -39,8 +39,8 @@ const Signin = () => {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("data in signup", data);
-      console.log(data.user._id);
+      //console.log("data in signup", data);
+      //console.log(data.user._id);
       if(data.user._id !== null){
         localStorage.setItem('user', JSON.stringify(data.user));
         toast.success(data.message)
@@ -51,7 +51,7 @@ const Signin = () => {
     .catch((err) => {
       // console.log(err.message)
       if(err){
-        console.log(err)
+        //console.log(err)
         toast.error("Check Email or Password")
       }
 });

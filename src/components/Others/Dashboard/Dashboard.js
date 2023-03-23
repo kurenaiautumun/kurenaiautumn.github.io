@@ -18,11 +18,11 @@ const Dashboard = () => {
   const [confirm, setConfirm] = useState(0)
 
   function PlotBlogs(){
-    console.log("confirm = ", confirm)
+    //console.log("confirm = ", confirm)
     if (confirm==0){
-      console.log("confirm is 0")
+      //console.log("confirm is 0")
     }
-    console.log("plotBlogs = ", blogs)
+    //console.log("plotBlogs = ", blogs)
     let body = blogs.map((value)=>{
       if (value["title"]){
         let url = `blog/${value["_id"]}`
@@ -35,7 +35,7 @@ const Dashboard = () => {
         </div>
     )}});
 
-    console.log("body = ", body)
+    //console.log("body = ", body)
 
     return (
       <div>
@@ -58,8 +58,8 @@ useEffect(() => {
   }, []);
 
     function AllBlogs(user){
-        console.log("user id in allBlogs dashbiard= ", user)
-        console.log(`${process.env.REACT_APP_URL}/dashboard/${user}`)
+        //console.log("user id in allBlogs dashbiard= ", user)
+        //console.log(`${process.env.REACT_APP_URL}/dashboard/${user}`)
         fetch(`${process.env.REACT_APP_URL}/dashboard/${user}`, {
           method: "GET",
           headers: {

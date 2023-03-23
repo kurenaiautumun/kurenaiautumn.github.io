@@ -79,7 +79,7 @@ const Navbar = () => {
     let blog = {
       userId: user['_id'],
     }
-    console.log('user in newBlog route', blog)
+    //console.log('user in newBlog route', blog)
     //https://usershtttps-1398927084.us-east-1.elb.amazonaws.com
     fetch(`${process.env.REACT_APP_URL}/newBlog`, {
     //fetch("http://127.0.0.1:8000/newBlog", {
@@ -98,7 +98,7 @@ const Navbar = () => {
         }
       })
       .catch((err) => {
-        console.error("err = ", err);
+        //console.error("err = ", err);
         toast.error("Blog not published.Please login again")
       });
   }

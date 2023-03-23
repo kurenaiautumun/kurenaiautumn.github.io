@@ -50,6 +50,9 @@ const Signup = () => {
           if(data.user._id !== null){
             toast.success(data.message)
           }
+          alert("Signup Successful")
+          navigate("/signin")
+          window.location.reload(false);
         })
         .catch((err) => {
           // console.log(err.message)
@@ -58,9 +61,9 @@ const Signup = () => {
             toast.error("A user with the given username is already registered")
           }
   });   console.log("after fetch")
-        alert("Signup Successful")
-        navigate("/signin")
-        window.location.reload(false);
+        //alert("Signup Successful")
+        //navigate("/signin")
+        //window.location.reload(false);
       }
 
 

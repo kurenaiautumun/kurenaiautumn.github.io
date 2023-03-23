@@ -10,7 +10,7 @@ import qs from "qs"
 
 const Signout = () => {
 
-  console.log("in sign out")
+  //console.log("in sign out")
   const navigate = useNavigate();
 
   useTitle("Sign Out")
@@ -22,17 +22,17 @@ const Signout = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
+          //console.log(data)
           if(data.message!== null){
             toast.success(data.message)
             localStorage.setItem('user', JSON.stringify(null));
-            console.log('user id set to empty')
+            //console.log('user id set to empty')
             navigate("/")
             window.location.reload(false);
           }
         })
         .catch((err) => {
-      console.error(err)
+      //console.error(err)
       if(err){
         toast.error(err)
       }
