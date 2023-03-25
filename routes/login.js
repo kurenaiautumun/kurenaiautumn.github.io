@@ -6,6 +6,7 @@ const passport = require("passport");
 
 
 router.post("/login",function(req,res){
+  console.log(req.body)
   const user = new User({
     username: req.body.username,
     password: req.body.password

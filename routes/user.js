@@ -6,7 +6,7 @@ const template=require('./template')
 
 
 router.post("/signup",function(req,res){
-    User.register({username:req.body.username,email:req.body.email}, req.body.password,
+    User.register({username:req.body.username,email:req.body.email,role:req.body.role}, req.body.password,
       function(err,user){
       if(err){
         res.status(201).json({err});
@@ -60,9 +60,12 @@ const userInfo = new UserInfo({
 
 router.get('/userinfo/:userId', function (req, res) {
   const userId = req.params.userId; 
-    UserInfo.findOne({userId},(err,userInfo)=>{
-      res.status(201).json({userInfo});
+  User.find({_id:userId},(err,user)=>{
+
+  UserInfo.findOne({userId},(err,userInfo)=>{
+    res.status(201).json({user,userInfo});
     })
+  })
 });
 
 router.post('/userUpdate/:userId', async (req, res) => {
