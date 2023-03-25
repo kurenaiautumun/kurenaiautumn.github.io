@@ -13,7 +13,7 @@ const Home = () => {
     if (confirm==0){
       //console.log("confirm is 0")
     }
-    //console.log("plotBlogs = ", blogs)
+    console.log("plotBlogs = ", blogs)
     let body = blogs.map((value)=>{
       if (value["title"]){
         let url = `blog/${value["_id"]}`
