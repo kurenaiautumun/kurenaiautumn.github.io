@@ -27,7 +27,7 @@ const Dropdown = (_id) => {
   if (user){
     return (
         <div className='menu-container' ref={menuRef}>
-        <a className='menu-trigger' onClick={()=>{setOpen(!open)}}>
+        <a className='menu-trigger' onClick={()=>{window.location.reload(false)}}>
         <Link to="/profile">
           <img style={{margin: "8px"}} src={userImage} alt=""></img>
         </Link>

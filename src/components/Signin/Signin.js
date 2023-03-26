@@ -116,7 +116,7 @@ const Signin = () => {
   //    </div>
   //);
   return (
-    <div class="container-fluid" style={{marginTop: "200px"}}>
+    <div class="container-fluid">
       <div class="row">
         <div class="col-sm-12 d-flex justify-content-center">
           <h2>Please login with your account Details</h2>

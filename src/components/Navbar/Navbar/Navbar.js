@@ -22,9 +22,11 @@ const Navbar = () => {
   function Checksignup(){
     if (user==null){
       return (
-      <div><Link to="/signup"><button style={{display: "inline-block"}} style={{margin: "5px"}} className="btn btn-info">
-        Sign up
-        </button></Link>
+      <div onClick={() => window.location.reload(false)} style={{display:"flex"}}>
+        <Link to="/signup">
+          <button style={{display: "flex", margin:"5px"}} className="btn btn-info">
+          Sign up
+          </button></Link>
         <Sign id={user} style={{"display":"flex"}}></Sign>
       </div>)
     }
@@ -52,18 +54,24 @@ const Navbar = () => {
   function Sign(){
     if (user==null){
       return (
-        <Link to='/signin' style={{display: "inline-block"}}>
-        <button className="btn btn-success" style={{margin: "5px"}}>Signin</button>
-        </Link>
+        <div style={{display:"flex"}} onClick={() => window.location.reload(false)}>
+          <Link to='/signin' style={{display: "inline-block"}}>
+          <button className="btn btn-success" style={{margin: "5px"}}>Signin</button>
+          </Link>
+        </div>
       )
     }
     else{
       return (
-        <div>
-          <Link to='/dashboard' style={{display: "inline-block", margin: "5px"}}>
-          <button className="btn btn-info">Dashboard</button></Link>
-          <Link to='/signout' style={{display: "inline-block", margin: "5px"}}>
+        <div style={{display:"flex"}}>
+          <div onClick={()=>{window.location.reload(false)}}>
+            <Link to='/dashboard' onClick={() => window.location.reload(false)} style={{display: "inline-block", margin: "5px"}}>
+            <button className="btn btn-info">Dashboard</button></Link>
+          </div>
+          <div onClick={()=>{window.location.reload(false)}}>
+            <Link to='/signout' onClick={() => window.location.reload(false)} style={{display: "inline-block", margin: "5px"}}>
             <button className="btn btn-success">Signout</button></Link>
+            </div>
         </div>
       )
     }
@@ -136,6 +144,52 @@ const Navbar = () => {
   //  </div>
   // </div>
   //);
+
+  function Holder(){
+    return (
+      <nav class="navbar navbar-light" style={{"background-color": "#FF9F44", width: "100%"}}>
+        <div className="nav-left">
+          <div>
+            <a href="/">
+              <img style={{width:"50px", height:"50px"}} src="https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logow-removebg-preview+(2).jpg"></img>
+            </a>
+            <input
+              style={{height: "40px", border: "0px", "border-radius": "10px"}}
+              type="text"
+              placeholder="      Search"
+              className="input bg-gray-100 rounded-full 
+              w-36 lg:w-48 input-sm"
+            />
+          </div>
+        </div>
+        <div style={{display: "flex"}} className="nav-right">
+        
+          <div id="write-button" onClick={newBlog}>
+          <i className="fa-solid text-black fa-pen-to-square mx-1"></i><button className="btn btn-primary" style={{margin: "5px"}}>Write</button>
+          </div>
+          <div style={{display: "flex"}}>
+            <Checksignup style={{"display":"flex"}} />
+            {/*<Sign id={user} style={{"display":"flex"}}></Sign>*/}
+            <Dropdown style={{"display":"flex"}}></Dropdown>
+          </div>
+        </div>
+      </nav>
+    )
+  }
+
+  function SetNavBar(){
+    let body = Holder()
+
+    console.log("body = ", body)
+    
+    let elem = document.getElementById("navbar")
+    let p = document.createElement("p")
+    p.innerHTML = "qweqwagdsf"
+    elem.append(p)
+  }
+
+  //SetNavBar();
+
 
   return (
     <nav class="navbar navbar-light" style={{"background-color": "#FF9F44", width: "100%"}}>

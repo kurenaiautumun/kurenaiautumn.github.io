@@ -55,10 +55,18 @@ const Home = () => {
   return (
     <div class="container-fluid" style={{opacity: "1"}}>
       <div class="row">
-        <h1 style={{float: "right", width: "60%", textAlign: "right"}}>Autumn Kurenai</h1>
-        <img style={{width:"60px", height:"44px", float:"left"}} src="https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logow+(1).jpeg"></img>
-      </div>
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-sm-7">
+              <h1 style={{float: "right", width: "100%", textAlign: "right"}}>Autumn Kurenai</h1>
+            </div>
+            <div class="col-sm-2">
+              <img style={{width:"60px", height:"44px", float:"left"}} src="https://kurenai-image-testing.s3.ap-south-1.amazonaws.com/logow+(1).jpeg"></img>
+            </div>
+          </div>
+        </div>
       <PlotBlogs />
+      </div>
     </div>
   )
 };

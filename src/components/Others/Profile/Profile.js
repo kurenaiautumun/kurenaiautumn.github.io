@@ -67,7 +67,7 @@ function Profile(){
     }
 
     return(
-        <div style={{marginLeft:"30%", marginTop: "200px"}}>
+        <div>
             <img style={{width:"100px", "height": "100px"}} src={userImage} alt=""></img>
             <Form onSubmit={sendProfile}>
                 <label for="body">

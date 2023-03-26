@@ -7,7 +7,7 @@ const Main = () => {
     //let id;
     return (
         <div style={{width: "100%"}}>
-            <Navbar></Navbar>
+            {/*<Navbar></Navbar>*/}
             <Outlet></Outlet>
         </div>
     );

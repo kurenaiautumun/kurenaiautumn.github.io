@@ -13,34 +13,3 @@ function App() {
 }
 
 export default App;
-
-//import * as React from "react";
-//import {
-//  BrowserRouter as Router,
-//  Route,
-//  Routes,
-//} from "react-router-dom";
-//
-//
-//function Post() {
-//  const { id } = useParams();
-//  return (<div>{id}</div>);
-//}
-//
-//
-//export default function App() {
-//  return (
-//    <Router>
-//      <Routes>
-//        <Route
-//          path="/"
-//          element={""}
-//        />
-//        <Route
-//          path="blog/:id"
-//          element={<Post />}
-//        />
-//      </Routes>
-//    </Router>
-//  );
-//}
