@@ -29,7 +29,7 @@ const Dashboard = () => {
         return (
         <div class="row" style={{marginLeft: "20px", marginBottom: "20px"}}>
           <div>
-            <a href={url}><h3 style={{float:"left", width:"300px", color: "#FA013D"}}>{value['title']}</h3></a>
+            <a href={url} onClick={() => window.location.reload(false)}><h3 style={{float:"left", width:"300px", color: "#FA013D"}}>{value['title']}</h3></a>
           </div>
           <img src={value["titleImage"]} style={{width:"300px", height: "200px"}}></img>
         </div>

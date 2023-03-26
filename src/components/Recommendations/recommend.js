@@ -14,16 +14,23 @@ const Recommendations = () => {
       console.log("confirm is 0")
     }
     console.log("plotBlogs = ", blogs)
+    let count = 0
     let body = blogs.map((value)=>{
       if (value["title"]){
+        count = count + 1;
+        if (count>4){
+          return null
+        }
         let url = `../blog/${value["_id"]}`
         return (
-        <div class="col-sm-4" style={{marginBottom: "20px"}}>
+        <div class="col-sm-3" style={{marginBottom: "20px"}}>
             <div class="row" style={{marginLeft: "20px"}}> 
-            <div class="col-sm-6" style={{display: "flex"}}>
-                <img src={value["titleImage"]} style={{width:"100px", height: "100px"}}></img>
-                <a href={url}>
-                  <h5 style={{width:"100%", color: "#FA013D", overflow: "hidden"}}>{value['title']}</h5>
+            <div class="col-sm-12">
+              <div>
+                <img src={value["titleImage"]} style={{width:"200px", height: "200px"}}></img>
+              </div><br></br>
+                <a href={url} onClick={() => window.location.reload(false)}>
+                  <h5 style={{width:"100%", color: "black", overflow: "hidden"}}>{value['title']}</h5>
                 </a>
             </div>
             </div>
@@ -57,7 +64,7 @@ const Recommendations = () => {
         .then((data) => {console.log(data); setBlogs(data); setConfirm(1)})
   }
   return (
-    <div class="container-fluid" style={{width: "82%", marginTop:"10px"}}>
+    <div class="container-fluid" style={{width: "100%", marginTop:"10px"}}>
       <h6>Continue reading more articles by our writers</h6>
       <PlotBlogs />
     </div>
