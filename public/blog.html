@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <title></title>
+    </head>
+    <body>
+        <div id="blogBody"></div>
+        <script>
+            blogID = getParams();
+            function getParams() {
+                var idx = document.URL.indexOf('?');
+                var params = {};
+                if (idx != -1) {
+                    var pairs = document.URL.substring(idx + 1, document.URL.length).split('&');
+                    for (var i = 0; i < pairs.length; i++) {
+                        nameVal = pairs[i].split('=');
+                        params[nameVal[0]] = nameVal[1];
+                    }
+                }
+                console.log(params["blogID"])
+                GetSavedData(params["blogID"]);
+                return params["blogID"];
+            }
+
+            function plotBlogs(data){
+                bodyBlog = document.getElementById("blogBody")
+                for (let i in data){
+                    console.log(data[i].data.text)
+                    bodyBlog.innerHTML = data[i].data.text
+                }
+            }
+
+            function GetSavedData(blogId){
+              //console.log("user id = ", userid)
+              fetch(`https://back.autumnkurenai.com/blog?blogId=${blogId}`, {
+                method: "GET",
+                headers: {
+                  "content-type": "application/json",
+                },
+              })
+                .then((res) => res.json())
+                .then((data) => {
+                  if (data[0].titleImage){
+                    console.log("image title = ", data[0].titleImage)
+                  }
+                  //console.log("data in saved data = ", data[0]);
+                  if (data[0].title){
+                    console.log("title= ", data[0].title)
+                  }
+                  else{
+                    //console.log("no title")
+                  }
+                  //console.log("user id from backend = ", data[0].userId)
+                  if (data[0].body) {
+                    console.log(data[0].body.blocks);
+                    plotBlogs(data[0].body.blocks)
+                    //setUpEditor(data[0].body)
+                  }
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <title>new</title>
+    </head>
+    <body>
+        <a href="/">index</a>
+        <div class="container-fluid">
+            <a href="/new.html">new</a>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="row">
+                  <div class="col-sm-10">
+                    <h1 style="float: right; width: 100%; text-align: right">Autumn Kurenai</h1>
+                  </div>
+                </div>
+              </div>
+            <div id="plotBlogs"></div>
+            </div>
+          </div>
+        <script>
+            GetAllBlogs();
+            async function GetAllBlogs(){
+              fetch("https://back.autumnkurenai.com/", {
+                  method: "GET",
+                  headers: {
+                    "content-type": "application/json",
+                  },
+                })
+                  .then((res) => res.json())
+                  .then((data) => {console.log(data); PlotBlogs(data)})
+            }
+            function PlotBlogs(blogs){
+                //console.log("confirm = ", confirm)
+                cont = document.getElementById("plotBlogs")
+                console.log("plotBlogs = ", blogs)
+                let body = blogs.map((value)=>{
+                  if (value["title"]){
+                    let url = `blog.html?blogID=${value["_id"]}`
+                    newDiv= '<div class="row" style="marginLeft: 20px">' +
+                      '<div>'+
+                        '<a href='+url+'><h3 style="float:left; width:300px; color: #FA013D">' + value['title'] + '</h3></a>' + 
+                      '</div>' + 
+                      '<img src='+value["titleImage"]+' style="width:300px; height: 200px"></img>' + 
+                    '</div>'
+                    console.log(newDiv)
+                    tempDiv = document.createElement("div")
+                    tempDiv.innerHTML = newDiv
+                    cont.append(tempDiv)
+                }});
+                
+                //console.log("body = ", body)
+            }
+        </script>
+    </body>
+</html>
