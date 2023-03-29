@@ -6,6 +6,7 @@ const nodemailer = require('nodemailer');
 
 const  userSchema = new mongoose.Schema({
     username:String,
+    role:String,
     email:String,
     password: String,
     followers:Array,
@@ -20,7 +21,7 @@ const  blogSchema = new mongoose.Schema({
   keys:Array,
   body:Object,
   userId:String,
-  views:String,
+  viewCount: { type: Number, default: 0 },
   status:String,
   date:String,
   likes:Array,

@@ -4,15 +4,18 @@ const { User, Blog, Comment} = require('../models');
 
 
 router.get("/",(req,res)=>{
-    // Blog.find()
-    // .sort({date:1})
-    // .exec({},(err,posts)=>{
-    //   res.status(201).json(posts);
-    // })  
     
     Blog.find().exec({}, (err, posts) => {
       res.status(201).json(posts.reverse());
     });
+});
+
+router.get("/authenticated",(req,res)=>{
+  if (req.isAuthenticated()) { 
+    res.json({authenticated:true})
+  }else{
+    res.json({authenticated:false})
+  }
 });
 
 router.get("/random", (req, res) => {

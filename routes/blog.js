@@ -10,6 +10,19 @@ router.get("/blog",(req,res)=>{
       })
   })
 
+router.post("/blog",(req,res)=>{
+    const _id = req.query.blogId;
+      if(req.body.action == 'incrementViewCount'){
+        Blog.updateOne(
+          {_id},
+          { $inc: { viewCount: 1 } },
+          (err,docs)=>{
+            if (err) throw err;
+            res.status(201).json({message:"view increased"})
+        })
+      }
+  })
+
 router.post("/newblog",(req,res)=>{
 const {userId, title, body, views, status, titleImage} = req.body;
 const blog = new Blog({
