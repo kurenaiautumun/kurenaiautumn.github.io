@@ -50,6 +50,26 @@ const userInfoSchema = new mongoose.Schema({
   body:Object,
 })
 
+const competitionSchema = new mongoose.Schema({
+  competitionName:String,
+  blogId:Array,
+  threshold:Number,
+  prize:Number,
+  status:String,
+  startDate:String,
+  endDate:String,
+})
+
+const rankingSchema = new mongoose.Schema({
+  userId:String,
+  blogId:String,
+  viewCount: { type: Number, default: 0 },
+  competitionId:String,
+  rank:String,
+  qulified:Boolean
+})
+
+
 const corsOptions = {
     origin:'*', 
     credentials:true, 
@@ -79,6 +99,8 @@ const corsOptions = {
   const Comment = new mongoose.model("comment",commentSchema);
   const Review = new mongoose.model("review", reviewSchema);
   const UserInfo = new mongoose.model("userinfo", userInfoSchema);
+  const Competition = new mongoose.model("competition", competitionSchema);
+  const Ranking = new mongoose.model("ranking", rankingSchema);
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -86,5 +108,5 @@ passport.deserializeUser(User.deserializeUser());
 
   
   module.exports = {
-    date, User, Blog, Comment, corsOptions, Review, UserInfo , toggle, transporter
+    date, User, Blog, Comment, corsOptions, Review, UserInfo, Competition, Ranking , toggle, transporter
   }

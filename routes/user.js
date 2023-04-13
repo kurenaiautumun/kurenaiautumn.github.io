@@ -6,6 +6,7 @@ const template=require('./template')
 
 
 router.post("/signup",function(req,res){
+  console.log(req.body)
     User.register({username:req.body.username,email:req.body.email,role:req.body.role}, req.body.password,
       function(err,user){
       if(err){

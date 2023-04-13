@@ -24,6 +24,16 @@ router.post("/login",function(req,res){
      })
   })
   
+  router.get("/authenticated",(req,res)=>{
+    if (req.isAuthenticated()) { 
+      console.log("auth")
+      res.json({authenticated:true})
+    }else{
+      console.log("unauth")
+      res.json({authenticated:false})
+    }
+  });
+  
   router.post('/logout', function(req, res, next){
     req.logout(function(err) {
       if (err) { return next(err); }

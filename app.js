@@ -17,6 +17,8 @@ const likeRoute=require('./routes/likes')
 const reviewRoute=require('./routes/review')
 const bucketRoute=require('./routes/bucket')
 const recomandationRoute=require('./routes/recomandation')
+const competitionRoute=require('./routes/competition')
+const rankingRoute=require('./routes/ranking')
 
 
 app.use(cors(corsOptions))
@@ -41,6 +43,8 @@ app.use("/",commentRoute)
 app.use("/",reviewRoute)
 app.use("/",likeRoute)
 app.use("/",recomandationRoute)
+app.use("/",competitionRoute)
+app.use("/",rankingRoute)
 
 
 app.listen(process.env.PORT, function() {

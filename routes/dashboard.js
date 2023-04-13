@@ -10,14 +10,6 @@ router.get("/",(req,res)=>{
     });
 });
 
-router.get("/authenticated",(req,res)=>{
-  if (req.isAuthenticated()) { 
-    res.json({authenticated:true})
-  }else{
-    res.json({authenticated:false})
-  }
-});
-
 router.get("/random", (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   Blog.aggregate([{ $sample: { size: limit } }])
