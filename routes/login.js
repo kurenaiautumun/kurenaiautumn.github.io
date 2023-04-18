@@ -6,7 +6,6 @@ const passport = require("passport");
 
 
 router.post("/login",function(req,res){
-  console.log(req.body)
   const user = new User({
     username: req.body.username,
     password: req.body.password
@@ -26,11 +25,9 @@ router.post("/login",function(req,res){
   
   router.get("/authenticated",(req,res)=>{
     if (req.isAuthenticated()) { 
-      console.log("auth")
-      res.json({authenticated:true})
+      res.json({auth:true})
     }else{
-      console.log("unauth")
-      res.json({authenticated:false})
+      res.json({auth:false})
     }
   });
   

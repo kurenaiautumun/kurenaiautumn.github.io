@@ -4,48 +4,6 @@ const { User, Referral, transporter, UserInfo } = require('../models.js');
 const passport = require("passport");
 const template=require('./template')
 
-
-
-// router.post("/signup",function(req,res){
-//   let random  = Math.floor(Math.random() * 10000000);
-//     User.register({username:req.body.username,email:req.body.email,role:req.body.role,referral:random}, req.body.password,
-//       function(err,user){
-//       if(err){
-//         res.status(201).json({err});
-//       }else{
-//         passport.authenticate("local")(req,res,function(){
-
-//           const referral = new Referral({
-//             userId:user._id,
-//             hisReferral:random
-//           })
-//           referral.save();
-          
-//           if(req.body.referral !== undefined){
-//             Referral.updateOne(
-//               { hisReferral: req.body.referral },
-//               { $push: { referralArray:  user._id} },
-//               (err, docs) => {
-//               }
-//             );
-//           }
-            
-//             var mailData = {
-//               from: 'autumnkurenai@gmail.com',
-//               to: req.body.email,
-//               subject: 'Welcome to Kurenai',
-//               html: template,
-//             };
-
-//             transporter.sendMail(mailData, (error, info) => {
-//               if (error) throw error;   
-//               res.status(201).json({ message:"user signup successfully", user, message_id: info.messageId });
-//             });
-//         })
-//       }
-//     })
-// });
-
 router.post("/signup", async (req, res)=> {
   try {
     const referralId = Math.floor(Math.random() * 10000000);
@@ -83,6 +41,7 @@ router.post("/signup", async (req, res)=> {
       if (error) throw error;   
       res.status(201).json({ message: "User signed up successfully", user: registeredUser, message_id: info.messageId });
     });
+    // res.status(201).json({ message: "User signed up successfully", user: registeredUser });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
