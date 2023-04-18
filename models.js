@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const  userSchema = new mongoose.Schema({
     username:String,
     role:String,
+    referral:Number,
     email:String,
     password: String,
     followers:Array,
@@ -69,6 +70,13 @@ const rankingSchema = new mongoose.Schema({
   qulified:Boolean
 })
 
+const referralSchema = new mongoose.Schema({
+  userId:String,
+  referralArray:Array,
+  hisReferral:Number
+})
+
+
 
 const corsOptions = {
     origin:'*', 
@@ -101,6 +109,7 @@ const corsOptions = {
   const UserInfo = new mongoose.model("userinfo", userInfoSchema);
   const Competition = new mongoose.model("competition", competitionSchema);
   const Ranking = new mongoose.model("ranking", rankingSchema);
+  const Referral = new mongoose.model("raferral", referralSchema);
 
 passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
@@ -108,5 +117,5 @@ passport.deserializeUser(User.deserializeUser());
 
   
   module.exports = {
-    date, User, Blog, Comment, corsOptions, Review, UserInfo, Competition, Ranking , toggle, transporter
+    date, User, Blog, Comment, corsOptions, Review, UserInfo, Competition, Ranking, Referral, toggle, transporter
   }

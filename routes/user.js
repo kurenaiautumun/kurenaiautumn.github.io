@@ -1,35 +1,93 @@
 const express=require('express')
 const router=express.Router()
-const { User, transporter, UserInfo } = require('../models.js');
+const { User, Referral, transporter, UserInfo } = require('../models.js');
 const passport = require("passport");
 const template=require('./template')
 
 
-router.post("/signup",function(req,res){
-  console.log(req.body)
-    User.register({username:req.body.username,email:req.body.email,role:req.body.role}, req.body.password,
-      function(err,user){
-      if(err){
-        res.status(201).json({err});
-      }else{
-        passport.authenticate("local")(req,res,function(){
-            
-            var mailData = {
-              from: 'autumnkurenai@gmail.com',
-              to: req.body.email,
-              subject: 'Welcome to Kurenai',
-              html: template,
-            };
 
-            transporter.sendMail(mailData, (error, info) => {
-              if (error) return console.log(error);
-      
-              res.status(201).json({ message:"user signup successfully", user, message_id: info.messageId });
-            });
-        })
-      }
-    })
+// router.post("/signup",function(req,res){
+//   let random  = Math.floor(Math.random() * 10000000);
+//     User.register({username:req.body.username,email:req.body.email,role:req.body.role,referral:random}, req.body.password,
+//       function(err,user){
+//       if(err){
+//         res.status(201).json({err});
+//       }else{
+//         passport.authenticate("local")(req,res,function(){
+
+//           const referral = new Referral({
+//             userId:user._id,
+//             hisReferral:random
+//           })
+//           referral.save();
+          
+//           if(req.body.referral !== undefined){
+//             Referral.updateOne(
+//               { hisReferral: req.body.referral },
+//               { $push: { referralArray:  user._id} },
+//               (err, docs) => {
+//               }
+//             );
+//           }
+            
+//             var mailData = {
+//               from: 'autumnkurenai@gmail.com',
+//               to: req.body.email,
+//               subject: 'Welcome to Kurenai',
+//               html: template,
+//             };
+
+//             transporter.sendMail(mailData, (error, info) => {
+//               if (error) throw error;   
+//               res.status(201).json({ message:"user signup successfully", user, message_id: info.messageId });
+//             });
+//         })
+//       }
+//     })
+// });
+
+router.post("/signup", async (req, res)=> {
+  try {
+    const referralId = Math.floor(Math.random() * 10000000);
+
+    const user = new User({
+      username: req.body.username,
+      email: req.body.email,
+      role: req.body.role,
+      referral: referralId
+    });
+
+    const registeredUser = await User.register(user, req.body.password);
+
+    const referral = new Referral({
+      userId: registeredUser._id,
+      hisReferral: referralId
+    });
+    await referral.save();
+
+    if (req.body.referral !== undefined) {
+      await Referral.updateOne(
+        { hisReferral: req.body.referral },
+        { $push: { referralArray: registeredUser._id } }
+      );
+    }
+
+    const mailData = {
+      from: 'autumnkurenai@gmail.com',
+      to: req.body.email,
+      subject: 'Welcome to Kurenai',
+      html: template,
+    };
+
+    transporter.sendMail(mailData, (error, info) => {
+      if (error) throw error;   
+      res.status(201).json({ message: "User signed up successfully", user: registeredUser, message_id: info.messageId });
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
+
 
 router.post('/changepassword', function (req, res) {
   User.findByUsername(req.body.username, (err, user) => {
