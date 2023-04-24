@@ -89,6 +89,6 @@ const template = `<!DOCTYPE html>
 	</div>
 </body>
 </html>
-`
+`;
 
-module.exports=template;
+module.exports = template;
