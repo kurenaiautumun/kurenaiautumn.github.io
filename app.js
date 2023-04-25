@@ -20,7 +20,7 @@ const recomandationRoute = require("./routes/recomandation");
 const competitionRoute = require("./routes/competition");
 const rankingRoute = require("./routes/ranking");
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
